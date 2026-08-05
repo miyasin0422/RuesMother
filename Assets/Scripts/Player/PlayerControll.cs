@@ -28,16 +28,39 @@ public class PlayerControll : MonoBehaviour
     private bool canDodge = true;
     [SerializeField]
     private float dodgeTime;
+    //しゃがむ関連
+    [SerializeField] GameObject normalVisual;
+    [SerializeField] GameObject crouchVisual;
+    [SerializeField] BoxCollider2D normalCollider;
+    [SerializeField] BoxCollider2D crouchCollider;
+
+    bool isCrouch = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         jumpAction.Enable();
         dodgeAction.Enable();
+        //しゃがみ非表示
+        crouchVisual.SetActive(false);
     }
 
     void Update()
     {
         moveInput = 0f;
+         //しゃがみ入力
+        if (Keyboard.current.sKey.wasPressedThisFrame && isGround)
+        {
+            Crouch();
+        }
+        if (Keyboard.current.sKey.wasReleasedThisFrame)
+        {
+            StandUp();
+        }
+        if (isCrouch)
+        {
+            return;
+        }
         //左入力
         if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
         {
@@ -45,7 +68,7 @@ public class PlayerControll : MonoBehaviour
         }
 
         //右入力
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed && isCrouch)
         {
             moveInput += 1f;
         }
@@ -97,4 +120,24 @@ public class PlayerControll : MonoBehaviour
             isGround = false;
         }
     }
+
+    void Crouch()
+    {
+        isCrouch = true;
+        normalVisual.SetActive(false);
+        crouchVisual.SetActive(true);
+
+        normalCollider.enabled = false;
+        crouchCollider.enabled = true;
+    }
+    void StandUp()
+    {
+        isCrouch = false;
+        normalVisual.SetActive(true);
+        crouchVisual.SetActive(false);
+
+        normalCollider.enabled = true;
+        crouchCollider.enabled = false;
+    }
+
 }
