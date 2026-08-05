@@ -77,7 +77,7 @@ public class PlayerControll : MonoBehaviour
 
     IEnumerator Dodge()
     {
-        rb.linearVelocity = new Vector2(dodgeSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(dodgeSpeed * moveInput, rb.linearVelocity.y);
         yield return new WaitForSeconds(dodgeTime);
         isDodge = false;
         canDodge = true;

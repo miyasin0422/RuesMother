@@ -343,10 +343,10 @@ MonoBehaviour:
       m_Action: Dodge
       m_Flags: 0
     m_Flags: 0
-  dodgeSpeed: 5
+  dodgeSpeed: 20
   isDodge: 0
   canDodge: 1
-  dodgeTime: 0.5
+  dodgeTime: 0.1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
