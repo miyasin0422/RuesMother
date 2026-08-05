@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a113434e2d36d341bad5928b0798db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
-  playerPrefab: {fileID: 8325380425898099821, guid: a0f1c796c1363f9498b8d2c522d83d6f, type: 3}
+  playerPrefab: {fileID: 9010491102772432776, guid: f47c63506f31f764c9e0ecff4cb0ee48, type: 3}
   cameraController: {fileID: 519420033}
 --- !u!4 &589170826
 Transform:
@@ -1027,6 +1027,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3652676412848291748, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
     - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1438661711
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
       propertyPath: m_MaskInteraction
       value: 0
       objectReference: {fileID: 0}
@@ -1097,8 +1109,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1360119581
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6735137683049470497, guid: 04d1baa66a16dc647bf07db5b21cd011, type: 3}
@@ -1120,7 +1132,7 @@ Transform:
   m_GameObject: {fileID: 2005421028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1187,8 +1199,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3652676412848291748, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
     - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
       propertyPath: m_SortingOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1438661711
       objectReference: {fileID: 0}
     - target: {fileID: 7074515364286203461, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
       propertyPath: m_MaskInteraction
@@ -1215,8 +1235,8 @@ SceneRoots:
   - {fileID: 1627092062}
   - {fileID: 1010463365}
   - {fileID: 1632556202}
-  - {fileID: 1643007530}
   - {fileID: 2005421030}
+  - {fileID: 1643007530}
   - {fileID: 10104617}
   - {fileID: 589170826}
   - {fileID: 1023135781}
