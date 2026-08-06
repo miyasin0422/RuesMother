@@ -11,6 +11,7 @@ public class SceneChange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("aaa");
         if (other.CompareTag("Player"))
         {
             SceneMoveData.NextSpawnId = nextSpawnId;

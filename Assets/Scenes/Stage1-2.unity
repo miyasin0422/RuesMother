@@ -714,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a113434e2d36d341bad5928b0798db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
-  playerPrefab: {fileID: 2033504055750534056, guid: ad9871500c8e3da40907a18ad830d272, type: 3}
+  playerPrefab: {fileID: 7073239468478269804, guid: 71cdde178670b154fa9c0f1e6f2ce0ef, type: 3}
   cameraController: {fileID: 192922914}
 --- !u!4 &1607303422
 Transform:
