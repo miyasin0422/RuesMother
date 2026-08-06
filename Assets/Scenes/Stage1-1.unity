@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a113434e2d36d341bad5928b0798db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
-  playerPrefab: {fileID: 9010491102772432776, guid: f47c63506f31f764c9e0ecff4cb0ee48, type: 3}
+  playerPrefab: {fileID: 7638153517749629397, guid: fb9b634e38cbd304c97f93be51984e1d, type: 3}
   cameraController: {fileID: 519420033}
 --- !u!4 &589170826
 Transform:
@@ -974,6 +974,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2418646595329771764, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3712749651198000541, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
       propertyPath: enemyID
       value: enemy2
@@ -1153,6 +1157,10 @@ PrefabInstance:
     - target: {fileID: 519639912912847694, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418646595329771764, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5569323588506370783, guid: ae28592414ce8364d9a7d3a690e91eb5, type: 3}
       propertyPath: m_LocalPosition.x

@@ -13,8 +13,8 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
+  - PlayerAttack
+  - EnemyAttack
   - 
   - BackGround
   - 

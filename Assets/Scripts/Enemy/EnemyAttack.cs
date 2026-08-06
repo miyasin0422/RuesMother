@@ -19,11 +19,11 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        PlayerDamage playerDamage = collision.GetComponentInParent<PlayerDamage>();
+
+        if (playerDamage != null)
         {
-            collision.gameObject.GetComponent<PlayerDamage>().Damage(attackPower);
+            playerDamage.Damaged(attackPower);
         }
-        */
     }   
 }

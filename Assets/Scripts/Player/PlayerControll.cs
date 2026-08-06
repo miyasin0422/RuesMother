@@ -6,35 +6,32 @@ using UnityEngine.InputSystem;
 
 public class PlayerControll : MonoBehaviour
 {
-    [SerializeField]
-    private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 5f;
     private Rigidbody2D rb;
     private float moveInput;
     //ジャンプ関連
-    [SerializeField]
-    private InputAction jumpAction;
-    [SerializeField]
-    private bool isGround;
-    [SerializeField]
-    private float jumpForce;
+    [SerializeField] private InputAction jumpAction;
+    [SerializeField] private bool isGround;
+    [SerializeField] private float jumpForce;
     //回避関連
-    [SerializeField]
-    private InputAction dodgeAction;
-    [SerializeField]
-    private float dodgeSpeed;
-    [SerializeField]
-    private bool isDodge;
-    [SerializeField]
-    private bool canDodge = true;
-    [SerializeField]
-    private float dodgeTime;
+    [SerializeField] private InputAction dodgeAction;
+    [SerializeField] private float dodgeSpeed;
+    [SerializeField] private bool isDodge;
+    [SerializeField] private bool canDodge = true;
+    [SerializeField] private float dodgeTime;
     //しゃがむ関連
     [SerializeField] GameObject normalVisual;
     [SerializeField] GameObject crouchVisual;
     [SerializeField] BoxCollider2D normalCollider;
     [SerializeField] BoxCollider2D crouchCollider;
+    //こうげき関連
+    [SerializeField] GameObject gawainPrefab;
+    [SerializeField] Transform summonPoint;
+    [SerializeField] float coolTime = 1f;
 
+    bool isFacingRight = true;
     bool isCrouch = false;
+    bool canAttack = true;
 
     void Awake()
     {
@@ -65,12 +62,19 @@ public class PlayerControll : MonoBehaviour
         if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
         {
             moveInput -= 1f;
+            isFacingRight = false; 
+            Vector3 scale = transform.localScale;
+            scale.x = -Mathf.Abs(scale.x);
+            transform.localScale = scale;
         }
 
         //右入力
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed && isCrouch)
+        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
         {
             moveInput += 1f;
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x);
+            transform.localScale = scale;
         }
         //ジャンプ入力
         if (isGround && jumpAction.triggered)
@@ -83,6 +87,11 @@ public class PlayerControll : MonoBehaviour
             isDodge = true;
             canDodge = false;
             StartCoroutine(Dodge());
+        }
+        //こうげき入力
+        if (Mouse.current.leftButton.wasPressedThisFrame && canAttack)
+        {
+            Attack();
         }
     }
     void FixedUpdate()
@@ -138,6 +147,21 @@ public class PlayerControll : MonoBehaviour
 
         normalCollider.enabled = true;
         crouchCollider.enabled = false;
+    }
+
+    void Attack()
+    {
+        canAttack = false;
+        GameObject gawain = Instantiate(gawainPrefab, summonPoint.position, Quaternion.identity);
+        Vector3 scale = gawain.transform.localScale;
+        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+        gawain.transform.localScale = scale;
+        StartCoroutine(AttackCoolTime());
+    }
+    IEnumerator AttackCoolTime()
+    {
+        yield return new WaitForSeconds(coolTime);
+        canAttack = true;
     }
 
 }
