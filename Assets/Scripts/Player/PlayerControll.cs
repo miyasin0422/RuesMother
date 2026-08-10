@@ -6,25 +6,34 @@ using UnityEngine.InputSystem;
 
 public class PlayerControll : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
-    private Rigidbody2D rb;
-    private float moveInput;
+    Rigidbody2D rb;
+    //移動関連
+    [SerializeField] InputAction moveAction;
+    [SerializeField] float moveSpeed = 5f;
+    float moveInput;
     //ジャンプ関連
-    [SerializeField] private InputAction jumpAction;
-    [SerializeField] private bool isGround;
-    [SerializeField] private float jumpForce;
+    [SerializeField] InputAction jumpAction;
+    [SerializeField] float jumpForce;
+    private bool isGround;
     //回避関連
-    [SerializeField] private InputAction dodgeAction;
-    [SerializeField] private float dodgeSpeed;
-    [SerializeField] private bool isDodge;
-    [SerializeField] private bool canDodge = true;
-    [SerializeField] private float dodgeTime;
+    [SerializeField] InputAction dodgeAction;
+    [SerializeField] float dodgeSpeed;
+    [SerializeField] float dodgeTime;
+    bool isDodge;
+    bool canDodge = true;
     //しゃがむ関連
+    [SerializeField] InputAction crouchAction;
     [SerializeField] GameObject normalVisual;
     [SerializeField] GameObject crouchVisual;
-    [SerializeField] BoxCollider2D normalCollider;
+    [SerializeField] BoxCollider2D standCollider;
     [SerializeField] BoxCollider2D crouchCollider;
+    float downPressTime = 0f;
+    bool isOnewayGround = false;
+    bool isDropping = false;
+    Collider2D oneWayGroundCollider;
     //こうげき関連
+    [SerializeField] InputAction attackAction1;
+    [SerializeField] InputAction attackAction2;
     [SerializeField] GameObject gawainPrefab;
     [SerializeField] Transform summonPoint;
     [SerializeField] float coolTime = 1f;
@@ -36,21 +45,46 @@ public class PlayerControll : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveAction.Enable();
         jumpAction.Enable();
         dodgeAction.Enable();
+        crouchAction.Enable();
+        attackAction1.Enable();
+        attackAction2.Enable();
         //しゃがみ非表示
         crouchVisual.SetActive(false);
     }
-
     void Update()
     {
-        moveInput = 0f;
-         //しゃがみ入力
-        if (Keyboard.current.sKey.wasPressedThisFrame && isGround)
+        //しゃがみ落下処理
+        if (isDropping && standCollider.bounds.max.y < oneWayGroundCollider.bounds.min.y)
+        {
+            Physics2D.IgnoreCollision(standCollider, oneWayGroundCollider, false);
+            Physics2D.IgnoreCollision(crouchCollider, oneWayGroundCollider, false);
+
+            isDropping = false;
+            oneWayGroundCollider = null;
+        }
+        //しゃがみ入力
+        if (crouchAction.WasPressedThisFrame() && isGround)
         {
             Crouch();
         }
-        if (Keyboard.current.sKey.wasReleasedThisFrame)
+        //しゃがみカウント
+        if (crouchAction.IsPressed() && isOnewayGround)
+        {
+            downPressTime += Time.deltaTime;
+            if (downPressTime >= 0.3f)
+            {
+                DropGround();
+            }
+        }
+        else
+        {
+            downPressTime = 0f;
+        }
+        //しゃがみ解除
+        if (crouchAction.WasReleasedThisFrame())
         {
             StandUp();
         }
@@ -58,23 +92,15 @@ public class PlayerControll : MonoBehaviour
         {
             return;
         }
-        //左入力
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
-        {
-            moveInput -= 1f;
-            isFacingRight = false; 
-            Vector3 scale = transform.localScale;
-            scale.x = -Mathf.Abs(scale.x);
-            transform.localScale = scale;
-        }
+        //移動                
+        moveInput = moveAction.ReadValue<float>();
 
-        //右入力
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        if (moveInput != 0)
         {
-            moveInput += 1f;
-            isFacingRight = true;
+            isFacingRight = moveInput > 0;
+
             Vector3 scale = transform.localScale;
-            scale.x = Mathf.Abs(scale.x);
+            scale.x = Mathf.Abs(scale.x) * (isFacingRight ? 1 : -1);
             transform.localScale = scale;
         }
         //ジャンプ入力
@@ -102,9 +128,35 @@ public class PlayerControll : MonoBehaviour
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
         }
     }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+        }else if (collision.gameObject.CompareTag("OneWayGround"))
+        {
+            isGround = true;
+            isOnewayGround = true;
+            oneWayGroundCollider = collision.collider;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGround = false;
+        }
+        else if (collision.gameObject.CompareTag("OneWayGround"))
+        {
+            isGround = false;
+            isOnewayGround = false;
+        }
+    }
 
     void Jump()
-    { 
+    {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
@@ -115,20 +167,11 @@ public class PlayerControll : MonoBehaviour
         isDodge = false;
         canDodge = true;
     }
-    
-    private void OnCollisionEnter2D(Collision2D collision)
+    void DropGround()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGround = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGround = false;
-        }
+        isDropping = true;
+        Physics2D.IgnoreCollision(standCollider, oneWayGroundCollider, true);
+        Physics2D.IgnoreCollision(crouchCollider, oneWayGroundCollider, true);
     }
 
     void Crouch()
@@ -137,7 +180,7 @@ public class PlayerControll : MonoBehaviour
         normalVisual.SetActive(false);
         crouchVisual.SetActive(true);
 
-        normalCollider.enabled = false;
+        standCollider.enabled = false;
         crouchCollider.enabled = true;
     }
     void StandUp()
@@ -146,7 +189,7 @@ public class PlayerControll : MonoBehaviour
         normalVisual.SetActive(true);
         crouchVisual.SetActive(false);
 
-        normalCollider.enabled = true;
+        standCollider.enabled = true;
         crouchCollider.enabled = false;
     }
 
