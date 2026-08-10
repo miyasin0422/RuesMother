@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76cc58dc0d000244a421fe474e24600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControll
-  moveSpeed: 5
+  moveSpeed: 10
   jumpAction:
     m_Name: Jump
     m_Type: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   isGround: 1
-  jumpForce: 20
+  jumpForce: 25
   dodgeAction:
     m_Name: Dodge
     m_Type: 0
