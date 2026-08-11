@@ -11,6 +11,7 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] InputAction moveAction;
     [SerializeField] float moveSpeed = 5f;
     float moveInput;
+    bool isFacingRight = true;
     //ジャンプ関連
     [SerializeField] InputAction jumpAction;
     [SerializeField] float jumpForce;
@@ -28,6 +29,7 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] BoxCollider2D standCollider;
     [SerializeField] BoxCollider2D crouchCollider;
     float downPressTime = 0f;
+    bool isCrouch = false;
     bool isOnewayGround = false;
     bool isDropping = false;
     Collider2D oneWayGroundCollider;
@@ -37,9 +39,6 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] GameObject gawainPrefab;
     [SerializeField] Transform summonPoint;
     [SerializeField] float coolTime = 1f;
-
-    bool isFacingRight = true;
-    bool isCrouch = false;
     bool canAttack = true;
 
     void Awake()
@@ -68,10 +67,11 @@ public class PlayerControll : MonoBehaviour
         //しゃがみ入力
         if (crouchAction.WasPressedThisFrame() && isGround)
         {
+            isCrouch = true;
             Crouch();
         }
         //しゃがみカウント
-        if (crouchAction.IsPressed() && isOnewayGround)
+        if (crouchAction.IsPressed() && isCrouch && isOnewayGround)
         {
             downPressTime += Time.deltaTime;
             if (downPressTime >= 0.3f)
@@ -86,13 +86,15 @@ public class PlayerControll : MonoBehaviour
         //しゃがみ解除
         if (crouchAction.WasReleasedThisFrame())
         {
+            isCrouch = false;
             StandUp();
         }
         if (isCrouch)
         {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
-        //移動                
+        //方向              
         moveInput = moveAction.ReadValue<float>();
 
         if (moveInput != 0)
@@ -123,7 +125,7 @@ public class PlayerControll : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!isDodge)
+        if (!isDodge && !isCrouch)
         {
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
         }
@@ -176,7 +178,6 @@ public class PlayerControll : MonoBehaviour
 
     void Crouch()
     {
-        isCrouch = true;
         normalVisual.SetActive(false);
         crouchVisual.SetActive(true);
 
@@ -185,7 +186,6 @@ public class PlayerControll : MonoBehaviour
     }
     void StandUp()
     {
-        isCrouch = false;
         normalVisual.SetActive(true);
         crouchVisual.SetActive(false);
 
