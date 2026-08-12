@@ -10,6 +10,7 @@ public class PlayerControll : MonoBehaviour
     //移動関連
     [SerializeField] InputAction moveAction;
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float dropMoveSpeed = 10f;
     float moveInput;
     bool isFacingRight = true;
     //ジャンプ関連
@@ -28,6 +29,7 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] GameObject crouchVisual;
     [SerializeField] BoxCollider2D standCollider;
     [SerializeField] BoxCollider2D crouchCollider;
+    [SerializeField] float dropSpeed = 0f;
     float downPressTime = 0f;
     bool isCrouch = false;
     bool isOnewayGround = false;
@@ -125,9 +127,15 @@ public class PlayerControll : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //通常移動
         if (!isDodge && !isCrouch)
         {
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        }
+        //空中しゃがみ入力
+        if (crouchAction.IsPressed() && !isGround &&!isOnewayGround && !isDropping)
+        {
+            rb.linearVelocity = new Vector2(moveInput * dropMoveSpeed, -dropSpeed);
         }
     }
     
