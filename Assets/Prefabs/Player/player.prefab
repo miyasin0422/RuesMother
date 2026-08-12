@@ -386,7 +386,7 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   moveSpeed: 10
-  dropMoveSpeed: 30
+  dropMoveSpeed: 20
   jumpAction:
     m_Name: Jump
     m_Type: 0
@@ -453,7 +453,7 @@ MonoBehaviour:
   crouchVisual: {fileID: 1164279934631754627}
   standCollider: {fileID: 7577806341162982220}
   crouchCollider: {fileID: 1500408684818418290}
-  dropSpeed: 20
+  dropSpeed: 25
   attackAction1:
     m_Name: Attack Action 1
     m_Type: 0

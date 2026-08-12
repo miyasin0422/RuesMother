@@ -1315,7 +1315,7 @@ GameObject:
   - component: {fileID: 631615464}
   - component: {fileID: 631615463}
   m_Layer: 0
-  m_Name: Wall (11)
+  m_Name: BreakWall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1466,7 +1466,7 @@ GameObject:
   - component: {fileID: 650533380}
   - component: {fileID: 650533379}
   m_Layer: 0
-  m_Name: Wall (9)
+  m_Name: BreakWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1617,7 +1617,7 @@ GameObject:
   - component: {fileID: 708497809}
   - component: {fileID: 708497808}
   m_Layer: 0
-  m_Name: Wall (10)
+  m_Name: BreakWall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
