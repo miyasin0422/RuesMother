@@ -4,6 +4,7 @@ public class PlayerStatus : MonoBehaviour
 {
     public static int MaxplayerHealth = 100;
     public static int playerHealth = 100;
+    public static int refreshItemStock = 2;
     void Start()
     {
         

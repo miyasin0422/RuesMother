@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
+    [SerializeField] UIManager uiManager;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -16,7 +17,8 @@ public class PlayerDamage : MonoBehaviour
     public void Damaged(int damage)
     {
         PlayerStatus.playerHealth -= damage;
-        Debug.Log("playerHP：" + PlayerStatus.playerHealth);
+        uiManager.HPUpdate();
+        //Debug.Log("playerHP：" + PlayerStatus.playerHealth);
         if (PlayerStatus.playerHealth < 0)
         {
             PlayerStatus.playerHealth = 0;
