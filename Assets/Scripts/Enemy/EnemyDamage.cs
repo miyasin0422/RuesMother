@@ -44,7 +44,7 @@ public class EnemyDamage : MonoBehaviour
     }
     public void Damaged(int damage)
     {
-                enemyhealth -= damage;
+        enemyhealth -= damage;
         enemyDic.enemyHealthDictionary[enemyID] = enemyhealth;
         Debug.Log("enemyHP：" + enemyhealth);
     }

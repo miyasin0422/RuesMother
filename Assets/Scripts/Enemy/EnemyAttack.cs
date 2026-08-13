@@ -25,5 +25,5 @@ public class EnemyAttack : MonoBehaviour
         {
             playerDamage.Damaged(attackPower);
         }
-    }   
+    }
 }
