@@ -47,7 +47,7 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] int hpRefresh;
     [SerializeField] private PlayerDamage playerDamage;
     [SerializeField] GameObject RefreshEffectPoint;
-    [SerializeField] ParticleSystem refreshEffect;
+    [SerializeField] GameObject refreshEffect;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -227,6 +227,7 @@ public class PlayerControll : MonoBehaviour
     {
         PlayerStatus.refreshItemStock -= 1;
         playerDamage.Refresh(hpRefresh);
+        Instantiate(refreshEffect, RefreshEffectPoint.transform.position, Quaternion.identity);
     }
     IEnumerator AttackCoolTime()
     {

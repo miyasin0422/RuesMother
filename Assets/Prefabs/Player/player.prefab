@@ -511,6 +511,8 @@ MonoBehaviour:
     m_Flags: 0
   hpRefresh: 30
   playerDamage: {fileID: 0}
+  RefreshEffectPoint: {fileID: 7121705285180219400}
+  refreshEffect: {fileID: 7652736292742968077, guid: e5401dcaef0364d42bd9a067e7ac1e84, type: 3}
 --- !u!114 &5169396465523823660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,9 +581,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7121705285180219400}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.034999847, z: 0}
-  m_LocalScale: {x: 5.5555553, y: 5.5555553, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9091624779925651174}
