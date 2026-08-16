@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1438661711
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8571514660161217345, guid: d89b9505e19d6484e986176ef744aed8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -218,7 +218,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1438661711
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1123400633211515981, guid: d89b9505e19d6484e986176ef744aed8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -311,6 +311,7 @@ Transform:
   - {fileID: 4491060355605267467}
   - {fileID: 9126967126584165699}
   - {fileID: 338123339009656835}
+  - {fileID: 8014502772815688799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6785185026166050710
@@ -491,6 +492,25 @@ MonoBehaviour:
   gawainPrefab: {fileID: 8187322183851163931, guid: 4409030c5a1e6ca4bae2976c240b8071, type: 3}
   summonPoint: {fileID: 338123339009656835}
   coolTime: 1
+  refreshAction:
+    m_Name: Refresh
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a3a4d5fb-fcce-4dd1-a6aa-ab9bc263270a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 8f3f52c3-b20c-47a4-962c-b137612edec9
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Refresh
+      m_Flags: 0
+    m_Flags: 0
+  hpRefresh: 30
+  playerDamage: {fileID: 0}
 --- !u!114 &5169396465523823660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a144495848a3240978bb5a95a8858c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDamage
+  uiManager: {fileID: 0}
 --- !u!1 &6977985821111101386
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +551,37 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9091624779925651174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7121705285180219400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8014502772815688799}
+  m_Layer: 0
+  m_Name: RefreshEffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8014502772815688799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121705285180219400}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.034999847, z: 0}
+  m_LocalScale: {x: 5.5555553, y: 5.5555553, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9091624779925651174}

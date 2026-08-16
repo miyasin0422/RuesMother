@@ -42,7 +42,12 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] Transform summonPoint;
     [SerializeField] float coolTime = 1f;
     bool canAttack = true;
-
+    //回復関連
+    [SerializeField] InputAction refreshAction;
+    [SerializeField] int hpRefresh;
+    [SerializeField] private PlayerDamage playerDamage;
+    [SerializeField] GameObject RefreshEffectPoint;
+    [SerializeField] ParticleSystem refreshEffect;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,8 +57,10 @@ public class PlayerControll : MonoBehaviour
         crouchAction.Enable();
         attackAction1.Enable();
         attackAction2.Enable();
+        refreshAction.Enable();
         //しゃがみ非表示
         crouchVisual.SetActive(false);
+        playerDamage = gameObject.GetComponent<PlayerDamage>();
     }
     void Update()
     {
@@ -123,6 +130,11 @@ public class PlayerControll : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame && canAttack)
         {
             Attack();
+        }
+        //回復入力
+        if(isGround && PlayerStatus.refreshItemStock >= 1 && refreshAction.triggered)
+        {
+            Refresh();
         }
     }
     void FixedUpdate()
@@ -209,6 +221,12 @@ public class PlayerControll : MonoBehaviour
         scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
         gawain.transform.localScale = scale;
         StartCoroutine(AttackCoolTime());
+    }
+    //回復
+    void Refresh()
+    {
+        PlayerStatus.refreshItemStock -= 1;
+        playerDamage.Refresh(hpRefresh);
     }
     IEnumerator AttackCoolTime()
     {

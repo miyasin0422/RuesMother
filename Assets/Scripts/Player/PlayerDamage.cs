@@ -25,4 +25,17 @@ public class PlayerDamage : MonoBehaviour
             Debug.Log("ゲームオーバー");
         }
     }
+    public void Refresh(int hpRefresh)
+    {
+        if((PlayerStatus.playerHealth + hpRefresh) <= 100)
+        {
+            PlayerStatus.playerHealth += hpRefresh;
+        }
+        else
+        {
+            PlayerStatus.playerHealth = PlayerStatus.MaxplayerHealth;
+        }
+        uiManager.HPUpdate();
+        uiManager.RefreshItemUpdate();
+    }
 }

@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         HPUpdate();
-        RefreshItem();
+        RefreshItemUpdate();
     }
 
     // Update is called once per frame
@@ -26,11 +26,19 @@ public class UIManager : MonoBehaviour
         hpBar.fillAmount = targetFillAmount;
         Debug.Log(targetFillAmount);
     }
-    public void RefreshItem()
+    public void RefreshItemUpdate()
     {
-        for(int i = 0; i < PlayerStatus.refreshItemStock; i++)
+        for(int i = 0; i < 3; i++)
         {
-            refreshItems[i].gameObject.SetActive(true);
+            if(i < PlayerStatus.refreshItemStock)
+            {
+                refreshItems[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                refreshItems[i].gameObject.SetActive(false);
+            }
+            
         }
     }
 
