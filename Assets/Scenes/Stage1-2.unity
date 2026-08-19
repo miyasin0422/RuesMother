@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 31966076}
   - component: {fileID: 31966075}
   m_Layer: 0
-  m_Name: Square (6)
+  m_Name: Ground8
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 43725660}
   - component: {fileID: 43725659}
   m_Layer: 0
-  m_Name: Wall (4)
+  m_Name: Wall5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9092236113768866855, guid: abd9161f082c4ee47b01436faa28e268, type: 3}
       propertyPath: m_Name
-      value: MovingGear
+      value: MovingGear1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 179494572}
   - component: {fileID: 179494571}
   m_Layer: 0
-  m_Name: Wall (3)
+  m_Name: Wall6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 186490463}
   - component: {fileID: 186490462}
   m_Layer: 0
-  m_Name: Square (4)
+  m_Name: Ground9
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 338963985}
   - component: {fileID: 338963984}
   m_Layer: 0
-  m_Name: Wall (6)
+  m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1165,7 +1165,7 @@ GameObject:
   - component: {fileID: 484806083}
   - component: {fileID: 484806082}
   m_Layer: 0
-  m_Name: OneWayPlatform (2)
+  m_Name: OneWayPlatform3
   m_TagString: OneWayGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1282,7 +1282,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1384560501
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -1322,7 +1322,7 @@ GameObject:
   - component: {fileID: 549755346}
   - component: {fileID: 549755345}
   m_Layer: 0
-  m_Name: Square (7)
+  m_Name: Ground7
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1612,7 +1612,7 @@ GameObject:
   - component: {fileID: 650533380}
   - component: {fileID: 650533379}
   m_Layer: 0
-  m_Name: BreakWall
+  m_Name: BreakWall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1913,7 +1913,7 @@ GameObject:
   - component: {fileID: 780549888}
   - component: {fileID: 780549887}
   m_Layer: 0
-  m_Name: Wall (7)
+  m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2051,7 +2051,7 @@ GameObject:
   - component: {fileID: 808272476}
   - component: {fileID: 808272475}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Ground1
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2282,7 +2282,7 @@ GameObject:
   - component: {fileID: 921767699}
   - component: {fileID: 921767698}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2420,7 +2420,7 @@ GameObject:
   - component: {fileID: 1041191123}
   - component: {fileID: 1041191122}
   m_Layer: 0
-  m_Name: Square (11)
+  m_Name: Ground5
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2559,7 +2559,7 @@ GameObject:
   - component: {fileID: 1062565373}
   - component: {fileID: 1062565372}
   m_Layer: 0
-  m_Name: OneWayPlatform (1)
+  m_Name: OneWayPlatform2
   m_TagString: OneWayGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,7 +2676,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1384560501
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -2809,7 +2809,7 @@ GameObject:
   - component: {fileID: 1223587005}
   - component: {fileID: 1223587004}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: Ground6
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2961,7 +2961,7 @@ Transform:
   m_GameObject: {fileID: 1385293232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: 0}
+  m_LocalPosition: {x: 75, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2992,7 +2992,7 @@ GameObject:
   - component: {fileID: 1425883249}
   - component: {fileID: 1425883248}
   m_Layer: 0
-  m_Name: Square (10)
+  m_Name: Ground4
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3176,7 +3176,7 @@ GameObject:
   - component: {fileID: 1669092138}
   - component: {fileID: 1669092137}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Ground2
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3314,7 +3314,7 @@ GameObject:
   - component: {fileID: 1709040841}
   - component: {fileID: 1709040840}
   m_Layer: 0
-  m_Name: Wall (1)
+  m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3522,7 +3522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9092236113768866855, guid: abd9161f082c4ee47b01436faa28e268, type: 3}
       propertyPath: m_Name
-      value: MovingGear (1)
+      value: MovingGear2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3541,7 +3541,7 @@ GameObject:
   - component: {fileID: 2079558763}
   - component: {fileID: 2079558762}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Ground3
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3680,7 +3680,7 @@ GameObject:
   - component: {fileID: 2144603243}
   - component: {fileID: 2144603242}
   m_Layer: 0
-  m_Name: OneWayPlatform
+  m_Name: OneWayPlatform1
   m_TagString: OneWayGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3797,7 +3797,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1384560501
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -3829,7 +3829,13 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 192922918}
+  - {fileID: 352531365}
+  - {fileID: 1607303422}
+  - {fileID: 1385293233}
+  - {fileID: 218078809}
   - {fileID: 810904971}
+  - {fileID: 1198623884}
   - {fileID: 808272477}
   - {fileID: 1669092139}
   - {fileID: 2079558764}
@@ -3837,25 +3843,19 @@ SceneRoots:
   - {fileID: 1041191124}
   - {fileID: 1223587006}
   - {fileID: 549755347}
-  - {fileID: 192922918}
-  - {fileID: 1198623884}
-  - {fileID: 1385293233}
-  - {fileID: 1607303422}
-  - {fileID: 218078809}
+  - {fileID: 31966077}
+  - {fileID: 186490464}
   - {fileID: 921767700}
   - {fileID: 338963986}
   - {fileID: 780549889}
   - {fileID: 1709040842}
   - {fileID: 43725661}
   - {fileID: 179494573}
-  - {fileID: 31966077}
-  - {fileID: 186490464}
   - {fileID: 2144603245}
   - {fileID: 1062565375}
   - {fileID: 484806085}
   - {fileID: 650533382}
   - {fileID: 708497811}
   - {fileID: 631615466}
-  - {fileID: 352531365}
   - {fileID: 45585052}
   - {fileID: 1763161608}
