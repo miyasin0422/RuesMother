@@ -4,8 +4,7 @@ public class EnemyAttack : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //攻撃力
-    [SerializeField]
-    private int attackPower;
+    [SerializeField] private int attackPower;
     void Start()
     {
         
