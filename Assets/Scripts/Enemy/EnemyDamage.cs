@@ -1,20 +1,19 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDamage : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //IDとHP
-    [SerializeField]
-    private string enemyID;
-    [SerializeField]
-    private int enemyhealth;
-    [SerializeField]
-    private int enemyMaxHealth = 10;
+    [SerializeField] private string enemyID;
+    [SerializeField] private int enemyhealth;
+    [SerializeField] private int enemyMaxHealth = 10;
     //攻撃間隔
-    [SerializeField]
-    private float attackInterval;
+    [SerializeField] private float attackInterval;
+    //HPバー
+    [SerializeField] private Image healthBar;
     //攻撃判定オブジェクト
     public GameObject hitArea1;
     //HP仮の辞書
@@ -31,31 +30,27 @@ public class EnemyDamage : MonoBehaviour
             enemyhealth = enemyMaxHealth;
             enemyDic.enemyHealthDictionary[enemyID] = enemyhealth;
         }
-        StartCoroutine(Attack());
+        UpdateHealthBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(enemyhealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
     public void Damaged(int damage)
     {
         enemyhealth -= damage;
         enemyDic.enemyHealthDictionary[enemyID] = enemyhealth;
         Debug.Log("enemyHP：" + enemyhealth);
-    }
-    IEnumerator Attack()
-    {
-        while (true)
+        UpdateHealthBar();
+
+        if (enemyhealth <= 0)
         {
-            hitArea1.SetActive(true);
-            yield return new WaitForSeconds(attackInterval);
-            hitArea1.SetActive(false);
-            yield return new WaitForSeconds(attackInterval);
+            Destroy(gameObject);
         }
+    }
+    void UpdateHealthBar()
+    {
+        healthBar.fillAmount = (float)enemyhealth / enemyMaxHealth;
     }
 }
