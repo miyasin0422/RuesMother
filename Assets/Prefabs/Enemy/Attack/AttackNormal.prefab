@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2807818504724481942}
   - component: {fileID: 558432191821636803}
   - component: {fileID: -492513232136645574}
-  - component: {fileID: 5091056726746064159}
+  - component: {fileID: 9169771025242697369}
   m_Layer: 8
   m_Name: AttackNormal
   m_TagString: Untagged
@@ -129,7 +129,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &5091056726746064159
+--- !u!114 &9169771025242697369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

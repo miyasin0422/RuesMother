@@ -317,41 +317,26 @@ MonoBehaviour:
   standCollider: {fileID: 8139692541136112512}
   crouchCollider: {fileID: 112301644693349105}
   dropSpeed: 25
-  attackAction1:
-    m_Name: Attack Action 1
+  leftAttackAction:
+    m_Name: Left Attack
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: d76540bf-12e3-4f35-95de-deb118e1268a
+    m_Id: 438f9687-d4fc-4642-86c7-8d1960e1ccf5
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 76b13c96-7866-4227-bb30-1b2a98479c10
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Attack Action 1
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
-  attackAction2:
-    m_Name: Attack Action 2
+  rightAttackAction:
+    m_Name: Right Attack
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 2f41ebf9-0c38-4ba2-9a6e-25f1df212c4a
+    m_Id: f01d7b2d-dbe1-4e9c-968d-d67116d582c1
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: a48c1cb7-4635-4db7-9d39-858f0d040a54
-      m_Path: <Mouse>/rightButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Attack Action 2
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
-  gawainPrefab: {fileID: 8187322183851163931, guid: 4409030c5a1e6ca4bae2976c240b8071, type: 3}
+  leftgawainPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+  rightgawainPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
   summonPoint: {fileID: 8800979805963338958}
   coolTime: 1
   refreshAction:

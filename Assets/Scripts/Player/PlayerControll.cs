@@ -36,9 +36,10 @@ public class PlayerControll : MonoBehaviour
     bool isDropping = false;
     Collider2D oneWayGroundCollider;
     //こうげき関連
-    [SerializeField] InputAction attackAction1;
-    [SerializeField] InputAction attackAction2;
-    [SerializeField] GameObject gawainPrefab;
+    [SerializeField] InputAction leftAttackAction;
+    [SerializeField] InputAction rightAttackAction;
+    [SerializeField] GameObject leftgawainPrefab;
+    [SerializeField] GameObject rightgawainPrefab;
     [SerializeField] Transform summonPoint;
     [SerializeField] float coolTime = 1f;
     bool canAttack = true;
@@ -55,8 +56,8 @@ public class PlayerControll : MonoBehaviour
         jumpAction.Enable();
         dodgeAction.Enable();
         crouchAction.Enable();
-        attackAction1.Enable();
-        attackAction2.Enable();
+        leftAttackAction.Enable();
+        rightAttackAction.Enable();
         refreshAction.Enable();
         //しゃがみ非表示
         crouchVisual.SetActive(false);
@@ -129,10 +130,14 @@ public class PlayerControll : MonoBehaviour
         //こうげき入力
         if (Mouse.current.leftButton.wasPressedThisFrame && canAttack)
         {
-            Attack();
+            leftAttack();
+        }
+        if (Mouse.current.rightButton.wasPressedThisFrame && canAttack)
+        {
+            rightAttack();
         }
         //回復入力
-        if(isGround && PlayerStatus.refreshItemStock >= 1 && refreshAction.triggered)
+        if (isGround && PlayerStatus.refreshItemStock >= 1 && refreshAction.triggered)
         {
             Refresh();
         }
@@ -213,10 +218,19 @@ public class PlayerControll : MonoBehaviour
         crouchCollider.enabled = false;
     }
 
-    void Attack()
+    void leftAttack()
     {
         canAttack = false;
-        GameObject gawain = Instantiate(gawainPrefab, summonPoint.position, Quaternion.identity);
+        GameObject gawain = Instantiate(leftgawainPrefab, summonPoint.position, Quaternion.identity);
+        Vector3 scale = gawain.transform.localScale;
+        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+        gawain.transform.localScale = scale;
+        StartCoroutine(AttackCoolTime());
+    }
+    void rightAttack()
+    {
+        canAttack = false;
+        GameObject gawain = Instantiate(rightgawainPrefab, summonPoint.position, Quaternion.identity);
         Vector3 scale = gawain.transform.localScale;
         scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
         gawain.transform.localScale = scale;

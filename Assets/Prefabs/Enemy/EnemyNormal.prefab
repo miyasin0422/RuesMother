@@ -207,7 +207,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackPrefab: {fileID: 5091056726746064159, guid: 42f6b75d879f5944facd06b71353902e, type: 3}
+  attackPrefab: {fileID: 9169771025242697369, guid: 42f6b75d879f5944facd06b71353902e, type: 3}
   attackPoint: {fileID: 1589430586927235052}
   attackPower: 10
   attackDelay: 0
