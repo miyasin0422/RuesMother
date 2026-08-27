@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private Image[] refreshItems;
     [SerializeField] private float targetFillAmount;
+    [SerializeField] private GameObject CustomPanel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +41,15 @@ public class UIManager : MonoBehaviour
             }
             
         }
+    }
+    public void OpenCustomPanel()
+    {
+        Debug.Log("click");
+        CustomPanel.SetActive(true);
+    }
+    public void CloseCustomPanel()
+    {
+        CustomPanel.SetActive(false);
     }
 
 }

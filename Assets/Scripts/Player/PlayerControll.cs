@@ -220,8 +220,12 @@ public class PlayerControll : MonoBehaviour
 
     void leftAttack()
     {
+        if(PlayerLoadout.instance.leftWeapon == null)
+        {
+            return;
+        }
         canAttack = false;
-        GameObject gawain = Instantiate(leftgawainPrefab, summonPoint.position, Quaternion.identity);
+        GameObject gawain = Instantiate(PlayerLoadout.instance.leftWeapon, summonPoint.position, Quaternion.identity);
         Vector3 scale = gawain.transform.localScale;
         scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
         gawain.transform.localScale = scale;
@@ -229,8 +233,12 @@ public class PlayerControll : MonoBehaviour
     }
     void rightAttack()
     {
+        if (PlayerLoadout.instance.rightWeapon == null)
+        {
+            return;
+        }
         canAttack = false;
-        GameObject gawain = Instantiate(rightgawainPrefab, summonPoint.position, Quaternion.identity);
+        GameObject gawain = Instantiate(PlayerLoadout.instance.rightWeapon, summonPoint.position, Quaternion.identity);
         Vector3 scale = gawain.transform.localScale;
         scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
         gawain.transform.localScale = scale;

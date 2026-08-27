@@ -20,7 +20,7 @@ public class EnemyDamage : MonoBehaviour
     EnemyDictionary enemyDic;
     void Start()
     { 
-        enemyDic = GameObject.Find("EnemyHealthDictionary").GetComponent<EnemyDictionary>();
+        enemyDic = GameObject.Find("GameDataDictionary").GetComponent<EnemyDictionary>();
         if (enemyDic.enemyHealthDictionary.ContainsKey(enemyID))
         {
             enemyhealth = enemyDic.enemyHealthDictionary[enemyID];
