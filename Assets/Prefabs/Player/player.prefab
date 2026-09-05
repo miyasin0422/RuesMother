@@ -324,7 +324,15 @@ MonoBehaviour:
     m_Id: 438f9687-d4fc-4642-86c7-8d1960e1ccf5
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 768290b3-4c06-4a88-85f3-0e572737db1e
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Attack
+      m_Flags: 0
     m_Flags: 0
   rightAttackAction:
     m_Name: Right Attack
@@ -333,10 +341,18 @@ MonoBehaviour:
     m_Id: f01d7b2d-dbe1-4e9c-968d-d67116d582c1
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 0a3e5533-0f93-4b6c-b5cb-a4b449e6c3d3
+      m_Path: <Mouse>/rightButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Attack
+      m_Flags: 0
     m_Flags: 0
   leftgawainPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
-  rightgawainPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
+  rightgawainPrefab: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
   summonPoint: {fileID: 8800979805963338958}
   coolTime: 1
   refreshAction:
