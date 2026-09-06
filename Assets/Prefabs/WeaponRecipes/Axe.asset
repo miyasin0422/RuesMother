@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: Assembly-CSharp::WeaponRecipeSO
   weaponName: Axe
-  requirements: []
+  requirements:
+  - itemName: stone
+    amount: 4
+  - itemName: iron
+    amount: 2
   weaponPrefab: {fileID: 5465747541013082330, guid: bd1f3f4a0f297e445a243eb1a970cecc, type: 3}
+  weaponDescription: "\u65A7\u3092\u5927\u304D\u304F\u632F\u308A\u304B\u3076\u3063\u3066\u653B\u6483\u3059\u308B\n\u9699\u306F\u5927\u304D\u3044\u304C\u305D\u306E\u5206\u5A01\u529B\u306F\u5F37\u529B"

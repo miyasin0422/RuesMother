@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
     {
         ItemInventoryDictionary["wing"] = 5;
         ItemInventoryDictionary["block"] = 5;
+        ItemInventoryDictionary["iron"] = 5;
+        ItemInventoryDictionary["stone"] = 5;
     }
 
     // Update is called once per frame

@@ -15,3 +15,4 @@ MonoBehaviour:
   weaponName: Sword
   requirements: []
   weaponPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+  weaponDescription: "\u5263\u3067\u76EE\u306E\u524D\u306E\u6575\u3092\u653B\u6483\u3059\u308B"

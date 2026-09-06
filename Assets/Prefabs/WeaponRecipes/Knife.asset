@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::WeaponRecipeSO
   weaponName: Knife
-  requirements: []
+  requirements:
+  - itemName: iron
+    amount: 2
+  - itemName: block
+    amount: 3
   weaponPrefab: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
+  weaponDescription: "\u30CA\u30A4\u30D5\u3092\u76F4\u7DDA\u72B6\u306B\u6295\u3052\u3066\u653B\u6483\u3059\u308B"

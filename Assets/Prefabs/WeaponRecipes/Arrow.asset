@@ -19,3 +19,4 @@ MonoBehaviour:
   - itemName: block
     amount: 3
   weaponPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
+  weaponDescription: "\u5F13\u3067\u9060\u8DDD\u96E2\u306E\u6575\u3092\u653B\u6483\u3059\u308B\n\u88DC\u52A9\u7DDA\u3067\u306D\u3089\u3044\u3092\u3064\u3051\u3088\u3046"

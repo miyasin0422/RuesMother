@@ -42,6 +42,14 @@ public class CraftingManager : MonoBehaviour
         }
         return true;
     }
+    public bool IsCrafted(WeaponRecipeSO weaponRecipeSO)
+    {
+        if (craftedWeapons.Contains(weaponRecipeSO))
+        {
+            return true;
+        }
+        return false;
+    }
     public void Craft(WeaponRecipeSO weaponRecipeSO)
     {
         if (CanCraft(weaponRecipeSO))
