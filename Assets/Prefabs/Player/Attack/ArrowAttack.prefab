@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6547577971640729421}
   - component: {fileID: 5830569786390283823}
   - component: {fileID: 926303673514510729}
+  - component: {fileID: 3610175323060380311}
   m_Layer: 7
   m_Name: ArrowAttack
   m_TagString: Untagged
@@ -179,6 +180,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb238bbfba9c194183f81c81cefd3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArrowAttack
+--- !u!114 &3610175323060380311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180476839455294771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a7bfab7f28e204da441c19ec172132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordAttack
   damage: 10
-  ArrowSpeed: 15
-  ArrowUpSpeed: 10
