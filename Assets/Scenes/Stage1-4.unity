@@ -1079,6 +1079,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3092536295851334068, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_Name
+      value: WeaponCraftText
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982235725804835913, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_text
+      value: "\u6B66\u5668\u4F5C\u6210"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982235725804835913, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b94c62afbeeee7741a3031487beaf008, type: 2}
+    - target: {fileID: 4982235725804835913, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5860270822808876528, guid: b94c62afbeeee7741a3031487beaf008, type: 2}
+    - target: {fileID: 4982235725804835913, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012287628638028513, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5118986819402666690, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.40644
@@ -1137,3 +1161,4 @@ SceneRoots:
   - {fileID: 1745732320}
   - {fileID: 1627092062}
   - {fileID: 852289524}
+  - {fileID: 1281600716}
