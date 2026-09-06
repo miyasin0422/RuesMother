@@ -7,6 +7,7 @@ public class BossBattleManager : MonoBehaviour
     [SerializeField] EnemyHealth bossHealth;
     [SerializeField] BossHealthBar bossHealthBar;
     [SerializeField] CameraController cameraController;
+    [SerializeField] Transform bossCameraPoint;
     [SerializeField] GameObject leftWall;
     [SerializeField] GameObject rightWall;
 
@@ -39,7 +40,7 @@ public class BossBattleManager : MonoBehaviour
         bossAI.StartBattle(player.transform);
 
         Debug.Log("ボス戦開始");
-        cameraController.SetFollowX(false);
+        cameraController.FixX(bossCameraPoint.position.x);
         leftWall.SetActive(true);
         rightWall.SetActive(true);
     }
@@ -47,7 +48,7 @@ public class BossBattleManager : MonoBehaviour
     void EndBattle()
     {
         Debug.Log("ボス戦終了");
-        cameraController.SetFollowX(true);
+        cameraController.StartFollowX();
         leftWall.SetActive(false);
         rightWall.SetActive(false);
 

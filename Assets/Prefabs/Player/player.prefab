@@ -266,14 +266,6 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Jump
       m_Flags: 0
-    - m_Name: 
-      m_Id: 91cabf9b-6436-4348-9016-ef7436720d31
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Jump
-      m_Flags: 0
     m_Flags: 0
   jumpForce: 25
   dodgeAction:
@@ -373,7 +365,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   hpRefresh: 30
-  playerDamage: {fileID: 0}
+  playerDamage: {fileID: 2726701360521446609}
   RefreshEffectPoint: {fileID: 647549340242644048}
   refreshEffect: {fileID: 7652736292742968077, guid: e5401dcaef0364d42bd9a067e7ac1e84, type: 3}
 --- !u!114 &2726701360521446609

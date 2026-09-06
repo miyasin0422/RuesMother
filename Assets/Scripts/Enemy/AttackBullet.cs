@@ -3,32 +3,50 @@ using UnityEngine;
 public class AttackBullet : EnemyAttack
 {
     [SerializeField] float bulletSpeed = 5f;
-    private Rigidbody2D rb;
-    private int damage;
-    private Vector2 direction;
-    void Start()
+    [SerializeField] float lifeTime = 5f;
+
+    Rigidbody2D rb;
+
+    int damage;
+
+    Vector2 direction;
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    public override void Initialize(int attackPower, Vector2 targetPosition)
+
+    void Start()
+    {
+        Destroy(gameObject, lifeTime);
+    }
+
+    public override void Initialize(
+        int attackPower,
+        Vector2 targetPosition)
     {
         damage = attackPower;
 
         direction =
             (targetPosition - (Vector2)transform.position).normalized;
     }
+
     void FixedUpdate()
     {
-        rb.linearVelocity = direction * bulletSpeed;
+        rb.linearVelocity =
+            direction * bulletSpeed;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerDamage playerDamage = collision.GetComponentInParent<PlayerDamage>();
+        PlayerDamage playerDamage =
+            collision.GetComponentInParent<PlayerDamage>();
 
         if (playerDamage != null)
         {
             playerDamage.Damaged(damage);
         }
+
         Destroy(gameObject);
     }
 }

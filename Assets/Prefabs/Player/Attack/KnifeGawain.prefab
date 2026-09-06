@@ -180,5 +180,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StraightShotAttackBehavior
   projectilePrefab: {fileID: 4227163059489789881, guid: 059f5a982fbe4364da0a7409d2793309, type: 3}
   attackPoint: {fileID: 3504560086196471052}
-  speed: 10
-  maxDistance: 5
+  speed: 20
+  maxDistance: 10

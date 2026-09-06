@@ -467,8 +467,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7af401733ae044ca1307371e13a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  CameraUp:
+    m_Name: Camera Up
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a0de5794-2ff5-4767-b678-ad713c61ef2a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: ee47b707-2fe1-4056-91f4-103994c38de0
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Camera Up
+      m_Flags: 0
+    m_Flags: 0
+  CameraDown:
+    m_Name: Camera Down
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8c23a770-f974-4b2f-b435-c6eec7d56de2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 1215fbfb-d793-4188-b7bc-d687dbea55a3
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Camera Down
+      m_Flags: 0
+    m_Flags: 0
   smoothTime: 0.2
   offset: {x: 0, y: 3, z: -10}
+  cameraUpOffset: 3
+  cameraDownOffset: -5
 --- !u!1 &589170824
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 819545127}
     - target: {fileID: 295178225764744343, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
       propertyPath: maxHealth
-      value: 20
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1034760516335358960, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1181,6 +1217,7 @@ MonoBehaviour:
   bossHealth: {fileID: 2141286375}
   bossHealthBar: {fileID: 1060024183}
   cameraController: {fileID: 519420033}
+  bossCameraPoint: {fileID: 1871738829}
   leftWall: {fileID: 241595499}
   rightWall: {fileID: 1285559178}
 --- !u!4 &1812340844
@@ -1192,11 +1229,43 @@ Transform:
   m_GameObject: {fileID: 1812340842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.26226, y: 7.40684, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1871738829}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1871738828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1871738829}
+  m_Layer: 0
+  m_Name: BossCameraPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1871738829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871738828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1812340844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2034308093
 GameObject:

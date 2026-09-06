@@ -221,8 +221,12 @@ GameObject:
   - component: {fileID: 1136276674532201409}
   - component: {fileID: 6709581656426734044}
   - component: {fileID: 2291182866106069326}
-  - component: {fileID: 4996995641914501241}
   - component: {fileID: 7215647147056419282}
+  - component: {fileID: 3146170240047829735}
+  - component: {fileID: 110894549675826783}
+  - component: {fileID: 1077888690117265540}
+  - component: {fileID: 1356924822255410078}
+  - component: {fileID: 4996995641914501241}
   m_Layer: 6
   m_Name: Bird
   m_TagString: Untagged
@@ -314,7 +318,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3437004022392365549}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -379,6 +383,84 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.3, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &7215647147056419282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437004022392365549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c206c8d2568dd4d9a7ae7ad08a87f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyControll
+--- !u!114 &3146170240047829735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437004022392365549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b0927f0bb21bb47b1b6e954bce9efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BasicEnemyAI
+  controller: {fileID: 7215647147056419282}
+  sensor: {fileID: 110894549675826783}
+  movement: {fileID: 1077888690117265540}
+  attackController: {fileID: 1356924822255410078}
+--- !u!114 &110894549675826783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437004022392365549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4654b97230ba0e47bd4f17fd8ade4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySensor
+  detectionRange: 10
+  attackRange: 8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &1077888690117265540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437004022392365549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3c2b69579758c4aa8790671b1f68cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkyEnemyMovement
+  moveSpeed: 2
+  patrolDistance: 3
+  returnHeightSpeed: 2
+  hpBar: {fileID: 4381135354835805479}
+--- !u!114 &1356924822255410078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437004022392365549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878f39d7a0cc4f84489ac5db0398783a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackController
+  attackPrefab: {fileID: 8556108094002272390, guid: cde00abfd35cf6c469b736bca052cde4, type: 3}
+  attackPoint: {fileID: 1297655019464107150}
+  attackPower: 10
+  attackDelay: 0.5
+  attackCoolTime: 1
 --- !u!114 &4996995641914501241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,36 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   enemyID: enemy1
-  enemyhealth: 0
-  enemyMaxHealth: 30
-  attackInterval: 1
+  maxHealth: 10
   healthBar: {fileID: 4174170259795306803}
-  hitArea1: {fileID: 3437004022392365549}
---- !u!114 &7215647147056419282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3437004022392365549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c206c8d2568dd4d9a7ae7ad08a87f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyControll
-  detectionRange: 15
-  attackRange: 8
-  moveSpeed: 2
-  patrolDistance: 3
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  attackPrefab: {fileID: 8556108094002272390, guid: cde00abfd35cf6c469b736bca052cde4, type: 3}
-  attackPoint: {fileID: 1297655019464107150}
-  attackPower: 10
-  attackDelay: 0
-  attackCoolTime: 2
-  hpBar: {fileID: 4381135354835805479}
 --- !u!1 &3689793316435622097
 GameObject:
   m_ObjectHideFlags: 0
