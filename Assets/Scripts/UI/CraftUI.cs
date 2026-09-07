@@ -1,3 +1,4 @@
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class CraftUI : MonoBehaviour
     private CraftWeaponButton[] WeaponButton;
     [SerializeField]
     private TMP_Text descriptionText;
+    [SerializeField]
+    private TMP_Text recipeText;
     public int selectedIndex;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is crea
@@ -43,6 +46,22 @@ public class CraftUI : MonoBehaviour
     {
         selectedIndex = index;
         descriptionText.text = "【ぶきのせつめい】\n\n"+ recipe.weaponDescription;
+        if (CraftingManager.instance.IsCrafted(recipe))
+        {
+            recipeText.text = "この武器は既に持っています";
+        }
+        else
+        {
+            recipeText.text = "【必要なアイテム】\n\\n";
+            foreach (RecipeRequirement requirement in recipe.requirements)
+            {
+                string itemName = requirement.itemName;
+                int amount = requirement.amount;
+                int stock = Inventory.instance.ItemInventoryDictionary[itemName];
+                string stockColor = (stock < amount) ? "red" : "green";
+                recipeText.text += $"{itemName}　　<color={stockColor}>{stock}</color> / {amount}\n";
+            }
+        }
     }
     public void CraftWeapon()
     {
@@ -51,6 +70,7 @@ public class CraftUI : MonoBehaviour
             CraftingManager.instance.Craft(WeaponButton[selectedIndex].weaponRecipe);
             WeaponButton[selectedIndex].SetCraftedState(true);
             CanCraftDisplay();
+            recipeText.text = "この武器は既に持っています";
         }
     }
     
