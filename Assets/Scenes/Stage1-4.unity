@@ -731,6 +731,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625018025}
   m_CullTransparentMesh: 1
+--- !u!1 &701369069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 701369070}
+  - component: {fileID: 701369072}
+  - component: {fileID: 701369071}
+  m_Layer: 0
+  m_Name: RightWeaponSlotBackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &701369070
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701369069}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7673517009326550953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 400, y: -170.00002}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &701369071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701369069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &701369072
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701369069}
+  m_CullTransparentMesh: 1
 --- !u!1 &716482529
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,12 +838,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d55d8874f7dd943a4435709ef0bb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssignWeaponButton
-  button: {fileID: 716482531}
   assignUI: {fileID: 7673517009326550954}
+  button: {fileID: 716482531}
+  checkMarkObject: {fileID: 1636090723}
   dragObjectPrefab: {fileID: 5995550243159295592, guid: c868b8210e934a242bab9a13bd0744d2, type: 3}
   dragLayer: {fileID: 1175688415}
-  index: 0
+  weaponImage: {fileID: 530050290}
   weaponRecipe: {fileID: 11400000, guid: cf4c9600bc8c79e42bd2e98fd4f57dca, type: 2}
+  weaponPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+  index: 0
 --- !u!114 &716482531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,12 +1405,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d55d8874f7dd943a4435709ef0bb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssignWeaponButton
-  button: {fileID: 1117325833}
   assignUI: {fileID: 7673517009326550954}
+  button: {fileID: 1117325833}
+  checkMarkObject: {fileID: 2105750864}
   dragObjectPrefab: {fileID: 8668083269772758243, guid: b808ec99354ceaf438d93d00a9ea8706, type: 3}
   dragLayer: {fileID: 1175688415}
-  index: 3
+  weaponImage: {fileID: 625018027}
   weaponRecipe: {fileID: 11400000, guid: 2f4366517583f204a8f5169aca36dcd9, type: 2}
+  weaponPrefab: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
+  index: 3
 --- !u!114 &1117325833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,6 +1685,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+--- !u!1 &1475682169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475682170}
+  - component: {fileID: 1475682172}
+  - component: {fileID: 1475682171}
+  m_Layer: 0
+  m_Name: LeftWeaponSlotBackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1475682170
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475682169}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7673517009326550953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -400.00006, y: -170}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1475682171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475682169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1475682172
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475682169}
+  m_CullTransparentMesh: 1
 --- !u!1 &1529518033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,12 +2659,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d55d8874f7dd943a4435709ef0bb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssignWeaponButton
-  button: {fileID: 1950195485}
   assignUI: {fileID: 7673517009326550954}
+  button: {fileID: 1950195485}
+  checkMarkObject: {fileID: 2074483617}
   dragObjectPrefab: {fileID: 6260881180319733005, guid: af849c97addaeaf499bfc478c492c8d8, type: 3}
   dragLayer: {fileID: 1175688415}
-  index: 1
+  weaponImage: {fileID: 2082494898}
   weaponRecipe: {fileID: 11400000, guid: 3126cd22c02951845956a515fecf562d, type: 2}
+  weaponPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
+  index: 1
 --- !u!114 &1950195485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2656,12 +2815,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d55d8874f7dd943a4435709ef0bb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssignWeaponButton
-  button: {fileID: 1994634323}
   assignUI: {fileID: 7673517009326550954}
+  button: {fileID: 1994634323}
+  checkMarkObject: {fileID: 1529518033}
   dragObjectPrefab: {fileID: 4000377737835129492, guid: 6ac2f25f9da5764418005eb7bc3b7258, type: 3}
   dragLayer: {fileID: 1175688415}
-  index: 2
+  weaponImage: {fileID: 1072110793}
   weaponRecipe: {fileID: 11400000, guid: a0128fb61b9ae88428ad5cfb362a26f1, type: 2}
+  weaponPrefab: {fileID: 5465747541013082330, guid: bd1f3f4a0f297e445a243eb1a970cecc, type: 3}
+  index: 2
 --- !u!114 &1994634323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3159,7 +3321,13 @@ PrefabInstance:
       addedObject: {fileID: 854139116}
     - targetCorrespondingSourceObject: {fileID: 6440892516284915622, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1475682170}
+    - targetCorrespondingSourceObject: {fileID: 6440892516284915622, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 24087953}
+    - targetCorrespondingSourceObject: {fileID: 6440892516284915622, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 701369070}
     - targetCorrespondingSourceObject: {fileID: 6440892516284915622, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1913828771}
@@ -3199,7 +3367,9 @@ MonoBehaviour:
   - {fileID: 1950195484}
   - {fileID: 1994634322}
   - {fileID: 1117325832}
-  selectedIndex: 0
+  leftSlot: {fileID: 24087954}
+  rightSlot: {fileID: 1913828772}
+  selectedIndex: -1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

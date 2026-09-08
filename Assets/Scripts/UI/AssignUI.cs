@@ -1,15 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AssignUI : MonoBehaviour
 {
     [SerializeField]
     private AssignWeaponButton[] WeaponButton;
+    [SerializeField]
+    private Image leftSlot;
+    [SerializeField]
+    private Image rightSlot;
+
     public int selectedIndex;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        CanAssignCheck();
+        CheckAssignedWeapons();
     }
 
     // Update is called once per frame
@@ -30,13 +37,29 @@ public class AssignUI : MonoBehaviour
             weapon.CanAssignState(CraftingManager.instance.IsCrafted(weapon.weaponRecipe));
         }
     }
-    /*
-    public void IsAssign()
+    public void CheckAssignedWeapons()
     {
-        foreach (var weapon in WeaponButton)
+        foreach (var weaponButton in WeaponButton)
         {
-            weapon.AssignWeapon();
+            bool isLeftWeapon =
+                PlayerLoadout.instance.leftWeapon ==
+                weaponButton.weaponPrefab;
+
+            bool isRightWeapon =
+                PlayerLoadout.instance.rightWeapon ==
+                weaponButton.weaponPrefab;
+
+            weaponButton.SetAssignedState(
+                isLeftWeapon || isRightWeapon
+            );
+            if (isLeftWeapon)
+            {
+                leftSlot.sprite = weaponButton.weaponImage.sprite;
+            }
+            if (isRightWeapon)
+            {
+                rightSlot.sprite = weaponButton.weaponImage.sprite;
+            }
         }
     }
-    */
 }

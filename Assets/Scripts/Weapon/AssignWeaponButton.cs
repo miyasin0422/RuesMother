@@ -7,23 +7,26 @@ public class AssignWeaponButton : MonoBehaviour,
     IDragHandler,
     IEndDragHandler
 {
-    [SerializeField]
-    private Button button;
-
+    
     [SerializeField]
     private AssignUI assignUI;
+    [SerializeField]
+    private Button button;
+    [SerializeField]
+    private GameObject checkMarkObject;
 
     [SerializeField]
     private GameObject dragObjectPrefab;
 
     [SerializeField]
     private Transform dragLayer;
-
+    private GameObject dragObject;
+    public Image weaponImage;
+    public WeaponRecipeSO weaponRecipe;
+    public GameObject weaponPrefab;
     public int index;
 
-    public WeaponRecipeSO weaponRecipe;
-
-    private GameObject dragObject;
+    
 
 
     // 作成済みかどうかによる表示
@@ -33,6 +36,13 @@ public class AssignWeaponButton : MonoBehaviour,
         {
             button.image.color = isCrafted ? Color.white : Color.gray;
             button.interactable = isCrafted;
+        }
+    }
+    public void SetAssignedState(bool isAssigned)
+    {
+        if (checkMarkObject != null)
+        {
+            checkMarkObject.SetActive(isAssigned);
         }
     }
 
