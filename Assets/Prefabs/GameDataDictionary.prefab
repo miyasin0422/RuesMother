@@ -72,7 +72,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftingManager
   recipe:
+  - {fileID: 11400000, guid: cf4c9600bc8c79e42bd2e98fd4f57dca, type: 2}
   - {fileID: 11400000, guid: 3126cd22c02951845956a515fecf562d, type: 2}
+  - {fileID: 11400000, guid: a0128fb61b9ae88428ad5cfb362a26f1, type: 2}
+  - {fileID: 11400000, guid: 2f4366517583f204a8f5169aca36dcd9, type: 2}
   craftedWeapons:
   - {fileID: 11400000, guid: cf4c9600bc8c79e42bd2e98fd4f57dca, type: 2}
 --- !u!114 &4575602770302656388

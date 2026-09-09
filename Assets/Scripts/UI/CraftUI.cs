@@ -58,7 +58,7 @@ public class CraftUI : MonoBehaviour
                 string itemName = requirement.itemName;
                 int amount = requirement.amount;
                 int stock = Inventory.instance.ItemInventoryDictionary[itemName];
-                string stockColor = (stock < amount) ? "red" : "green";
+                string stockColor = (stock < amount) ? "#D32F2F" : "#2E7D32";
                 recipeText.text += $"{itemName}　　<color={stockColor}>{stock}</color> / {amount}\n";
             }
         }

@@ -14,17 +14,18 @@ public class AssignWeaponButton : MonoBehaviour,
     private Button button;
     [SerializeField]
     private GameObject checkMarkObject;
-
-    [SerializeField]
-    private GameObject dragObjectPrefab;
-
     [SerializeField]
     private Transform dragLayer;
+    [SerializeField]
+    private GameObject dragObjectPrefab;
+    public GameObject DragObjectPrefab
+    {
+        get { return dragObjectPrefab; }
+    }
+
     private GameObject dragObject;
-    public Image weaponImage;
     public WeaponRecipeSO weaponRecipe;
     public GameObject weaponPrefab;
-    public int index;
 
     
 
@@ -45,14 +46,6 @@ public class AssignWeaponButton : MonoBehaviour,
             checkMarkObject.SetActive(isAssigned);
         }
     }
-
-
-    // クリック
-    public void OnClick()
-    {
-        assignUI.SelectWeapon(index);
-    }
-
 
     // ドラッグ開始
     public void OnBeginDrag(PointerEventData eventData)
