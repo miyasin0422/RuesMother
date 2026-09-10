@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+using static UnityEditor.Progress;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class EnemyHealth : MonoBehaviour
 
     // 通常敵用HPバー
     [SerializeField] Image healthBar;
-
+    // ドロップアイテム
+    [SerializeField] GameObject[] inventoryItems;
+    [SerializeField] private float jumpForce = 5f;  // 上に打ち上げる力
+    [SerializeField] private float sideForce = 2f;  // 左右へのランダムな散らばり
     EnemyDictionary enemyDictionary;
 
     public int CurrentHealth => currentHealth;
@@ -105,7 +109,20 @@ public class EnemyHealth : MonoBehaviour
         IsDead = true;
 
         Died?.Invoke();
-
         Destroy(gameObject);
+        DropItem();
+    }
+    void DropItem()
+    {
+        foreach (GameObject inventoryItem in inventoryItems)
+        {
+            GameObject dropItem = Instantiate(inventoryItem, transform.position, Quaternion.identity);
+            Rigidbody2D rb = dropItem.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                Vector2 force = new Vector2(UnityEngine.Random.Range(-sideForce, sideForce), jumpForce);
+                rb.AddForce(force, ForceMode2D.Impulse);
+            }
+        }
     }
 }

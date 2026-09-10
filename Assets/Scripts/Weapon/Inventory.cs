@@ -20,10 +20,10 @@ public class Inventory : MonoBehaviour
     }
     void Start()
     {
-        ItemInventoryDictionary["wing"] = 5;
-        ItemInventoryDictionary["block"] = 5;
-        ItemInventoryDictionary["iron"] = 5;
-        ItemInventoryDictionary["stone"] = 5;
+        ItemInventoryDictionary["wing"] = 0;
+        ItemInventoryDictionary["block"] = 0;
+        ItemInventoryDictionary["iron"] = 0;
+        ItemInventoryDictionary["stone"] = 0;
     }
 
     // Update is called once per frame
