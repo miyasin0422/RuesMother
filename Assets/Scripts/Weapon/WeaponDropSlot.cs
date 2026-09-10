@@ -10,6 +10,8 @@ public class WeaponDropSlot : MonoBehaviour,
         Right
     }
     [SerializeField]
+    private UIManager uiManager;
+    [SerializeField]
     private AssignUI assignUI;
     [SerializeField]
     private SlotType slotType;
@@ -39,6 +41,7 @@ public class WeaponDropSlot : MonoBehaviour,
                 PlayerLoadout.instance.leftWeapon = null;
             }
             assignUI.CheckAssignedWeapons();
+            uiManager.AssignedWeaponsShow();
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created

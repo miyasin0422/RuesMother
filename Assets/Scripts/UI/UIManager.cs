@@ -7,12 +7,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private Image[] refreshItems;
     [SerializeField] private float targetFillAmount;
-    [SerializeField] private GameObject CustomPanel;
+    [SerializeField] private Image[] weaponImages;
+    [SerializeField] private Image leftWeaponImage;
+    [SerializeField] private Image rightWeaponImage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPUpdate();
         RefreshItemUpdate();
+        AssignedWeaponsShow();
     }
 
     // Update is called once per frame
@@ -42,14 +45,36 @@ public class UIManager : MonoBehaviour
             
         }
     }
-    public void OpenCustomPanel()
+    public void AssignedWeaponsShow()
     {
-        Debug.Log("click");
-        CustomPanel.SetActive(true);
-    }
-    public void CloseCustomPanel()
-    {
-        CustomPanel.SetActive(false);
-    }
+        leftWeaponImage.sprite = null;
+        rightWeaponImage.sprite = null;
+        foreach (Image weaponImage in weaponImages)
+        {
+            bool isLeftWeapon = PlayerLoadout.instance.leftWeapon == weaponImage.GetComponent<AssignWeaponButton>().weaponPrefab;
 
+            bool isRightWeapon = PlayerLoadout.instance.rightWeapon == weaponImage.GetComponent<AssignWeaponButton>().weaponPrefab; ;
+
+            if (isLeftWeapon)
+            {
+               leftWeaponImage.sprite = weaponImage.sprite;
+               RectTransform sourceRect = weaponImage.GetComponent<RectTransform>();
+
+               RectTransform slotRect = leftWeaponImage.GetComponent<RectTransform>();
+
+               slotRect.sizeDelta = sourceRect.sizeDelta;
+               slotRect.localScale = sourceRect.localScale;
+            }
+            if (isRightWeapon)
+            {
+                rightWeaponImage.sprite = weaponImage.sprite;
+                RectTransform sourceRect = weaponImage.GetComponent<RectTransform>();
+
+                RectTransform slotRect = rightWeaponImage.GetComponent<RectTransform>();
+
+                slotRect.sizeDelta = sourceRect.sizeDelta;
+                slotRect.localScale = sourceRect.localScale;
+            }
+        }
+    }
 }
