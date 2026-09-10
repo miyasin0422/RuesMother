@@ -32,6 +32,7 @@ public class WeaponDropSlot : MonoBehaviour,
                 PlayerLoadout.instance.rightWeapon = null;
             }
             assignUI.CheckAssignedWeapons();
+            uiManager.AssignedWeaponsShow();
         }
         else if (slotType == SlotType.Right)
         {

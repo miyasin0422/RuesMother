@@ -52,7 +52,7 @@ public class CraftUI : MonoBehaviour
         }
         else
         {
-            recipeText.text = "【必要なアイテム】\n\\n";
+            recipeText.text = "【必要なアイテム】\n";
             foreach (RecipeRequirement requirement in recipe.requirements)
             {
                 string itemName = requirement.itemName;
