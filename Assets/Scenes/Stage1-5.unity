@@ -560,6 +560,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 295178225764744343, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: enemyID
+      value: boss1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295178225764744343, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 819545127}
