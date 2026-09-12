@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d4b2aeed1a38047bdf8d343868337b, type: 3}
+  m_Name: Knife
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponRecipeSO
+  weaponName: Knife
+  requirements:
+  - itemName: iron
+    amount: 2
+  - itemName: block
+    amount: 3
+  weaponPrefab: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
+  weaponDescription: "\u30CA\u30A4\u30D5\u3092\u76F4\u7DDA\u72B6\u306B\u6295\u3052\u3066\u653B\u6483\u3059\u308B"
