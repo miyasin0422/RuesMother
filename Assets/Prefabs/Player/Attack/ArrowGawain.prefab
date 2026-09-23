@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd7686efd7f0c84dabdcaa76f4235a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GawainAttack
+  destroyDelay: 0.3
 --- !u!50 &6709954691911385609
 Rigidbody2D:
   serializedVersion: 5
@@ -212,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BowAttackBehavior
   arrowPrefab: {fileID: 4180476839455294771, guid: 2f0514fa0995fd24baf9b5c198f37093, type: 3}
   attackPoint: {fileID: 3416984717494163153}
-  minArrowSpeed: 5
-  maxArrowSpeed: 20
+  minArrowSpeed: 15
+  maxArrowSpeed: 40
   maxChargeTime: 2
   aimLine: {fileID: 7025978470232726634}
   linePointCount: 20

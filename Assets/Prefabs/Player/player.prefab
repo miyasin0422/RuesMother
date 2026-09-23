@@ -343,10 +343,10 @@ MonoBehaviour:
       m_Action: Right Attack
       m_Flags: 0
     m_Flags: 0
-  leftgawainPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+  leftgawainPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
   rightgawainPrefab: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
   summonPoint: {fileID: 8800979805963338958}
-  coolTime: 1
+  coolTime: 0
   refreshAction:
     m_Name: Refresh
     m_Type: 0
