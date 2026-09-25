@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDamage : MonoBehaviour
 {
     [SerializeField] UIManager uiManager;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
@@ -19,10 +22,9 @@ public class PlayerDamage : MonoBehaviour
         PlayerStatus.playerHealth -= damage;
         uiManager.HPUpdate();
         //Debug.Log("playerHP：" + PlayerStatus.playerHealth);
-        if (PlayerStatus.playerHealth < 0)
+        if (PlayerStatus.playerHealth <= 0)
         {
-            PlayerStatus.playerHealth = 0;
-            Debug.Log("ゲームオーバー");
+            StartCoroutine(ReStart());
         }
     }
     public void Refresh(int hpRefresh)
@@ -37,5 +39,19 @@ public class PlayerDamage : MonoBehaviour
         }
         uiManager.HPUpdate();
         uiManager.RefreshItemUpdate();
+    }
+    IEnumerator ReStart()
+    {
+        yield return new WaitForSeconds(1);
+        PlayerStatus.playerHealth = PlayerStatus.MaxplayerHealth;
+        if(SaveManager.savedSceneName == "Stage1-1")
+        {
+            SceneMoveData.NextSpawnId = "Start";
+        }
+        else
+        {
+            SceneMoveData.NextSpawnId = "Left";
+        }
+        SceneManager.LoadScene(SaveManager.savedSceneName);
     }
 }

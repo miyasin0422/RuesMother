@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+public class SaveSpawnPoint : MonoBehaviour
 {
-    public static string savedSceneName = "Stage1-1";
+    [SerializeField] private string SceneName;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,5 +14,9 @@ public class SaveManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void SaveClick()
+    {
+        SaveManager.savedSceneName = SceneName;
     }
 }
