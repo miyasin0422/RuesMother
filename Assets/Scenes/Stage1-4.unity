@@ -1034,6 +1034,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameDataDictionary
       objectReference: {fileID: 0}
+    - target: {fileID: 4575602770302656388, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: leftWeapon
+      value: 
+      objectReference: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
+    - target: {fileID: 4575602770302656388, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: rightWeapon
+      value: 
+      objectReference: {fileID: 5465747541013082330, guid: bd1f3f4a0f297e445a243eb1a970cecc, type: 3}
     - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 639.1454
@@ -1176,6 +1184,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6667094381971702995, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3675234886242628127, guid: fec57e2442767094889d9d612054979f, type: 3}
+    - target: {fileID: 8171283922192012916, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3675234886242628127, guid: fec57e2442767094889d9d612054979f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

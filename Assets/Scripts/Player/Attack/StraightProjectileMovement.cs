@@ -18,7 +18,7 @@ public class StraightProjectileMovement : MonoBehaviour
         maxDistance = distance;
         // ナイフの向きを進行方向に合わせる
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * direction;
+        scale.x = - Mathf.Abs(scale.x) * direction;
         transform.localScale = scale;
         rb.linearVelocity =
             new Vector2(speed * direction, 0f);
