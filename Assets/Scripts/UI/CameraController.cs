@@ -40,6 +40,11 @@ public class CameraController : MonoBehaviour
         transform.position = Player.position + offset;
     }
 
+    public void SetPlayerSmooth(Transform newPlayer)
+    {
+        Player = newPlayer;
+    }
+
     // 通常追従に戻す
     public void StartFollowX()
     {
