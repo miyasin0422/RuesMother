@@ -8,7 +8,20 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private CameraController cameraController;
 
+    [SerializeField]
+    private bool spawnOnStart = true;
+
     private void Start()
+    {
+        if (!spawnOnStart)
+        {
+            return;
+        }
+
+        SpawnPlayer();
+    }
+
+    public GameObject SpawnPlayer()
     {
         SpawnPoint[] spawnPoints = FindObjectsByType<SpawnPoint>(
             FindObjectsSortMode.None
@@ -32,7 +45,7 @@ public class PlayerSpawner : MonoBehaviour
                 SceneMoveData.NextSpawnId
             );
 
-            return;
+            return null;
         }
 
         GameObject player = Instantiate(
@@ -42,5 +55,7 @@ public class PlayerSpawner : MonoBehaviour
         );
 
         cameraController.SetPlayer(player.transform);
+
+        return player;
     }
 }
