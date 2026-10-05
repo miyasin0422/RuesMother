@@ -5,17 +5,20 @@ public class Stage1Event : MonoBehaviour
 {
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TutorialRaySpawner raySpawner;
+    [SerializeField] PlayerSpawner playerSpawner;
 
     IEnumerator Start()
     {
-        Debug.Log("Stage1Event開始");
+        // ルー覚醒済みなら通常Playerで開始
+        if (TutorialProgress.RueAwakened)
+        {
+            playerSpawner.SpawnPlayer();
+            yield break;
+        }
 
-        // レイ生成
+        // 初回だけレイで開始
         GameObject ray = raySpawner.SpawnRay();
 
-        Debug.Log("Ray生成完了");
-
-        // UIAnchor取得
         CharacterUIAnchor characterUIAnchor =
             ray.GetComponent<CharacterUIAnchor>();
 
@@ -27,7 +30,6 @@ public class Stage1Event : MonoBehaviour
             yield break;
         }
 
-        // DialogueManagerへレイを登録
         dialogueManager.RegisterSpeaker(
             DialogueSpeaker.Ray,
             characterUIAnchor.UIAnchor
@@ -41,9 +43,6 @@ public class Stage1Event : MonoBehaviour
             )
         };
 
-        // 会話開始
         yield return dialogueManager.PlayDialogue(lines);
-
-        Debug.Log("Stage1会話終了");
     }
 }

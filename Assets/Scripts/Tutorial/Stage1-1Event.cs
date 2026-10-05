@@ -6,6 +6,7 @@ public class Stage2Event : MonoBehaviour
 {
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TutorialRaySpawner raySpawner;
+    [SerializeField] PlayerSpawner playerSpawner;
 
     [SerializeField] GameObject ruePrefab;
     [SerializeField] Transform rueSpawnPoint;
@@ -20,7 +21,17 @@ public class Stage2Event : MonoBehaviour
 
     private void Start()
     {
-        // Stage2開始時はレイだけ生成
+        if (TutorialProgress.RueAwakened)
+        {
+            playerSpawner.SpawnPlayer();
+
+            // カプセルも残したくないならここで非表示
+            capsuleBreak.gameObject.SetActive(false);
+
+            return;
+        }
+
+        // 初回だけレイ生成
         ray = raySpawner.SpawnRay();
 
         CharacterUIAnchor rayAnchor =
@@ -127,6 +138,9 @@ public class Stage2Event : MonoBehaviour
         yield return dialogueManager.PlayDialogue(
             afterBreakDialogue
         );
+
+        // ここでルー覚醒済みにする
+        TutorialProgress.RueAwakened = true;
 
         // 掛け合い終了後、カメラをルーへ戻す
         cameraController.SetPlayerSmooth(rue.transform);
