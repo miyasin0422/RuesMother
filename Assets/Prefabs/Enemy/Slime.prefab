@@ -91,7 +91,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4723107735738678597, guid: f8b30c2afe165d645b54d500a9c30862, type: 3}
+  m_Sprite: {fileID: 3234629978573100161, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -266,6 +266,9 @@ MonoBehaviour:
   enemyID: enemy1
   maxHealth: 10
   healthBar: {fileID: 1007704901221000648}
+  inventoryItems: []
+  jumpForce: 5
+  sideForce: 2
 --- !u!1 &3309536489175483208
 GameObject:
   m_ObjectHideFlags: 0
