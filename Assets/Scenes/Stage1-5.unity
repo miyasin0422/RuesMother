@@ -317,6 +317,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318673211}
   m_CullTransparentMesh: 1
+--- !u!1001 &455765863
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3740444235519955534, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_Name
+      value: GameDataDictionary
+      objectReference: {fileID: 0}
+    - target: {fileID: 4575602770302656388, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: leftWeapon
+      value: 
+      objectReference: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+    - target: {fileID: 4575602770302656388, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: rightWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 639.1454
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 407.6247
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
   playerPrefab: {fileID: 512907098247683975, guid: 408e4de7cbebfae48bd4293832b92597, type: 3}
   cameraController: {fileID: 519420033}
+  spawnOnStart: 1
 --- !u!4 &589170826
 Transform:
   m_ObjectHideFlags: 0
@@ -568,8 +634,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 819545127}
     - target: {fileID: 295178225764744343, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: jumpForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 295178225764744343, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
       propertyPath: maxHealth
-      value: 10000
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 295178225764744343, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: sideForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 693511631381721754, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: stompPower
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1034760516335358960, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -614,6 +692,26 @@ PrefabInstance:
     - target: {fileID: 2880744519327731933, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
       propertyPath: m_Name
       value: FrogBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972555629873070332, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: m_GravityScale
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969523043945365518, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: hopPower
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969523043945365518, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: hopSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969523043945365518, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: stompSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969523043945365518, guid: a3708b19c04c45d4c927d43932faa78e, type: 3}
+      propertyPath: stompJumpPower
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1685,3 +1783,4 @@ SceneRoots:
   - {fileID: 1812340844}
   - {fileID: 726018080}
   - {fileID: 1573996717}
+  - {fileID: 455765863}

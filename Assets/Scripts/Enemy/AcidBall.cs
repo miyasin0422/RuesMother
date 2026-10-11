@@ -67,7 +67,11 @@ public class AcidBall : EnemyAttack
 
         hasHit = true;
 
-        if (other.CompareTag("Ground") && acidPoolPrefab != null)
+        bool isGround =
+        other.CompareTag("Ground") ||
+        other.CompareTag("OneWayGround");
+
+        if (isGround && acidPoolPrefab != null)
         {
             // 水平な床の上面に生成する
             Vector2 poolPosition = new Vector2(

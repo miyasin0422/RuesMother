@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878f39d7a0cc4f84489ac5db0398783a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackController
-  attackPrefab: {fileID: 8556108094002272390, guid: cde00abfd35cf6c469b736bca052cde4, type: 3}
+  attackPrefab: {fileID: 1011077991349211305, guid: cde00abfd35cf6c469b736bca052cde4, type: 3}
   attackPoint: {fileID: 1297655019464107150}
   attackPower: 10
   attackDelay: 0.5
@@ -476,6 +476,12 @@ MonoBehaviour:
   enemyID: enemy1
   maxHealth: 10
   healthBar: {fileID: 4174170259795306803}
+  inventoryItems: []
+  jumpForce: 5
+  sideForce: 2
+  damageSprite: {fileID: 0}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageFlashTime: 0.15
 --- !u!1 &3689793316435622097
 GameObject:
   m_ObjectHideFlags: 0

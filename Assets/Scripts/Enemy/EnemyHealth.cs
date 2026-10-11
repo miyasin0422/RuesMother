@@ -18,6 +18,10 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject[] inventoryItems;
     [SerializeField] private float jumpForce = 5f;  // 上に打ち上げる力
     [SerializeField] private float sideForce = 2f;  // 左右へのランダムな散らばり
+    // 被ダメージ時の色変化
+    [SerializeField] SpriteRenderer damageSprite;
+    [SerializeField] Color damageColor = Color.red;
+    [SerializeField] float damageFlashTime = 0.15f;
     EnemyDictionary enemyDictionary;
 
     public int CurrentHealth => currentHealth;
@@ -27,6 +31,9 @@ public class EnemyHealth : MonoBehaviour
 
     public event Action<int, int> HealthChanged;
     public event Action Died;
+    Color originalColor;
+    float flashEndTime;
+    bool isFlashing;
 
     void Start()
     {
@@ -64,9 +71,71 @@ public class EnemyHealth : MonoBehaviour
 
         UpdateHealthBar();
     }
+    void Awake()
+    {
+        if (damageSprite == null)
+        {
+            damageSprite = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (damageSprite != null)
+        {
+            originalColor = damageSprite.color;
+        }
+    }
+
+    void Update()
+    {
+        if (isFlashing && Time.time >= flashEndTime)
+        {
+            RestoreSpriteColor();
+        }
+    }
+
+    void FlashDamage()
+    {
+        if (damageSprite == null)
+        {
+            return;
+        }
+
+        Color flashColor = damageColor;
+
+        // 元の透明度は維持する
+        flashColor.a = originalColor.a;
+
+        damageSprite.color = flashColor;
+
+        flashEndTime = Time.time + Mathf.Max(damageFlashTime, 0f);
+        isFlashing = true;
+    }
+
+    void RestoreSpriteColor()
+    {
+        if (damageSprite != null)
+        {
+            damageSprite.color = originalColor;
+        }
+
+        isFlashing = false;
+    }
+
+    void OnDisable()
+    {
+        RestoreSpriteColor();
+    }
 
     public void Damaged(int damage)
     {
+        if (IsDead)
+        {
+            return;
+        }
+
+        if (damage > 0)
+        {
+            FlashDamage();
+        }
         currentHealth -= damage;
 
         if (enemyDictionary != null)
