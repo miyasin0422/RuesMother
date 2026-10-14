@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf125aa5e7f576429642f5ae5ffcf19, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: Assembly-CSharp::Gene.WeaponRecipeSO
-  weaponName: 
-  requirementGenes: []
+  weaponName: Arrow
+  requirementGenes:
+  - {fileID: 11400000, guid: a6a212357839f5c40955c03b0caf8ec1, type: 2}
   baseWeaponPrefab: {fileID: 0}

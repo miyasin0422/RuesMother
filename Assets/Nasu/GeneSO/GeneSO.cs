@@ -9,8 +9,9 @@ public class GeneSO : ScriptableObject
 {
     public string geneId;
     public string geneName;
-    public Sprite icon;
     public ElementType element; // 付与属性
+    [Header("UI表示用")]
+    public GameObject buttonPrefab;
 
     [Header("ステータス補正値")]
     public float atkBonus;

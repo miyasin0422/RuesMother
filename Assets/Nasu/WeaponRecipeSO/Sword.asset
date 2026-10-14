@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Gene.WeaponRecipeSO
   weaponName: 
   requirementGenes:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d18d8bee31bc10644b0561056d73a9de, type: 2}
   baseWeaponPrefab: {fileID: 0}

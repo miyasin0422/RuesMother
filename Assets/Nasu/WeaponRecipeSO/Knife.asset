@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::Gene.WeaponRecipeSO
   weaponName: 
-  requirementGenes: []
+  requirementGenes:
+  - {fileID: 11400000, guid: a6a212357839f5c40955c03b0caf8ec1, type: 2}
+  - {fileID: 11400000, guid: d18d8bee31bc10644b0561056d73a9de, type: 2}
   baseWeaponPrefab: {fileID: 0}

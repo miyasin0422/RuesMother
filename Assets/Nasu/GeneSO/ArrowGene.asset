@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a69ac915baa0a9246a016e07ea13b4f6, type: 3}
+  m_Name: ArrowGene
+  m_EditorClassIdentifier: Assembly-CSharp::GeneSO
+  geneId: 
+  geneName: "\u5F13\u306E\u907A\u4F1D\u5B50"
+  element: 0
+  buttonPrefab: {fileID: 1559924268281516480, guid: e365d71d3e146894290b63eedc44d17d, type: 3}
+  atkBonus: 0
+  atkSpeedBonus: 0

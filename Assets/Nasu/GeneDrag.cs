@@ -1,4 +1,6 @@
 using Gene;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,13 +13,34 @@ public class GeneDrag : MonoBehaviour,
     [SerializeField] private Transform dragLayer;
     [SerializeField] private GameObject dragObjectPrefab;
     [SerializeField] private Image geneIcon;
+    [SerializeField] private TMP_Text geneNameText;
+    [SerializeField] private TMP_Text countText;
 
-    // ★プロパティに修正（geneIcon.sprite を安全に返す）
+    public GeneSO CurrentGene { get; private set; }
     public Sprite GeneSprite => geneIcon != null ? geneIcon.sprite : null;
 
     public GameObject DragObjectPrefab => dragObjectPrefab;
 
     private GameObject dragObject;
+    //ボタン表示処理
+    public void Setup(GeneSO gene, string countDisplayText, Transform layerTransform)
+    {
+        //GeneSO設定
+        CurrentGene = gene;
+        //ドラッグ用レイヤー
+        dragLayer = layerTransform;
+        //遺伝子名表示
+        if(geneNameText != null)
+        {
+            geneNameText.text = gene.geneName;
+        }
+        //遺伝子数表示
+        if(countText != null)
+        {
+            countText.text = countDisplayText;
+        }
+
+    }
 
     // ドラッグ開始
     public void OnBeginDrag(PointerEventData eventData)
@@ -57,5 +80,15 @@ public class GeneDrag : MonoBehaviour,
         {
             Destroy(dragObject);
         }
+        dragObject = null;
+    }
+    //Destroyされた場合にも対応
+    private void OnDestroy()
+    {
+        if (dragObject != null)
+        {
+            Destroy(dragObject);
+        }
+        dragObject = null;
     }
 }
