@@ -1,37 +1,32 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Gene;
 
 public class GeneDropSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
-    public enum SlotType
-    {
-        Left,
-        Middle,
-        Right
-    }
+    public enum SlotType { Left, Middle, Right }
+
     [SerializeField] private Image geneImage;
-    [SerializeField] private CreateUI createUI; // UI更新用に参照
+    [SerializeField] private CreateUI createUI;
+
+    // ★ 型を Gene.CraftingManager に明示して同名クラスとの衝突を解消
+    [SerializeField] private Gene.CraftingManager craftingManager;
+
     public GeneSO CurrentGene { get; private set; }
 
     public void OnDrop(PointerEventData eventData)
     {
         GeneDrag geneCard = eventData.pointerDrag?.GetComponent<GeneDrag>();
+        if (geneCard == null) return;
 
-        if (geneCard == null)
-        {
-            return;
-        }
-        Debug.Log("ドロップした");
         geneImage.sprite = geneCard.GeneSprite;
         CurrentGene = geneCard.CurrentGene;
 
-        if (createUI != null)
-        {
-            createUI.RefreshGeneList();
-        }
+        if (createUI != null) createUI.RefreshGeneList();
+        if (craftingManager != null) craftingManager.UpdateCraftPreview();
     }
-    //右クリックで外す
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -39,19 +34,34 @@ public class GeneDropSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             ClearSlot();
         }
     }
+
     public void ClearSlot()
     {
         CurrentGene = null;
-        if (geneImage != null)
-        {
-            geneImage.sprite = null;
-        }
+        if (geneImage != null) geneImage.sprite = null;
 
-        // ★ クリアされたので、予告表示を消して元の表示（x3）に再計算して更新
-        if (createUI != null)
+        if (createUI != null) createUI.RefreshGeneList();
+        if (craftingManager != null) craftingManager.UpdateCraftPreview();
+    }
+
+    /// <summary>
+    /// CraftingManagerから直接遺伝子をセットする（初期表示用）
+    /// </summary>
+    public void SetGeneDirectly(GeneSO gene)
+    {
+        CurrentGene = gene;
+        if (geneImage != null && gene != null)
         {
-            createUI.RefreshGeneList();
+            if (gene.buttonPrefab != null && gene.buttonPrefab.TryGetComponent<Image>(out var img))
+            {
+                geneImage.sprite = img.sprite;
+            }
         }
     }
 
+    public void ClearSlotWithoutRefresh()
+    {
+        CurrentGene = null;
+        if (geneImage != null) geneImage.sprite = null;
+    }
 }

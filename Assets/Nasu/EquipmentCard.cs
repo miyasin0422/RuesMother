@@ -1,29 +1,40 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System;
 
-public class EquipmentCard : MonoBehaviour
+public class EquipmentCard : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] 
-    private int id;
-    [SerializeField]
-    private Image myFrame;
-    [SerializeField]
-    private Image oppositeFrame;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private int id; // 0: 左手, 1: 右手
+    [SerializeField] private Image myFrame;
+    [SerializeField] private Image oppositeFrame;
+
+    public static int SelectedSlotId { get; private set; } = 0;
+    public static event Action<int> OnCardSelected;
+
+    private void Start()
     {
-        
+        if (id == 0)
+        {
+            SelectThisSlot();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
+        SelectThisSlot();
     }
+
+    public void SelectThisSlot()
+    {
+        SelectedSlotId = id;
+        ColorChange();
+        OnCardSelected?.Invoke(id);
+    }
+
     public void ColorChange()
     {
-
-        myFrame.color = Color.green;
-        oppositeFrame.color = Color.gray;
+        if (myFrame != null) myFrame.color = Color.green;
+        if (oppositeFrame != null) oppositeFrame.color = Color.gray;
     }
 }
