@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: SwordGene
   m_EditorClassIdentifier: Assembly-CSharp::GeneSO
   geneId: 
-  geneName: "\u5263\u306E\u907A\u4F1D\u5B50"
+  geneName: "\u5263"
   element: 0
   buttonPrefab: {fileID: 1559924268281516480, guid: 031301c268ea61f46b377d49b494cd7b, type: 3}
   atkBonus: 0
   atkSpeedBonus: 0
+  rangeBonus: 0
+  elementDmgBonus: 0
+  weaponPrefix: 
+  elementDescription: 

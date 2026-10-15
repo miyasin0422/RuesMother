@@ -18,53 +18,45 @@ public class GeneDrag : MonoBehaviour,
 
     public GeneSO CurrentGene { get; private set; }
     public Sprite GeneSprite => geneIcon != null ? geneIcon.sprite : null;
-
     public GameObject DragObjectPrefab => dragObjectPrefab;
 
+    public int AvailableCount { get; private set; } // ★ 現在使用可能な残数
+
     private GameObject dragObject;
-    //ボタン表示処理
-    public void Setup(GeneSO gene, string countDisplayText, Transform layerTransform)
+
+    // ボタン表示処理（残数 availableCount を受け取るように拡張）
+    public void Setup(GeneSO gene, int availableCount, string countDisplayText, Transform layerTransform)
     {
-        //GeneSO設定
         CurrentGene = gene;
-        //ドラッグ用レイヤー
+        AvailableCount = availableCount;
         dragLayer = layerTransform;
-        //遺伝子名表示
-        if(geneNameText != null)
-        {
-            geneNameText.text = gene.geneName;
-        }
-        //遺伝子数表示
-        if(countText != null)
-        {
-            countText.text = countDisplayText;
-        }
+
+        if (geneNameText != null) geneNameText.text = gene.geneName;
+        if (countText != null) countText.text = countDisplayText;
 
     }
 
     // ドラッグ開始
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // ドラッグ用オブジェクトを生成
+        // ★ 残数が 0 個の場合はドラッグ不可
+        if (AvailableCount <= 0) return;
+
         dragObject = Instantiate(dragObjectPrefab, dragLayer);
 
-        // ★ドラッグ用ゴースト画像にもカードのSpriteを反映させる
         if (dragObject.TryGetComponent<Image>(out var ghostImage))
         {
             ghostImage.sprite = GeneSprite;
         }
 
-        // ★ゴーストがレイキャスト（ドロップ判定）を遮らないように非判定化
-        if (dragObject.TryGetComponent<CanvasGroup>(out var canvasGroup))
+        if (dragObject.TryGetComponent<CanvasGroup>(out var ghostGroup))
         {
-            canvasGroup.blocksRaycasts = false;
+            ghostGroup.blocksRaycasts = false;
         }
 
-        // マウス位置に配置
         dragObject.transform.position = eventData.position;
     }
 
-    // ドラッグ中
     public void OnDrag(PointerEventData eventData)
     {
         if (dragObject != null)
@@ -73,7 +65,6 @@ public class GeneDrag : MonoBehaviour,
         }
     }
 
-    // ドラッグ終了
     public void OnEndDrag(PointerEventData eventData)
     {
         if (dragObject != null)
@@ -82,7 +73,7 @@ public class GeneDrag : MonoBehaviour,
         }
         dragObject = null;
     }
-    //Destroyされた場合にも対応
+
     private void OnDestroy()
     {
         if (dragObject != null)

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf125aa5e7f576429642f5ae5ffcf19, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::Gene.WeaponRecipeSO
-  weaponName: 
-  requirementGenes:
+  recipeName: 
+  requiredBaseGenes:
   - {fileID: 11400000, guid: d18d8bee31bc10644b0561056d73a9de, type: 2}
-  baseWeaponPrefab: {fileID: 0}
+  baseWeaponPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+  baseDescription: "\u8FD1\u8DDD\u96E2\u3067\u6575\u3092\u5207\u308A\u3064\u3051\u308B\u3002"

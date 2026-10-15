@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: ArrowGene
   m_EditorClassIdentifier: Assembly-CSharp::GeneSO
   geneId: 
-  geneName: "\u5F13\u306E\u907A\u4F1D\u5B50"
+  geneName: "\u5F13"
   element: 0
   buttonPrefab: {fileID: 1559924268281516480, guid: e365d71d3e146894290b63eedc44d17d, type: 3}
   atkBonus: 0
   atkSpeedBonus: 0
+  rangeBonus: 0
+  elementDmgBonus: 0
+  weaponPrefix: 
+  elementDescription: 

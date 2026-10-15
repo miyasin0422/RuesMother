@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gene
@@ -9,13 +10,21 @@ namespace Gene
         public WeaponParam param;
         public string weaponName;
         public string description;
+        public List<GeneSO> usedGenes; // ★ 錬成に使用された遺伝子リストを追加
 
-        public EquippedWeaponData(GameObject prefab, WeaponParam weaponParam, string name, string desc)
+        public EquippedWeaponData(
+            GameObject prefab,
+            WeaponParam param,
+            string name,
+            string desc,
+            List<GeneSO> genes = null)
         {
-            weaponPrefab = prefab;
-            param = weaponParam;
-            weaponName = name;
-            description = desc;
+            this.weaponPrefab = prefab;
+            this.param = param;
+            this.weaponName = name;
+            this.description = desc;
+            // リストの参照切り（Deep Copy）のためにコピーして保持
+            this.usedGenes = genes != null ? new List<GeneSO>(genes) : new List<GeneSO>();
         }
     }
 }

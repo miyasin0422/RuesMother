@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class CreateUI : MonoBehaviour
 {
-    //ドラッグ用レイヤー
     [SerializeField] private Transform dragLayer;
-    [SerializeField] private Transform baseGeneContent; //ベース遺伝子表示エリア
-    [SerializeField] private Transform mutationGeneContent; //変異因子表示エリア
-    [SerializeField] private List<GeneDropSlot> allSlots; // スロット
+    [SerializeField] private Transform baseGeneContent;
+    [SerializeField] private Transform mutationGeneContent;
+    [SerializeField] private List<GeneDropSlot> allSlots;
     private List<GameObject> spawnedButtons = new List<GameObject>();
+
     private void OnEnable()
     {
         RefreshGeneList();
@@ -21,12 +21,13 @@ public class CreateUI : MonoBehaviour
 
         Dictionary<GeneSO, int> stagedCounts = GetStagedGeneCounts();
 
-        foreach(KeyValuePair<GeneSO, int> pair in Inventory.instance.GeneInventoryDictionary)
+        // 辞書に登録されている（＝一度でも獲得したことのある）全遺伝子をループ
+        foreach (KeyValuePair<GeneSO, int> pair in Inventory.instance.GeneInventoryDictionary)
         {
             GeneSO gene = pair.Key;
-            int actualCount = pair.Value;
+            int actualCount = pair.Value; // インベントリの実所持数（0の可能性あり）
 
-            if (gene == null || actualCount <= 0) continue;
+            if (gene == null) continue; // ★ actualCount <= 0 の条件を削除！
 
             Transform targetParent = (gene.element == ElementType.Base)
                 ? baseGeneContent
@@ -41,20 +42,26 @@ public class CreateUI : MonoBehaviour
             {
                 stagedCounts.TryGetValue(gene, out int stagedCount);
 
+                // 計算後の実効所持数を算出
+                int remaining = actualCount - stagedCount;
+                int displayRemaining = Mathf.Max(0, remaining);
+
                 string displayText = FormatCountText(actualCount, stagedCount);
 
-                geneDrag.Setup(gene, displayText, dragLayer);
+                // ★ geneDrag に「現在のドラッグ可能残数（displayRemaining）」も渡してセットアップ
+                geneDrag.Setup(gene, displayRemaining, displayText, dragLayer);
             }
         }
     }
 
     private string FormatCountText(int actualCount, int stagedCount)
     {
+        int remaining = actualCount - stagedCount;
+        int displayRemaining = Mathf.Max(0, remaining);
+
         if (stagedCount > 0)
         {
-            int remaining = actualCount - stagedCount;
-            // 0以下になる場合は 0 と表示
-            int displayRemaining = Mathf.Max(0, remaining);
+            // 例: 「x0 → 1」や「x3 → 2」のように変化を表示
             return $"x{actualCount} → {displayRemaining}";
         }
         else
@@ -62,6 +69,7 @@ public class CreateUI : MonoBehaviour
             return $"x{actualCount}";
         }
     }
+
     private Dictionary<GeneSO, int> GetStagedGeneCounts()
     {
         Dictionary<GeneSO, int> counts = new Dictionary<GeneSO, int>();
