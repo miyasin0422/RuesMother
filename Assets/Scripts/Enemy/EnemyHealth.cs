@@ -35,6 +35,16 @@ public class EnemyHealth : MonoBehaviour
     float flashEndTime;
     bool isFlashing;
 
+    // 酸状態
+    [SerializeField] Color acidColor = Color.yellow;
+
+    bool isAcid;
+    float acidEndTime;
+    float nextAcidDamageTime;
+    float acidDamageInterval;
+    int acidDamage;
+
+    public bool IsAcid => isAcid;
     void Start()
     {
         enemyDictionary = EnemyDictionary.instance;
@@ -86,53 +96,116 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
+        if (IsDead)
+        {
+            return;
+        }
+
+        if (isAcid)
+        {
+            while (
+                !IsDead &&
+                nextAcidDamageTime <= Time.time &&
+                nextAcidDamageTime <= acidEndTime)
+            {
+                nextAcidDamageTime += acidDamageInterval;
+
+                // 酸ダメージでは赤くしない
+                Damaged(acidDamage, false);
+            }
+
+            if (IsDead)
+            {
+                return;
+            }
+
+            if (Time.time >= acidEndTime)
+            {
+                isAcid = false;
+            }
+        }
+
         if (isFlashing && Time.time >= flashEndTime)
         {
-            RestoreSpriteColor();
+            isFlashing = false;
         }
+
+        UpdateSpriteColor();
+    }
+
+    public void ApplyAcid(
+    int tickDamage,
+    float duration,
+    float interval)
+    {
+        if (IsDead || tickDamage <= 0 || duration <= 0f)
+        {
+            return;
+        }
+
+        float safeInterval = Mathf.Max(interval, 0.05f);
+
+        // 再付与で次のダメージ時刻をリセットしない
+        if (!isAcid)
+        {
+            nextAcidDamageTime = Time.time + safeInterval;
+        }
+
+        acidDamage = tickDamage;
+        acidDamageInterval = safeInterval;
+        acidEndTime = Time.time + duration;
+        isAcid = true;
+
+        UpdateSpriteColor();
     }
 
     void FlashDamage()
+    {
+        flashEndTime = Time.time + Mathf.Max(damageFlashTime, 0f);
+        isFlashing = true;
+
+        UpdateSpriteColor();
+    }
+
+
+    void UpdateSpriteColor()
     {
         if (damageSprite == null)
         {
             return;
         }
 
-        Color flashColor = damageColor;
+        Color color = originalColor;
 
-        // 元の透明度は維持する
-        flashColor.a = originalColor.a;
-
-        damageSprite.color = flashColor;
-
-        flashEndTime = Time.time + Mathf.Max(damageFlashTime, 0f);
-        isFlashing = true;
-    }
-
-    void RestoreSpriteColor()
-    {
-        if (damageSprite != null)
+        if (isFlashing)
         {
-            damageSprite.color = originalColor;
+            color = damageColor;
+        }
+        else if (isAcid)
+        {
+            color = acidColor;
         }
 
-        isFlashing = false;
+        color.a = originalColor.a;
+        damageSprite.color = color;
     }
 
     void OnDisable()
     {
-        RestoreSpriteColor();
+        isFlashing = false;
+        isAcid = false;
+
+        UpdateSpriteColor();
     }
 
-    public void Damaged(int damage)
+    public void Damaged(int damage, bool showFlash = true)
     {
         if (IsDead)
         {
             return;
         }
 
-        if (damage > 0)
+        if (damage > 0 && showFlash)
         {
             FlashDamage();
         }

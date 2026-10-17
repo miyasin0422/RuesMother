@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RayMovement : MonoBehaviour
+public class RayTutorialMove : MonoBehaviour
 {
     [SerializeField] InputAction moveAction;
     [SerializeField] float moveSpeed = 5f;

@@ -38,19 +38,24 @@ public class PlayerControll : MonoBehaviour
     //こうげき関連
     [SerializeField] InputAction leftAttackAction;
     [SerializeField] InputAction rightAttackAction;
-    [SerializeField] GameObject leftgawainPrefab;
-    [SerializeField] GameObject rightgawainPrefab;
-    [SerializeField] Transform summonPoint;
     [SerializeField] float coolTime = 1f;
     bool canAttack = true; 
-    private GewenController leftGewenController;
-    private GewenController rightGewenController;
+
+    RayCompanionController rayCompanion;
+    bool activeAttackIsLeft;
+
+    public void SetRayCompanion(RayCompanionController companion)
+    {
+        rayCompanion = companion;
+    }
     //回復関連
     [SerializeField] InputAction refreshAction;
     [SerializeField] int hpRefresh;
     [SerializeField] private PlayerDamage playerDamage;
     [SerializeField] GameObject RefreshEffectPoint;
     [SerializeField] GameObject refreshEffect;
+
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -77,7 +82,11 @@ public class PlayerControll : MonoBehaviour
         crouchAction.Disable();
         leftAttackAction.Disable();
         rightAttackAction.Disable();
-        refreshAction.Disable();
+        refreshAction.Disable(); 
+        if (rayCompanion != null)
+        {
+            rayCompanion.CancelAttack();
+        }
     }
     void Update()
     {
@@ -117,6 +126,8 @@ public class PlayerControll : MonoBehaviour
         }
         if (isCrouch)
         {
+            UpdateRayAttackInput();
+
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
@@ -145,42 +156,7 @@ public class PlayerControll : MonoBehaviour
         }
         //こうげき入力
 
-        //左攻撃
-        if (leftAttackAction.WasPressedThisFrame() && canAttack)
-        {
-            leftAttack();
-        }
-
-        if (leftAttackAction.IsPressed() && leftGewenController != null)
-        {
-            UpdateAttackFacing(leftGewenController);
-            leftGewenController.AttackHeld();
-        }
-
-        if (leftAttackAction.WasReleasedThisFrame() && leftGewenController != null)
-        {
-            leftGewenController.AttackReleased();
-            leftGewenController = null;
-        }
-
-
-        //右攻撃
-        if (rightAttackAction.WasPressedThisFrame() && canAttack)
-        {
-            rightAttack();
-        }
-
-        if (rightAttackAction.IsPressed() && rightGewenController != null)
-        {
-            UpdateAttackFacing(leftGewenController);
-            rightGewenController.AttackHeld();
-        }
-
-        if (rightAttackAction.WasReleasedThisFrame() && rightGewenController != null)
-        {
-            rightGewenController.AttackReleased();
-            rightGewenController = null;
-        }
+        UpdateRayAttackInput();
         //回復入力
         if (isGround && PlayerStatus.refreshItemStock >= 1 && refreshAction.triggered)
         {
@@ -277,86 +253,105 @@ public class PlayerControll : MonoBehaviour
 
     void leftAttack()
     {
-        if(PlayerLoadout.instance.leftWeapon == null)
-        {
-            return;
-        }
-        canAttack = false;
-        GameObject gawain = Instantiate(PlayerLoadout.instance.leftWeapon, summonPoint.position, Quaternion.identity);
-        Vector3 scale = gawain.transform.localScale;
-        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
-        gawain.transform.localScale = scale;
-
-        leftGewenController = gawain.GetComponent<GewenController>();
-
-        leftGewenController.AttackPressed();
-
-        StartCoroutine(AttackCoolTime());
+        BeginRayAttack(true);
     }
+
     void rightAttack()
     {
-        if (PlayerLoadout.instance.rightWeapon == null)
+        BeginRayAttack(false);
+    }
+
+    void BeginRayAttack(bool isLeft)
+    {
+        if (
+            !canAttack ||
+            rayCompanion == null ||
+            PlayerLoadout.instance == null)
         {
             return;
         }
+
+        GameObject weaponPrefab = isLeft
+            ? PlayerLoadout.instance.leftWeapon
+            : PlayerLoadout.instance.rightWeapon;
+
+        if (!rayCompanion.TryAttack(weaponPrefab))
+        {
+            return;
+        }
+
+        activeAttackIsLeft = isLeft;
         canAttack = false;
-        GameObject gawain = Instantiate(PlayerLoadout.instance.rightWeapon, summonPoint.position, Quaternion.identity);
-        Vector3 scale = gawain.transform.localScale;
-        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
-        gawain.transform.localScale = scale;
-
-        rightGewenController = gawain.GetComponent<GewenController>();
-
-        rightGewenController.AttackPressed();
 
         StartCoroutine(AttackCoolTime());
     }
-
-    bool IsAttackMovementLocked()
+    void UpdateRayAttackInput()
     {
-        bool leftLocked =
-            leftGewenController != null
-            && leftGewenController.IsMovementLocked;
+        if (!isCrouch && canAttack)
+        {
+            if (leftAttackAction.WasPressedThisFrame())
+            {
+                leftAttack();
+            }
+            else if (rightAttackAction.WasPressedThisFrame())
+            {
+                rightAttack();
+            }
+        }
 
-        bool rightLocked =
-            rightGewenController != null
-            && rightGewenController.IsMovementLocked;
-
-        return leftLocked || rightLocked;
-    }
-    void UpdateAttackFacing(GewenController gewenController)
-    {
-        if (gewenController == null || !gewenController.FollowMouseFacing)
+        if (rayCompanion == null || !rayCompanion.IsAttacking)
         {
             return;
         }
 
-        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
-        Vector3 mousePosition =
-            Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        UpdateAttackFacing();
 
-        // マウスがルーの右か左か
+        bool held = activeAttackIsLeft
+            ? leftAttackAction.IsPressed()
+            : rightAttackAction.IsPressed();
+
+        bool released = activeAttackIsLeft
+            ? leftAttackAction.WasReleasedThisFrame()
+            : rightAttackAction.WasReleasedThisFrame();
+
+        if (held)
+        {
+            rayCompanion.HoldAttack();
+        }
+
+        if (released)
+        {
+            rayCompanion.ReleaseAttack();
+        }
+    }
+    bool IsAttackMovementLocked()
+    {
+        return rayCompanion != null &&
+               rayCompanion.IsMovementLocked;
+    }
+    void UpdateAttackFacing()
+    {
+        if (
+            rayCompanion == null ||
+            !rayCompanion.FollowMouseFacing ||
+            Mouse.current == null ||
+            Camera.main == null)
+        {
+            return;
+        }
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(
+            Mouse.current.position.ReadValue()
+        );
+
         isFacingRight = mousePosition.x > transform.position.x;
 
-        // ルーを反転
-        Vector3 playerScale = transform.localScale;
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (isFacingRight ? 1f : -1f);
 
-        playerScale.x =
-            Mathf.Abs(playerScale.x) * (isFacingRight ? 1 : -1);
+        transform.localScale = scale;
 
-        transform.localScale = playerScale;
-
-        // ルーが反転したのでSummonPointも左右反転している
-        // ゲーウェンを新しいSummonPointへ移動
-        gewenController.transform.position = summonPoint.position;
-
-        // ゲーウェンも左右反転
-        Vector3 gewenScale = gewenController.transform.localScale;
-
-        gewenScale.x =
-            Mathf.Abs(gewenScale.x) * (isFacingRight ? 1 : -1);
-
-        gewenController.transform.localScale = gewenScale;
+        rayCompanion.UpdateWeaponPose();
     }
     //回復
     void Refresh()

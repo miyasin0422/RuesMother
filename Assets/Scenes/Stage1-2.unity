@@ -5571,6 +5571,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 512907098247683975, guid: 408e4de7cbebfae48bd4293832b92597, type: 3}
   cameraController: {fileID: 192922914}
   spawnOnStart: 1
+  rayCompanionPrefab: {fileID: 5479062337568948957, guid: e1b4df0b6aece7b43850261a31beb6d7, type: 3}
 --- !u!4 &1607303422
 Transform:
   m_ObjectHideFlags: 0

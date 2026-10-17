@@ -10,8 +10,8 @@ public class CapsuleEventTrigger : MonoBehaviour
     {
         Debug.Log("Triggerに入った：" + other.name);
 
-        RayMovement rayMovement =
-            other.GetComponentInParent<RayMovement>();
+        RayTutorialMove rayMovement =
+            other.GetComponentInParent<RayTutorialMove>();
 
         if (rayMovement == null)
         {
