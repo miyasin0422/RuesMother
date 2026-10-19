@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: e5e3d79b669b76e49abbee2f1aa7d678
+guid: 0eab0b1a556a4fe4d84178e32766da48
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7005855782354034350
-    second: "\u30EB\u30FC_0"
-  - first:
-      213: 6545308127210477519
-    second: "\u30EB\u30FC_1"
+      213: 4111433984232847849
+    second: "\u6A2A\u5411\u304D\u306E\u9280\u9AEA\u5DEB\u5973\u98A8\u3061\u3073\u30AD\u30E3\u30E9
+      (1)_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +101,14 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u30EB\u30FC_0"
+      name: "\u6A2A\u5411\u304D\u306E\u9280\u9AEA\u5DEB\u5973\u98A8\u3061\u3073\u30AD\u30E3\u30E9
+        (1)_0"
       rect:
         serializedVersion: 2
-        x: 669
-        y: 345
-        width: 1148
-        height: 2219
+        x: 254
+        y: 85
+        width: 521
+        height: 1232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 251eb29d84336ce90800000000000000
-      internalID: -7005855782354034350
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\u30EB\u30FC_1"
-      rect:
-        serializedVersion: 2
-        x: 2220
-        y: 329
-        width: 1230
-        height: 2234
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fc79bdb201b95da50800000000000000
-      internalID: 6545308127210477519
+      spriteID: 9e9faa3ec6fbe0930800000000000000
+      internalID: 4111433984232847849
       vertices: []
       indices: 
       edges: []
@@ -160,8 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u30EB\u30FC_0": -7005855782354034350
-      "\u30EB\u30FC_1": 6545308127210477519
+      "\u6A2A\u5411\u304D\u306E\u9280\u9AEA\u5DEB\u5973\u98A8\u3061\u3073\u30AD\u30E3\u30E9 (1)_0": 4111433984232847849
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

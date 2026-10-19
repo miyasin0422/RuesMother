@@ -51,7 +51,7 @@ public class FrogShockWave : EnemyAttack
         {
             hasHit = true;
 
-            playerDamage.Damaged(damage);
+            playerDamage.Damaged(damage, true);
         }
     }
 }

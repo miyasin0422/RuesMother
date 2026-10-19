@@ -41,6 +41,8 @@ public class RayCompanionController : MonoBehaviour
     public bool IsWeaponReady =>
         state == CompanionState.Weapon;
 
+    public bool HasWeapon => activeWeapon != null;
+
     GewenController activeWeapon;
     bool attackInProgress;
     bool releaseRequested;

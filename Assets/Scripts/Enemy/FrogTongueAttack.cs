@@ -125,7 +125,7 @@ public class FrogTongueAttack : EnemyAttack
         {
             hasHit = true;
 
-            playerDamage.Damaged(damage);
+            playerDamage.Damaged(damage, true);
         }
     }
 }

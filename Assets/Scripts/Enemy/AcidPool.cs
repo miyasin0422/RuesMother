@@ -44,7 +44,7 @@ public class AcidPool : MonoBehaviour
             nextDamageTimes[player] =
                 Time.time + Mathf.Max(damageInterval, 0.05f);
 
-            player.Damaged(continuousDamage);
+            player.Damaged(continuousDamage, true);
 
             Debug.Log($"酸の継続ダメージ: {continuousDamage}");
         }
@@ -83,7 +83,7 @@ public class AcidPool : MonoBehaviour
                 Time.time + Mathf.Max(damageInterval, 0.05f)
             );
 
-            player.Damaged(initialDamage);
+            player.Damaged(initialDamage, true);
         }
 
         return player;

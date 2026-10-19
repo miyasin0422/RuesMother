@@ -41,7 +41,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8653719598885068355, guid: a5700f666540c0642b1393c4e162cfad, type: 3}
       propertyPath: m_Name
-      value: rei
+      value: RayTutorial
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: a5700f666540c0642b1393c4e162cfad, type: 3}
       propertyPath: m_Layer
@@ -164,7 +164,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 25efd15ca1616a24685d3bf45d068ebb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

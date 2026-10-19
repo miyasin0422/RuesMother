@@ -11,6 +11,8 @@ public class PlayerDamage : MonoBehaviour
     Color originalColor;
     float flashEndTime;
     bool isFlashing;
+
+    PlayerControll playerController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +20,7 @@ public class PlayerDamage : MonoBehaviour
     }
     void Awake()
     {
+        playerController = GetComponent<PlayerControll>();
         if (damageSprite == null)
         {
             damageSprite = GetComponentInChildren<SpriteRenderer>();
@@ -67,20 +70,31 @@ public class PlayerDamage : MonoBehaviour
             RestoreSpriteColor();
         }
     }
-    public void Damaged(int damage)
+    public void Damaged(int damage, bool isEnemyAttack = false)
     {
+        if (
+            isEnemyAttack &&
+            playerController != null &&
+            playerController.IsDashInvulnerable)
+        {
+            return;
+        }
+
         if (damage > 0)
         {
             FlashDamage();
         }
+
         PlayerStatus.playerHealth -= damage;
         uiManager.HPUpdate();
-        //Debug.Log("playerHP：" + PlayerStatus.playerHealth);
+
         if (PlayerStatus.playerHealth <= 0)
         {
             StartCoroutine(ReStart());
         }
     }
+
+    // HP表示更新・死亡処理もそのまま残す
     public void Refresh(int hpRefresh)
     {
         if((PlayerStatus.playerHealth + hpRefresh) <= 100)

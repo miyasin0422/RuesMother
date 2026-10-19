@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 7bab1c6ea0e90bb4da58f7e0a042b31b
+guid: 6fa0a2d97854367429b1bf88a32c8a7b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7270551724939854779
-    second: "\u30EB\u30FC_crouch_0"
-  - first:
-      213: -5886475844505859375
-    second: "\u30EB\u30FC_crouch_1"
+      213: 8620813433182461058
+    second: "\u9280\u9AEA\u306E\u4FEE\u9053\u5C11\u5973\u3001\u69CB\u3048\u306E\u6A2A\u9854
+      (1)_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +101,14 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u30EB\u30FC_crouch_0"
+      name: "\u9280\u9AEA\u306E\u4FEE\u9053\u5C11\u5973\u3001\u69CB\u3048\u306E\u6A2A\u9854
+        (1)_0"
       rect:
         serializedVersion: 2
-        x: 669
-        y: 345
-        width: 1148
-        height: 2219
+        x: 229
+        y: 90
+        width: 695
+        height: 1224
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 54c3bd92abfc91b90800000000000000
-      internalID: -7270551724939854779
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\u30EB\u30FC_crouch_1"
-      rect:
-        serializedVersion: 2
-        x: 2220
-        y: 329
-        width: 1230
-        height: 2234
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1da8f4548690f4ea0800000000000000
-      internalID: -5886475844505859375
+      spriteID: 28c91c7742843a770800000000000000
+      internalID: 8620813433182461058
       vertices: []
       indices: 
       edges: []
@@ -160,8 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u30EB\u30FC_crouch_0": -7270551724939854779
-      "\u30EB\u30FC_crouch_1": -5886475844505859375
+      "\u9280\u9AEA\u306E\u4FEE\u9053\u5C11\u5973\u3001\u69CB\u3048\u306E\u6A2A\u9854 (1)_0": 8620813433182461058
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerControll : MonoBehaviour
 {
     Rigidbody2D rb;
+    [SerializeField] PhysicsMaterial2D idleMaterial;
+
+    PhysicsMaterial2D normalMaterial;
     //移動関連
     [SerializeField] InputAction moveAction;
     [SerializeField] float moveSpeed = 5f;
@@ -23,10 +26,21 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] float dodgeTime;
     bool isDodge;
     bool canDodge = true;
+    [SerializeField] float dodgeInvincibleTime = 0.12f;
+
+    float dodgeInvincibleEndTime;
+    Coroutine dodgeRoutine;
+
+    int enemyBodyLayer;
+    LayerMask normalStandExclusions;
+    LayerMask normalCrouchExclusions;
+
+    public bool IsDashInvulnerable =>
+        isActiveAndEnabled &&
+        isDodge &&
+        Time.time < dodgeInvincibleEndTime;
     //しゃがむ関連
     [SerializeField] InputAction crouchAction;
-    [SerializeField] GameObject normalVisual;
-    [SerializeField] GameObject crouchVisual;
     [SerializeField] BoxCollider2D standCollider;
     [SerializeField] BoxCollider2D crouchCollider;
     [SerializeField] float dropSpeed = 0f;
@@ -54,14 +68,36 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] private PlayerDamage playerDamage;
     [SerializeField] GameObject RefreshEffectPoint;
     [SerializeField] GameObject refreshEffect;
+    //ビジュアル
+    public bool IsDashing => isDodge;
+    public bool IsCrouching => isCrouch;
+    public bool IsHoldingWeapon => rayCompanion != null && rayCompanion.HasWeapon;
+    public bool IsWalking =>
+        !isCrouch &&
+        !isDodge &&
+        !IsAttackMovementLocked() &&
+        Mathf.Abs(moveInput) > 0.01f;
 
-    
+    //敵に触れる
+    PlayerEnemyContact enemyContact;
+
+    public bool IsKnockedBack =>
+        enemyContact != null && enemyContact.IsKnockedBack;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //しゃがみ非表示
-        crouchVisual.SetActive(false);
-        playerDamage = gameObject.GetComponent<PlayerDamage>();
+        playerDamage = GetComponent<PlayerDamage>();
+
+        standCollider.enabled = true;
+        crouchCollider.enabled = false;        
+        enemyBodyLayer = LayerMask.NameToLayer("Enemy");
+        normalStandExclusions = standCollider.excludeLayers;
+        normalCrouchExclusions = crouchCollider.excludeLayers;
+        enemyContact = GetComponent<PlayerEnemyContact>();
+
+        normalMaterial = rb.sharedMaterial;
     }
     void OnEnable()
     {
@@ -86,6 +122,22 @@ public class PlayerControll : MonoBehaviour
         if (rayCompanion != null)
         {
             rayCompanion.CancelAttack();
+        }
+        if (dodgeRoutine != null)
+        {
+            StopCoroutine(dodgeRoutine);
+            dodgeRoutine = null;
+        }
+
+        SetDashPassThrough(false);
+
+        isDodge = false;
+        canDodge = true;
+        dodgeInvincibleEndTime = 0f;
+
+        if (rb != null)
+        {
+            rb.sharedMaterial = normalMaterial;
         }
     }
     void Update()
@@ -128,7 +180,11 @@ public class PlayerControll : MonoBehaviour
         {
             UpdateRayAttackInput();
 
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            if (!IsKnockedBack)
+            {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            }
+
             return;
         }
         //方向              
@@ -143,16 +199,14 @@ public class PlayerControll : MonoBehaviour
             transform.localScale = scale;
         }
         //ジャンプ入力
-        if (isGround && jumpAction.triggered)
+        if (isGround && jumpAction.triggered && !IsKnockedBack)
         {
             Jump();
         }
         //回避入力
-        if (dodgeAction.triggered && canDodge)
+        if (dodgeAction.triggered && canDodge && !IsKnockedBack)
         {
-            isDodge = true;
-            canDodge = false;
-            StartCoroutine(Dodge());
+            dodgeRoutine = StartCoroutine(Dodge());
         }
         //こうげき入力
 
@@ -165,6 +219,33 @@ public class PlayerControll : MonoBehaviour
     }
     void FixedUpdate()
     {
+        bool wantsToStop =
+        isCrouch ||
+        IsAttackMovementLocked() ||
+        Mathf.Abs(moveInput) < 0.01f;
+
+        bool useIdleMaterial =
+            isGround &&
+            wantsToStop &&
+            !isDodge &&
+            !IsKnockedBack &&
+            !isDropping &&
+            rb.linearVelocity.y <= 0.05f;
+
+        PhysicsMaterial2D material =
+            useIdleMaterial && idleMaterial != null
+            ? idleMaterial
+            : normalMaterial;
+
+        if (rb.sharedMaterial != material)
+        {
+            rb.sharedMaterial = material;
+        }
+        //敵接触
+        if (IsKnockedBack)
+        {
+            return;
+        }
         //通常移動
         if (!isDodge && !isCrouch)
         {
@@ -222,10 +303,53 @@ public class PlayerControll : MonoBehaviour
 
     IEnumerator Dodge()
     {
-        rb.linearVelocity = new Vector2(dodgeSpeed * moveInput, rb.linearVelocity.y);
-        yield return new WaitForSeconds(dodgeTime);
+        isDodge = true;
+        canDodge = false;
+
+        float duration = Mathf.Max(dodgeTime, 0f);
+
+        dodgeInvincibleEndTime = Time.time + Mathf.Clamp(
+            dodgeInvincibleTime,
+            0f,
+            duration
+        );
+
+        SetDashPassThrough(true);
+
+        // 横入力がなければ、現在向いている方向へダッシュ
+        float direction = Mathf.Abs(moveInput) > 0.01f
+            ? Mathf.Sign(moveInput)
+            : (isFacingRight ? 1f : -1f);
+
+        rb.linearVelocity = new Vector2(
+            dodgeSpeed * direction,
+            rb.linearVelocity.y
+        );
+
+        yield return new WaitForSeconds(duration);
+
+        SetDashPassThrough(false);
+
         isDodge = false;
         canDodge = true;
+        dodgeRoutine = null;
+    }
+    void SetDashPassThrough(bool enabled)
+    {
+        if (enemyBodyLayer < 0)
+        {
+            return;
+        }
+
+        int enemyMask = 1 << enemyBodyLayer;
+
+        standCollider.excludeLayers = enabled
+            ? normalStandExclusions.value | enemyMask
+            : normalStandExclusions.value;
+
+        crouchCollider.excludeLayers = enabled
+            ? normalCrouchExclusions.value | enemyMask
+            : normalCrouchExclusions.value;
     }
     void DropGround()
     {
@@ -236,17 +360,12 @@ public class PlayerControll : MonoBehaviour
 
     void Crouch()
     {
-        normalVisual.SetActive(false);
-        crouchVisual.SetActive(true);
-
         standCollider.enabled = false;
         crouchCollider.enabled = true;
     }
+
     void StandUp()
     {
-        normalVisual.SetActive(true);
-        crouchVisual.SetActive(false);
-
         standCollider.enabled = true;
         crouchCollider.enabled = false;
     }

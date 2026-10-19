@@ -53,7 +53,7 @@ public class AcidBall : EnemyAttack
         {
             hasHit = true;
 
-            player.Damaged(damage);
+            player.Damaged(damage, true);
 
             Destroy(gameObject);
             return;

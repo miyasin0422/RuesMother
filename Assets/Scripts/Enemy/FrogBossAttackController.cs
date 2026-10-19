@@ -22,6 +22,25 @@ public class FrogBossAttackController : MonoBehaviour
     [SerializeField] int shockWavePower = 1;
 
     [SerializeField] float stompRecovery = 1f;
+    [Header("攻撃画像の表示時間")]
+    [SerializeField] float tongueSpriteDuration = 0.3f;
+    [SerializeField] float stompSpriteDuration = 0.4f;
+
+    EnemyVisualController enemyVisual;
+
+    void Awake()
+    {
+        enemyVisual =
+            GetComponentInChildren<EnemyVisualController>(true);
+
+        if (enemyVisual == null)
+        {
+            Debug.LogWarning(
+                "ボスにEnemyVisualControllerが設定されていません。",
+                this
+            );
+        }
+    }
 
     public bool IsAttacking { get; private set; }
 
@@ -45,8 +64,13 @@ public class FrogBossAttackController : MonoBehaviour
 
         if (target != null)
         {
+            if (enemyVisual != null)
+            {
+                enemyVisual.ShowAttack(tongueSpriteDuration);
+            }
+
             FrogTongueAttack attack =
-                Instantiate(
+                        Instantiate(
                     tonguePrefab,
                     tonguePoint.position,
                     tonguePoint.rotation
@@ -78,6 +102,10 @@ public class FrogBossAttackController : MonoBehaviour
         IsAttacking = true;
 
         Debug.Log("踏みつけ");
+        if (enemyVisual != null)
+        {
+            enemyVisual.ShowAttack(stompSpriteDuration);
+        }
 
         // 着地点そのもの
         if (stompAttackPrefab != null)
