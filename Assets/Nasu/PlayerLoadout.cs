@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using Gene;
 
 namespace Gene
@@ -9,6 +10,7 @@ namespace Gene
 
         [Header("初期装備 Prefab 参照")]
         [SerializeField] private GameObject defaultSwordPrefab;
+        [SerializeField] private List<GeneSO> defaultSwordGene;
 
         [Header("現在の装備データ")]
         [SerializeField] private EquippedWeaponData leftWeaponData;
@@ -37,13 +39,14 @@ namespace Gene
         private void SetInitialEquipment()
         {
             WeaponParam defaultParam = new WeaponParam(10f, 1.0f, 5f, false, 0f, ElementType.Base);
-            rightWeaponData = new EquippedWeaponData(
+            leftWeaponData = new EquippedWeaponData(
                 defaultSwordPrefab,
                 defaultParam,
                 "通常の剣",
-                "標準的な切れ味を持つシンプルな剣。"
+                "標準的な切れ味を持つシンプルな剣。",
+                defaultSwordGene
             );
-            leftWeaponData = null;
+            rightWeaponData = null;
         }
 
         public void SetWeapon(int slotIndex, EquippedWeaponData data)

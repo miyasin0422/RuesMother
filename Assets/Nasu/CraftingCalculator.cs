@@ -68,6 +68,7 @@ public static class CraftingCalculator
     private static Gene.WeaponRecipeSO FindMatchingRecipe(List<GeneSO> baseGenes, List<Gene.WeaponRecipeSO> recipeDatabase)
     {
         if (baseGenes == null || baseGenes.Count == 0 || recipeDatabase == null) return null;
+
         foreach (var recipe in recipeDatabase)
         {
             if (recipe != null && recipe.IsMatch(baseGenes)) return recipe;

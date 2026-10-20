@@ -27,7 +27,8 @@ namespace Gene
 
             // 入力リストから null を除外し、ベース遺伝子（ElementType.Base）のみを抽出
             List<GeneSO> inputBaseGenes = inputGenes
-                .Where(g => g != null && g.element == ElementType.Base)
+                .Where(g => g != null)
+                .Distinct()
                 .ToList();
 
             // 必要ベース遺伝子の数と一致しない場合は不成立

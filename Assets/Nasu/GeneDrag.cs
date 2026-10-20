@@ -33,7 +33,6 @@ public class GeneDrag : MonoBehaviour,
 
         if (geneNameText != null) geneNameText.text = gene.geneName;
         if (countText != null) countText.text = countDisplayText;
-
     }
 
     // ドラッグ開始
@@ -43,17 +42,6 @@ public class GeneDrag : MonoBehaviour,
         if (AvailableCount <= 0) return;
 
         dragObject = Instantiate(dragObjectPrefab, dragLayer);
-
-        if (dragObject.TryGetComponent<Image>(out var ghostImage))
-        {
-            ghostImage.sprite = GeneSprite;
-        }
-
-        if (dragObject.TryGetComponent<CanvasGroup>(out var ghostGroup))
-        {
-            ghostGroup.blocksRaycasts = false;
-        }
-
         dragObject.transform.position = eventData.position;
     }
 

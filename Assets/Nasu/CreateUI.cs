@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Gene;
 
 public class CreateUI : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CreateUI : MonoBehaviour
     [SerializeField] private Transform mutationGeneContent;
     [SerializeField] private List<GeneDropSlot> allSlots;
     private List<GameObject> spawnedButtons = new List<GameObject>();
+    public bool CanClickHoldButton = false;
 
     private void OnEnable()
     {
@@ -20,6 +22,10 @@ public class CreateUI : MonoBehaviour
         if (Inventory.instance == null) return;
 
         Dictionary<GeneSO, int> stagedCounts = GetStagedGeneCounts();
+        Dictionary<GeneSO, int> allGeneList = AllGeneList();
+        Dictionary<GeneSO, int> oppositeGeneList = NoSelectedSlotGeneList();
+
+        bool hasAnyChange = false;
 
         // 辞書に登録されている（＝一度でも獲得したことのある）全遺伝子をループ
         foreach (KeyValuePair<GeneSO, int> pair in Inventory.instance.GeneInventoryDictionary)
@@ -27,7 +33,7 @@ public class CreateUI : MonoBehaviour
             GeneSO gene = pair.Key;
             int actualCount = pair.Value; // インベントリの実所持数（0の可能性あり）
 
-            if (gene == null) continue; // ★ actualCount <= 0 の条件を削除！
+            if (gene == null) continue;
 
             Transform targetParent = (gene.element == ElementType.Base)
                 ? baseGeneContent
@@ -41,33 +47,82 @@ public class CreateUI : MonoBehaviour
             if (newButton.TryGetComponent<GeneDrag>(out var geneDrag))
             {
                 stagedCounts.TryGetValue(gene, out int stagedCount);
+                allGeneList.TryGetValue(gene, out int allCount);
+                oppositeGeneList.TryGetValue(gene, out int oppositeCount);
 
                 // 計算後の実効所持数を算出
-                int remaining = actualCount - stagedCount;
+                int remaining = allCount - stagedCount - oppositeCount;
                 int displayRemaining = Mathf.Max(0, remaining);
 
-                string displayText = FormatCountText(actualCount, stagedCount);
+                if (actualCount != displayRemaining)
+                {
+                    hasAnyChange = true;
+                }
 
-                // ★ geneDrag に「現在のドラッグ可能残数（displayRemaining）」も渡してセットアップ
+                string displayText = FormatCountText(actualCount, displayRemaining);
+
                 geneDrag.Setup(gene, displayRemaining, displayText, dragLayer);
             }
         }
+
+        // 「1つでも素材に変更がある」かつ「スロットにベース遺伝子（核）が1つ以上セットされている」場合のみ長押し可能
+        CanClickHoldButton = hasAnyChange && HasBaseGeneInSlots(stagedCounts);
     }
 
-    private string FormatCountText(int actualCount, int stagedCount)
+    private string FormatCountText(int actualCount, int displayRemaining)
     {
-        int remaining = actualCount - stagedCount;
-        int displayRemaining = Mathf.Max(0, remaining);
-
-        if (stagedCount > 0)
+        if (actualCount != displayRemaining)
         {
-            // 例: 「x0 → 1」や「x3 → 2」のように変化を表示
             return $"x{actualCount} → {displayRemaining}";
         }
         else
         {
             return $"x{actualCount}";
         }
+    }
+
+    private Dictionary<GeneSO, int> AllGeneList()
+    {
+        Dictionary<GeneSO, int> allGeneList = new Dictionary<GeneSO, int>();
+
+        if (Inventory.instance != null && Inventory.instance.GeneInventoryDictionary != null)
+        {
+            foreach (KeyValuePair<GeneSO, int> pair in Inventory.instance.GeneInventoryDictionary)
+            {
+                if (pair.Key != null)
+                {
+                    allGeneList[pair.Key] = pair.Value;
+                }
+            }
+        }
+
+        // PlayerLoadout および武器データが存在する場合のみ加算処理を行う
+        if (Gene.PlayerLoadout.instance != null)
+        {
+            // 左手データ
+            if (Gene.PlayerLoadout.instance.LeftWeaponData != null && Gene.PlayerLoadout.instance.LeftWeaponData.usedGenes != null)
+            {
+                foreach (GeneSO gene in Gene.PlayerLoadout.instance.LeftWeaponData.usedGenes)
+                {
+                    if (gene == null) continue;
+                    if (allGeneList.ContainsKey(gene)) allGeneList[gene] += 1;
+                    else allGeneList[gene] = 1;
+                }
+            }
+
+            // 右手データ
+            if (Gene.PlayerLoadout.instance.RightWeaponData != null && Gene.PlayerLoadout.instance.RightWeaponData.usedGenes != null)
+            {
+                foreach (GeneSO gene in Gene.PlayerLoadout.instance.RightWeaponData.usedGenes)
+                {
+                    if (gene == null) continue;
+                    if (allGeneList.ContainsKey(gene)) allGeneList[gene] += 1;
+                    else allGeneList[gene] = 1;
+                }
+            }
+        }
+
+        return allGeneList;
     }
 
     private Dictionary<GeneSO, int> GetStagedGeneCounts()
@@ -88,6 +143,44 @@ public class CreateUI : MonoBehaviour
             }
         }
         return counts;
+    }
+
+    private Dictionary<GeneSO, int> NoSelectedSlotGeneList()
+    {
+        Dictionary<GeneSO, int> GeneDic = new Dictionary<GeneSO, int>();
+
+        if (Gene.PlayerLoadout.instance != null)
+        {
+            // 選択されていない側の装備データを安全に取得
+            EquippedWeaponData oppositeData = (EquipmentCard.SelectedSlotId == 0)
+                ? Gene.PlayerLoadout.instance.RightWeaponData
+                : Gene.PlayerLoadout.instance.LeftWeaponData;
+
+            if (oppositeData != null && oppositeData.usedGenes != null)
+            {
+                foreach (GeneSO gene in oppositeData.usedGenes)
+                {
+                    if (gene == null) continue;
+                    if (GeneDic.ContainsKey(gene)) GeneDic[gene] += 1;
+                    else GeneDic[gene] = 1;
+                }
+            }
+        }
+
+        return GeneDic;
+    }
+
+    private bool HasBaseGeneInSlots(Dictionary<GeneSO, int> stagedCounts)
+    {
+        if (stagedCounts == null) return false;
+        foreach (var pair in stagedCounts)
+        {
+            if (pair.Key != null && pair.Key.element == ElementType.Base)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void ClearButtons()

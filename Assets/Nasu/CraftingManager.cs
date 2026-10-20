@@ -134,11 +134,6 @@ namespace Gene
                 }
 
                 // C. スロットの初期化と画面更新
-                foreach (var slot in geneSlots)
-                {
-                    if (slot != null) slot.ClearSlot();
-                }
-
                 if (createUI != null) createUI.RefreshGeneList();
 
                 // 次回操作用に現在の構成を更新

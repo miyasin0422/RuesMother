@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
+    [SerializeField] private CreateUI createUI;
     [Header("長押し設定")]
     [SerializeField, Tooltip("確定に必要な長押し時間（秒）")]
     private float holdDuration = 1.0f;
@@ -12,6 +13,8 @@ public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [Header("UI演出設定")]
     [SerializeField, Tooltip("ゲージとして満ちていく Image (Image Type = Filled に設定)")]
     private Image gaugeImage;
+    [SerializeField, Tooltip("ボタンの押しやすさ/見た目を制御する CanvasGroup")]
+    private CanvasGroup canvasGroup;
 
     [Header("イベント")]
     [Tooltip("長押し完了時に実行する処理")]
@@ -20,9 +23,15 @@ public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private float currentHoldTime = 0f;
     private bool isHolding = false;
     private bool isCompleted = false;
-
+    private void Awake()
+    {
+        if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+    }
     private void Update()
     {
+        bool canClick = createUI != null && createUI.CanClickHoldButton;
+        UpdateInteractableState(canClick);
+
         if (!isHolding || isCompleted) return;
 
         currentHoldTime += Time.deltaTime;
@@ -53,6 +62,8 @@ public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         // 左クリックのみ反応
         if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        if (createUI == null || !createUI.CanClickHoldButton) return;
 
         ResetHold();
         isHolding = true;
@@ -90,6 +101,15 @@ public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (gaugeImage != null)
         {
             gaugeImage.fillAmount = 0f;
+        }
+    }
+    private void UpdateInteractableState(bool interactable)
+    {
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = interactable ? 1.0f : 0.4f;
+            canvasGroup.interactable = interactable;
+            canvasGroup.blocksRaycasts = interactable;
         }
     }
 }

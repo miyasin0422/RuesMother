@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class EquipmentCard : MonoBehaviour, IPointerClickHandler
+public class EquipmentCard : MonoBehaviour
 {
     [SerializeField] private int id; // 0: 左手, 1: 右手
     [SerializeField] private Image myFrame;
@@ -18,11 +18,6 @@ public class EquipmentCard : MonoBehaviour, IPointerClickHandler
         {
             SelectThisSlot();
         }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        SelectThisSlot();
     }
 
     public void SelectThisSlot()

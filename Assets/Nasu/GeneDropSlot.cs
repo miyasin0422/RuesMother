@@ -51,11 +51,8 @@ public class GeneDropSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         CurrentGene = gene;
         if (geneImage != null && gene != null)
-        {
-            if (gene.buttonPrefab != null && gene.buttonPrefab.TryGetComponent<Image>(out var img))
-            {
-                geneImage.sprite = img.sprite;
-            }
+        {   GeneDrag geneCard = gene.buttonPrefab.GetComponent<GeneDrag>();
+            geneImage.sprite = geneCard.GeneSprite;
         }
     }
 
