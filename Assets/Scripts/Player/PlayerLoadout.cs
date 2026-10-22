@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PlayerLoadout : MonoBehaviour
 {
     public GameObject leftWeapon;
@@ -20,12 +19,14 @@ public class PlayerLoadout : MonoBehaviour
     }
     void Start()
     {
-        
-    }
 
+
+    }
     // Update is called once per frame
     void Update()
+
     {
-        
+
+
     }
 }

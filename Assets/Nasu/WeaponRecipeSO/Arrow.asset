@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf125aa5e7f576429642f5ae5ffcf19, type: 3}
+  m_Name: Arrow
+  m_EditorClassIdentifier: Assembly-CSharp::Gene.WeaponRecipeSO
+  recipeName: 
+  requiredBaseGenes:
+  - {fileID: 11400000, guid: a6a212357839f5c40955c03b0caf8ec1, type: 2}
+  baseWeaponPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
+  baseDescription: "\u30C1\u30E3\u30FC\u30B8\u3057\u3066\u6575\u306B\u5411\u3051\u3066\u767A\u5C04\u3059\u308B\u3002"
