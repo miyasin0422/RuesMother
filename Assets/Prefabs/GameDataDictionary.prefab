@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6174224717789642408}
   - component: {fileID: 7856123817770819697}
   - component: {fileID: 3653142178984150388}
-  - component: {fileID: 4427265363023021331}
   - component: {fileID: 4575602770302656388}
+  - component: {fileID: 7719044063203161918}
   m_Layer: 0
   m_Name: GameDataDictionary
   m_TagString: Untagged
@@ -59,25 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 387f3a724831e2f45bf1bc7b9698c545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
---- !u!114 &4427265363023021331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740444235519955534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734e2ecac5625804db13133c34d19746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CraftingManager
-  recipe:
-  - {fileID: 11400000, guid: cf4c9600bc8c79e42bd2e98fd4f57dca, type: 2}
-  - {fileID: 11400000, guid: 3126cd22c02951845956a515fecf562d, type: 2}
-  - {fileID: 11400000, guid: a0128fb61b9ae88428ad5cfb362a26f1, type: 2}
-  - {fileID: 11400000, guid: 2f4366517583f204a8f5169aca36dcd9, type: 2}
-  craftedWeapons:
-  - {fileID: 11400000, guid: cf4c9600bc8c79e42bd2e98fd4f57dca, type: 2}
 --- !u!114 &4575602770302656388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,5 +71,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2d518c852606747b853b6ae42ecd9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLoadout
-  leftWeapon: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
-  rightWeapon: {fileID: 0}
+  leftWeapon: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
+  rightWeapon: {fileID: 5465747541013082330, guid: bd1f3f4a0f297e445a243eb1a970cecc, type: 3}
+--- !u!114 &7719044063203161918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3740444235519955534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a130713efc160344b5863f9108afc9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gene.PlayerLoadout
+  defaultSwordPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
+  defaultSwordGene:
+  - {fileID: 11400000, guid: d18d8bee31bc10644b0561056d73a9de, type: 2}
+  leftWeaponData:
+    weaponPrefab: {fileID: 0}
+    param:
+      attackPower: 0
+      attackSpeed: 0
+      range: 0
+      isAcid: 0
+      acidDamage: 0
+      element: 0
+    weaponName: 
+    description: 
+    usedGenes: []
+  rightWeaponData:
+    weaponPrefab: {fileID: 0}
+    param:
+      attackPower: 0
+      attackSpeed: 0
+      range: 0
+      isAcid: 0
+      acidDamage: 0
+      element: 0
+    weaponName: 
+    description: 
+    usedGenes: []
