@@ -539,7 +539,8 @@ MonoBehaviour:
   enemyID: enemy1
   maxHealth: 10
   healthBar: {fileID: 4101315223002808753}
-  inventoryItems: []
+  inventoryItems:
+  - {fileID: 0}
   jumpForce: 5
   sideForce: 2
   damageSprite: {fileID: 0}
