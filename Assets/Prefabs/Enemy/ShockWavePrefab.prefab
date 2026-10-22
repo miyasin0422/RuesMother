@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b30fe4214cfbb144a0b87325d8c59f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrogShockWave
-  moveSpeed: 5
-  lifeTime: 2
+  moveSpeed: 10
+  lifeTime: 3
 --- !u!50 &877457956443525970
 Rigidbody2D:
   serializedVersion: 5

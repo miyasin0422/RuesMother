@@ -44,7 +44,7 @@ public class AttackBullet : EnemyAttack
 
         if (playerDamage != null)
         {
-            playerDamage.Damaged(damage);
+            playerDamage.Damaged(damage, true);
         }
 
         Destroy(gameObject);

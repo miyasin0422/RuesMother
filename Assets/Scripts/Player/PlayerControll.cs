@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerControll : MonoBehaviour
 {
     Rigidbody2D rb;
+    [SerializeField] PhysicsMaterial2D idleMaterial;
+
+    PhysicsMaterial2D normalMaterial;
     //移動関連
     [SerializeField] InputAction moveAction;
     [SerializeField] float moveSpeed = 5f;
@@ -23,10 +26,21 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] float dodgeTime;
     bool isDodge;
     bool canDodge = true;
+    [SerializeField] float dodgeInvincibleTime = 0.12f;
+
+    float dodgeInvincibleEndTime;
+    Coroutine dodgeRoutine;
+
+    int enemyBodyLayer;
+    LayerMask normalStandExclusions;
+    LayerMask normalCrouchExclusions;
+
+    public bool IsDashInvulnerable =>
+        isActiveAndEnabled &&
+        isDodge &&
+        Time.time < dodgeInvincibleEndTime;
     //しゃがむ関連
     [SerializeField] InputAction crouchAction;
-    [SerializeField] GameObject normalVisual;
-    [SerializeField] GameObject crouchVisual;
     [SerializeField] BoxCollider2D standCollider;
     [SerializeField] BoxCollider2D crouchCollider;
     [SerializeField] float dropSpeed = 0f;
@@ -38,25 +52,52 @@ public class PlayerControll : MonoBehaviour
     //こうげき関連
     [SerializeField] InputAction leftAttackAction;
     [SerializeField] InputAction rightAttackAction;
-    [SerializeField] GameObject leftgawainPrefab;
-    [SerializeField] GameObject rightgawainPrefab;
-    [SerializeField] Transform summonPoint;
     [SerializeField] float coolTime = 1f;
     bool canAttack = true; 
-    private GewenController leftGewenController;
-    private GewenController rightGewenController;
+
+    RayCompanionController rayCompanion;
+    bool activeAttackIsLeft;
+
+    public void SetRayCompanion(RayCompanionController companion)
+    {
+        rayCompanion = companion;
+    }
     //回復関連
     [SerializeField] InputAction refreshAction;
     [SerializeField] int hpRefresh;
     [SerializeField] private PlayerDamage playerDamage;
     [SerializeField] GameObject RefreshEffectPoint;
     [SerializeField] GameObject refreshEffect;
+    //ビジュアル
+    public bool IsDashing => isDodge;
+    public bool IsCrouching => isCrouch;
+    public bool IsHoldingWeapon => rayCompanion != null && rayCompanion.HasWeapon;
+    public bool IsWalking =>
+        !isCrouch &&
+        !isDodge &&
+        !IsAttackMovementLocked() &&
+        Mathf.Abs(moveInput) > 0.01f;
+
+    //敵に触れる
+    PlayerEnemyContact enemyContact;
+
+    public bool IsKnockedBack =>
+        enemyContact != null && enemyContact.IsKnockedBack;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //しゃがみ非表示
-        crouchVisual.SetActive(false);
-        playerDamage = gameObject.GetComponent<PlayerDamage>();
+        playerDamage = GetComponent<PlayerDamage>();
+
+        standCollider.enabled = true;
+        crouchCollider.enabled = false;        
+        enemyBodyLayer = LayerMask.NameToLayer("Enemy");
+        normalStandExclusions = standCollider.excludeLayers;
+        normalCrouchExclusions = crouchCollider.excludeLayers;
+        enemyContact = GetComponent<PlayerEnemyContact>();
+
+        normalMaterial = rb.sharedMaterial;
     }
     void OnEnable()
     {
@@ -77,7 +118,27 @@ public class PlayerControll : MonoBehaviour
         crouchAction.Disable();
         leftAttackAction.Disable();
         rightAttackAction.Disable();
-        refreshAction.Disable();
+        refreshAction.Disable(); 
+        if (rayCompanion != null)
+        {
+            rayCompanion.CancelAttack();
+        }
+        if (dodgeRoutine != null)
+        {
+            StopCoroutine(dodgeRoutine);
+            dodgeRoutine = null;
+        }
+
+        SetDashPassThrough(false);
+
+        isDodge = false;
+        canDodge = true;
+        dodgeInvincibleEndTime = 0f;
+
+        if (rb != null)
+        {
+            rb.sharedMaterial = normalMaterial;
+        }
     }
     void Update()
     {
@@ -117,7 +178,13 @@ public class PlayerControll : MonoBehaviour
         }
         if (isCrouch)
         {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            UpdateRayAttackInput();
+
+            if (!IsKnockedBack)
+            {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            }
+
             return;
         }
         //方向              
@@ -132,55 +199,18 @@ public class PlayerControll : MonoBehaviour
             transform.localScale = scale;
         }
         //ジャンプ入力
-        if (isGround && jumpAction.triggered)
+        if (isGround && jumpAction.triggered && !IsKnockedBack)
         {
             Jump();
         }
         //回避入力
-        if (dodgeAction.triggered && canDodge)
+        if (dodgeAction.triggered && canDodge && !IsKnockedBack)
         {
-            isDodge = true;
-            canDodge = false;
-            StartCoroutine(Dodge());
+            dodgeRoutine = StartCoroutine(Dodge());
         }
         //こうげき入力
 
-        //左攻撃
-        if (leftAttackAction.WasPressedThisFrame() && canAttack)
-        {
-            leftAttack();
-        }
-
-        if (leftAttackAction.IsPressed() && leftGewenController != null)
-        {
-            UpdateAttackFacing(leftGewenController);
-            leftGewenController.AttackHeld();
-        }
-
-        if (leftAttackAction.WasReleasedThisFrame() && leftGewenController != null)
-        {
-            leftGewenController.AttackReleased();
-            leftGewenController = null;
-        }
-
-
-        //右攻撃
-        if (rightAttackAction.WasPressedThisFrame() && canAttack)
-        {
-            rightAttack();
-        }
-
-        if (rightAttackAction.IsPressed() && rightGewenController != null)
-        {
-            UpdateAttackFacing(leftGewenController);
-            rightGewenController.AttackHeld();
-        }
-
-        if (rightAttackAction.WasReleasedThisFrame() && rightGewenController != null)
-        {
-            rightGewenController.AttackReleased();
-            rightGewenController = null;
-        }
+        UpdateRayAttackInput();
         //回復入力
         if (isGround && PlayerStatus.refreshItemStock >= 1 && refreshAction.triggered)
         {
@@ -189,6 +219,33 @@ public class PlayerControll : MonoBehaviour
     }
     void FixedUpdate()
     {
+        bool wantsToStop =
+        isCrouch ||
+        IsAttackMovementLocked() ||
+        Mathf.Abs(moveInput) < 0.01f;
+
+        bool useIdleMaterial =
+            isGround &&
+            wantsToStop &&
+            !isDodge &&
+            !IsKnockedBack &&
+            !isDropping &&
+            rb.linearVelocity.y <= 0.05f;
+
+        PhysicsMaterial2D material =
+            useIdleMaterial && idleMaterial != null
+            ? idleMaterial
+            : normalMaterial;
+
+        if (rb.sharedMaterial != material)
+        {
+            rb.sharedMaterial = material;
+        }
+        //敵接触
+        if (IsKnockedBack)
+        {
+            return;
+        }
         //通常移動
         if (!isDodge && !isCrouch)
         {
@@ -246,10 +303,53 @@ public class PlayerControll : MonoBehaviour
 
     IEnumerator Dodge()
     {
-        rb.linearVelocity = new Vector2(dodgeSpeed * moveInput, rb.linearVelocity.y);
-        yield return new WaitForSeconds(dodgeTime);
+        isDodge = true;
+        canDodge = false;
+
+        float duration = Mathf.Max(dodgeTime, 0f);
+
+        dodgeInvincibleEndTime = Time.time + Mathf.Clamp(
+            dodgeInvincibleTime,
+            0f,
+            duration
+        );
+
+        SetDashPassThrough(true);
+
+        // 横入力がなければ、現在向いている方向へダッシュ
+        float direction = Mathf.Abs(moveInput) > 0.01f
+            ? Mathf.Sign(moveInput)
+            : (isFacingRight ? 1f : -1f);
+
+        rb.linearVelocity = new Vector2(
+            dodgeSpeed * direction,
+            rb.linearVelocity.y
+        );
+
+        yield return new WaitForSeconds(duration);
+
+        SetDashPassThrough(false);
+
         isDodge = false;
         canDodge = true;
+        dodgeRoutine = null;
+    }
+    void SetDashPassThrough(bool enabled)
+    {
+        if (enemyBodyLayer < 0)
+        {
+            return;
+        }
+
+        int enemyMask = 1 << enemyBodyLayer;
+
+        standCollider.excludeLayers = enabled
+            ? normalStandExclusions.value | enemyMask
+            : normalStandExclusions.value;
+
+        crouchCollider.excludeLayers = enabled
+            ? normalCrouchExclusions.value | enemyMask
+            : normalCrouchExclusions.value;
     }
     void DropGround()
     {
@@ -260,103 +360,117 @@ public class PlayerControll : MonoBehaviour
 
     void Crouch()
     {
-        normalVisual.SetActive(false);
-        crouchVisual.SetActive(true);
-
         standCollider.enabled = false;
         crouchCollider.enabled = true;
     }
+
     void StandUp()
     {
-        normalVisual.SetActive(true);
-        crouchVisual.SetActive(false);
-
         standCollider.enabled = true;
         crouchCollider.enabled = false;
     }
 
     void leftAttack()
     {
-        if(PlayerLoadout.instance.leftWeapon == null)
-        {
-            return;
-        }
-        canAttack = false;
-        GameObject gawain = Instantiate(PlayerLoadout.instance.leftWeapon, summonPoint.position, Quaternion.identity);
-        Vector3 scale = gawain.transform.localScale;
-        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
-        gawain.transform.localScale = scale;
-
-        leftGewenController = gawain.GetComponent<GewenController>();
-
-        leftGewenController.AttackPressed();
-
-        StartCoroutine(AttackCoolTime());
+        BeginRayAttack(true);
     }
+
     void rightAttack()
     {
-        if (PlayerLoadout.instance.rightWeapon == null)
+        BeginRayAttack(false);
+    }
+
+    void BeginRayAttack(bool isLeft)
+    {
+        if (
+            !canAttack ||
+            rayCompanion == null ||
+            PlayerLoadout.instance == null)
         {
             return;
         }
+
+        GameObject weaponPrefab = isLeft
+            ? PlayerLoadout.instance.leftWeapon
+            : PlayerLoadout.instance.rightWeapon;
+
+        if (!rayCompanion.TryAttack(weaponPrefab))
+        {
+            return;
+        }
+
+        activeAttackIsLeft = isLeft;
         canAttack = false;
-        GameObject gawain = Instantiate(PlayerLoadout.instance.rightWeapon, summonPoint.position, Quaternion.identity);
-        Vector3 scale = gawain.transform.localScale;
-        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
-        gawain.transform.localScale = scale;
-
-        rightGewenController = gawain.GetComponent<GewenController>();
-
-        rightGewenController.AttackPressed();
 
         StartCoroutine(AttackCoolTime());
     }
-
-    bool IsAttackMovementLocked()
+    void UpdateRayAttackInput()
     {
-        bool leftLocked =
-            leftGewenController != null
-            && leftGewenController.IsMovementLocked;
+        if (!isCrouch && canAttack)
+        {
+            if (leftAttackAction.WasPressedThisFrame())
+            {
+                leftAttack();
+            }
+            else if (rightAttackAction.WasPressedThisFrame())
+            {
+                rightAttack();
+            }
+        }
 
-        bool rightLocked =
-            rightGewenController != null
-            && rightGewenController.IsMovementLocked;
-
-        return leftLocked || rightLocked;
-    }
-    void UpdateAttackFacing(GewenController gewenController)
-    {
-        if (gewenController == null || !gewenController.FollowMouseFacing)
+        if (rayCompanion == null || !rayCompanion.IsAttacking)
         {
             return;
         }
 
-        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
-        Vector3 mousePosition =
-            Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        UpdateAttackFacing();
 
-        // マウスがルーの右か左か
+        bool held = activeAttackIsLeft
+            ? leftAttackAction.IsPressed()
+            : rightAttackAction.IsPressed();
+
+        bool released = activeAttackIsLeft
+            ? leftAttackAction.WasReleasedThisFrame()
+            : rightAttackAction.WasReleasedThisFrame();
+
+        if (held)
+        {
+            rayCompanion.HoldAttack();
+        }
+
+        if (released)
+        {
+            rayCompanion.ReleaseAttack();
+        }
+    }
+    bool IsAttackMovementLocked()
+    {
+        return rayCompanion != null &&
+               rayCompanion.IsMovementLocked;
+    }
+    void UpdateAttackFacing()
+    {
+        if (
+            rayCompanion == null ||
+            !rayCompanion.FollowMouseFacing ||
+            Mouse.current == null ||
+            Camera.main == null)
+        {
+            return;
+        }
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(
+            Mouse.current.position.ReadValue()
+        );
+
         isFacingRight = mousePosition.x > transform.position.x;
 
-        // ルーを反転
-        Vector3 playerScale = transform.localScale;
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (isFacingRight ? 1f : -1f);
 
-        playerScale.x =
-            Mathf.Abs(playerScale.x) * (isFacingRight ? 1 : -1);
+        transform.localScale = scale;
 
-        transform.localScale = playerScale;
-
-        // ルーが反転したのでSummonPointも左右反転している
-        // ゲーウェンを新しいSummonPointへ移動
-        gewenController.transform.position = summonPoint.position;
-
-        // ゲーウェンも左右反転
-        Vector3 gewenScale = gewenController.transform.localScale;
-
-        gewenScale.x =
-            Mathf.Abs(gewenScale.x) * (isFacingRight ? 1 : -1);
-
-        gewenController.transform.localScale = gewenScale;
+        rayCompanion.UpdateWeaponPose();
     }
     //回復
     void Refresh()

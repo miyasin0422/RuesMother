@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject playerPrefab;
+    [SerializeField] private GameObject playerPrefab;
 
-    [SerializeField]
-    private CameraController cameraController;
+    [SerializeField] private CameraController cameraController;
 
-    [SerializeField]
-    private bool spawnOnStart = true;
+    [SerializeField] private bool spawnOnStart = true;
+    [SerializeField] private RayCompanionController rayCompanionPrefab;
 
     private void Start()
     {
@@ -55,6 +53,24 @@ public class PlayerSpawner : MonoBehaviour
         );
 
         cameraController.SetPlayer(player.transform);
+
+        if (rayCompanionPrefab != null)
+        {
+            RayCompanionController companion = Instantiate(
+                rayCompanionPrefab,
+                player.transform.position,
+                Quaternion.identity
+            );
+
+            companion.Initialize(player.transform); 
+            PlayerControll playerController =
+    player.GetComponent<PlayerControll>();
+
+            if (playerController != null)
+            {
+                playerController.SetRayCompanion(companion);
+            }
+        }
 
         return player;
     }

@@ -57,8 +57,8 @@ public class Stage2Event : MonoBehaviour
 
     private IEnumerator CapsuleEvent()
     {
-        RayMovement rayMovement =
-        ray.GetComponent<RayMovement>();
+        RayTutorialMove rayMovement =
+        ray.GetComponent<RayTutorialMove>();
 
         rayMovement.enabled = false;
 

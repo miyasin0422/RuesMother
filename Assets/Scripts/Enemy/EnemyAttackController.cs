@@ -10,6 +10,23 @@ public class EnemyAttackController : MonoBehaviour
 
     [SerializeField] float attackDelay = 0.5f;
     [SerializeField] float attackCoolTime = 1f;
+    [SerializeField] float attackSpriteDuration = 0.2f;
+
+    EnemyVisualController enemyVisual;
+
+    void Awake()
+    {
+        enemyVisual =
+            GetComponentInChildren<EnemyVisualController>(true);
+
+        if (enemyVisual == null)
+        {
+            Debug.LogError(
+                "敵本体または子にEnemyVisualControllerがありません。",
+                this
+            );
+        }
+    }
 
     bool isAttacking = false;
 
@@ -34,6 +51,11 @@ public class EnemyAttackController : MonoBehaviour
         if (target != null)
         {
             Debug.Log("攻撃判定");
+
+            if (enemyVisual != null)
+            {
+                enemyVisual.ShowAttack(attackSpriteDuration);
+            }
 
             EnemyAttack attack = Instantiate(
                 attackPrefab,

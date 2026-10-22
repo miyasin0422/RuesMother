@@ -56,8 +56,8 @@ public class BattleTutorialEvent : TutorialEventBase
 
         // レイ出現
         ray = raySpawner.SpawnRay(raySpawnPoint);
-        RayMovement rayMovement =
-             ray.GetComponent<RayMovement>();
+        RayTutorialMove rayMovement =
+             ray.GetComponent<RayTutorialMove>();
 
         if (rayMovement != null)
         {

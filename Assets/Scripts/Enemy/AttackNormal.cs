@@ -19,7 +19,7 @@ public class AttackNormal : EnemyAttack
 
         if (playerDamage != null)
         {
-            playerDamage.Damaged(damage);
+            playerDamage.Damaged(damage, true);
         }
     }
 }
