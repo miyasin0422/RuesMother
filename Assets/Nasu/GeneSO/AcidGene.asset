@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69ac915baa0a9246a016e07ea13b4f6, type: 3}
   m_Name: AcidGene
   m_EditorClassIdentifier: Assembly-CSharp::GeneSO
-  geneId: 
   geneName: "\u9178\u306E\u907A\u4F1D\u5B50"
   element: 1
   buttonPrefab: {fileID: 1559924268281516480, guid: 99b1b6fd7b3e61e4ca00205812d5d715, type: 3}
   atkBonus: 0
   atkSpeedBonus: 0
   rangeBonus: 0
-  elementDmgBonus: 0
+  elementDmgBonus: 1
   weaponPrefix: "\u9178\u306E"
   elementDescription: "\u6575\u306B\u9178\u306B\u3088\u308B\u7D99\u7D9A\u30C0\u30E1\u30FC\u30B8\u304C\u5165\u308B\u3002"

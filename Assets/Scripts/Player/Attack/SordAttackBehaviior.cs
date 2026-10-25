@@ -26,7 +26,7 @@ public class SwordAttackBehavior : AttackBehavior
             Quaternion.identity,
             attackPivot
         );
-
+        InitializeHitboxes(attack);
         attack.transform.localPosition = Vector3.zero;
         attack.transform.localScale = attackPrefab.transform.localScale;
 

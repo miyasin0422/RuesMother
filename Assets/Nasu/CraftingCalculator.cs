@@ -51,14 +51,27 @@ public static class CraftingCalculator
             baseSpeed *= 1.2f;
         }
 
-        bool isAcid = mutationGenes.Any(m => m.element == ElementType.Acid);
+        int acidCount = mutationGenes.Count(
+            m => m.element == ElementType.Acid
+        );
+
+        bool isAcid = acidCount > 0;
+        float acidChance = Mathf.Clamp01(acidCount * 0.25f);
         ElementType mainElem = mutationGenes.Count > 0 ? mutationGenes[0].element : ElementType.Base;
 
         // 4. 自動命名 ＆ 説明文の多層構築
         string name = BuildWeaponName(baseGenes, mutationGenes, isSpecialized);
         string desc = BuildDescription(baseGenes, mutationGenes, isSpecialized, name, matchedRecipe);
 
-        WeaponParam param = new WeaponParam(baseAtk, baseSpeed, baseRange, isAcid, elemDmg, mainElem);
+        WeaponParam param = new WeaponParam(
+            baseAtk,
+            baseSpeed,
+            baseRange,
+            isAcid,
+            elemDmg,
+            mainElem,
+            acidChance
+        );
         return new EquippedWeaponData(prefab, param, name, desc, inputGenes); 
     }
 

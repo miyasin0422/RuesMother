@@ -5,7 +5,6 @@ public class StraightShotAttackBehavior : AttackBehavior
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform attackPoint;
     [SerializeField] float speed = 10f;
-    [SerializeField] float maxDistance = 5f;
 
     public override void AttackPressed()
     {
@@ -14,13 +13,17 @@ public class StraightShotAttackBehavior : AttackBehavior
             attackPoint.position,
             Quaternion.identity
         );
-
+        InitializeHitboxes(projectile);
         int direction = transform.localScale.x > 0 ? 1 : -1;
 
         StraightProjectileMovement movement =
             projectile.GetComponent<StraightProjectileMovement>();
 
-        movement.Shoot(direction, speed, maxDistance);
+        movement.Shoot(
+            direction,
+            speed,
+            Mathf.Max(0f, Parameters.range)
+        );
 
         GetComponent<GewenController>().EndAttack();
     }

@@ -16,7 +16,6 @@ public class BowAttackBehavior : AttackBehavior
     // 補助線
     [SerializeField] LineRenderer aimLine;
     [SerializeField] int linePointCount = 20;
-    [SerializeField] float lineTime = 1f;
 
     private Vector2 aimDirection;
     private float chargeTime;
@@ -35,6 +34,7 @@ public class BowAttackBehavior : AttackBehavior
         aimLine.enabled = true;
 
         UpdateAim();
+        UpdateAimLine();
     }
 
     public override void AttackHeld()
@@ -93,42 +93,92 @@ public class BowAttackBehavior : AttackBehavior
             attackPoint.position,
             Quaternion.identity
         );
-
+        InitializeHitboxes(arrow);
         ArrowMovement arrowMovement =
             arrow.GetComponent<ArrowMovement>();
 
         arrowMovement.Shoot(
             aimDirection,
-            currentArrowSpeed
+            currentArrowSpeed,
+            Parameters.range
         );
     }
 
     void UpdateAimLine()
     {
-        Rigidbody2D arrowRb =
-            arrowPrefab.GetComponent<Rigidbody2D>();
+        Rigidbody2D arrowRb = arrowPrefab.GetComponent<Rigidbody2D>();
 
-        Vector2 gravity =
-            Physics2D.gravity * arrowRb.gravityScale;
+        Vector2 gravity = Physics2D.gravity * arrowRb.gravityScale;
+        Vector2 position = attackPoint.position;
+        Vector2 startPosition = position;
+        Vector2 velocity = aimDirection * currentArrowSpeed;
 
-        Vector2 startPosition = attackPoint.position;
+        float range = Mathf.Max(0f, Parameters.range);
+        float step = Time.fixedDeltaTime;
+        float speed = velocity.magnitude;
+        float gravityStrength = gravity.magnitude;
 
-        Vector2 startVelocity =
-            aimDirection * currentArrowSpeed;
+        var positions = new System.Collections.Generic.List<Vector3>();
+        positions.Add(position);
 
-        aimLine.positionCount = linePointCount;
+        // 射程に到達するまで探索できる時間の上限
+        float maxTime = 0f;
 
-        for (int i = 0; i < linePointCount; i++)
+        if (range > 0f)
         {
-            float t =
-                lineTime * i / (linePointCount - 1);
+            if (gravityStrength > 0f)
+            {
+                maxTime = (
+                    speed +
+                    Mathf.Sqrt(speed * speed + 2f * gravityStrength * range)
+                ) / gravityStrength;
+            }
+            else if (speed > 0f)
+            {
+                maxTime = range / speed;
+            }
+        }
 
-            Vector2 position =
-                startPosition
-                + startVelocity * t
-                + 0.5f * gravity * t * t;
+        int maxSteps = Mathf.CeilToInt(maxTime / step) + 2;
 
-            aimLine.SetPosition(i, position);
+        if (range > 0f && (speed > 0f || gravityStrength > 0f))
+        {
+            for (int i = 0; i < maxSteps; i++)
+            {
+                // 現在の矢と同じく、重力で速度を更新してから移動
+                velocity += gravity * step;
+                position += velocity * step;
+
+                positions.Add(position);
+
+                if (Vector2.Distance(startPosition, position) >= range)
+                {
+                    break;
+                }
+            }
+        }
+
+        // 予測した軌道を、指定した点数で描く
+        int pointCount = Mathf.Max(2, linePointCount);
+
+        aimLine.useWorldSpace = true;
+        aimLine.positionCount = pointCount;
+
+        for (int i = 0; i < pointCount; i++)
+        {
+            float index =
+                (positions.Count - 1) * i / (float)(pointCount - 1);
+
+            int from = Mathf.FloorToInt(index);
+            int to = Mathf.Min(from + 1, positions.Count - 1);
+
+            Vector3 point = Vector3.Lerp(
+                positions[from],
+                positions[to],
+                index - from
+            );
+
+            aimLine.SetPosition(i, point);
         }
     }
 }

@@ -57,6 +57,11 @@ public class PlayerControll : MonoBehaviour
 
     RayCompanionController rayCompanion;
     bool activeAttackIsLeft;
+    Transform weaponAnchor;
+    GewenController activeWeapon;
+    bool weaponAttackInProgress;
+    bool attackReleased;
+    public bool IsHoldingWeapon => activeWeapon != null;
 
     public void SetRayCompanion(RayCompanionController companion)
     {
@@ -71,7 +76,6 @@ public class PlayerControll : MonoBehaviour
     //ビジュアル
     public bool IsDashing => isDodge;
     public bool IsCrouching => isCrouch;
-    public bool IsHoldingWeapon => rayCompanion != null && rayCompanion.HasWeapon;
     public bool IsWalking =>
         !isCrouch &&
         !isDodge &&
@@ -98,6 +102,8 @@ public class PlayerControll : MonoBehaviour
         enemyContact = GetComponent<PlayerEnemyContact>();
 
         normalMaterial = rb.sharedMaterial;
+
+        weaponAnchor = transform.Find("WeaponAnchor");
     }
     void OnEnable()
     {
@@ -119,10 +125,6 @@ public class PlayerControll : MonoBehaviour
         leftAttackAction.Disable();
         rightAttackAction.Disable();
         refreshAction.Disable(); 
-        if (rayCompanion != null)
-        {
-            rayCompanion.CancelAttack();
-        }
         if (dodgeRoutine != null)
         {
             StopCoroutine(dodgeRoutine);
@@ -135,10 +137,9 @@ public class PlayerControll : MonoBehaviour
         canDodge = true;
         dodgeInvincibleEndTime = 0f;
 
-        if (rb != null)
-        {
-            rb.sharedMaterial = normalMaterial;
-        }
+        StopAllCoroutines();
+        FinishWeaponAttack();
+        canAttack = true;
     }
     void Update()
     {
@@ -384,26 +385,79 @@ public class PlayerControll : MonoBehaviour
     {
         if (
             !canAttack ||
-            rayCompanion == null ||
-            PlayerLoadout.instance == null)
+            weaponAttackInProgress ||
+            Gene.PlayerLoadout.instance == null)
         {
             return;
         }
 
-        GameObject weaponPrefab = isLeft
-            ? PlayerLoadout.instance.leftWeapon
-            : PlayerLoadout.instance.rightWeapon;
+        Gene.EquippedWeaponData weaponData = isLeft
+            ? Gene.PlayerLoadout.instance.LeftWeaponData
+            : Gene.PlayerLoadout.instance.RightWeaponData;
 
-        if (!rayCompanion.TryAttack(weaponPrefab))
+        if (weaponData == null)
         {
             return;
         }
+
+        GameObject prefab = weaponData.weaponPrefab;
+
+        if (prefab == null)
+        {
+            Debug.LogWarning(
+                $"武器「{weaponData.weaponName}」にPrefabがありません。"
+            );
+            return;
+        }
+
+        if (weaponAnchor == null)
+        {
+            Debug.LogWarning(
+                "ルーの子オブジェクトにWeaponAnchorが必要です。",
+                this
+            );
+            return;
+        }
+
+        if (
+            prefab.GetComponent<GewenController>() == null ||
+            prefab.GetComponent<AttackBehavior>() == null)
+        {
+            Debug.LogWarning(
+                "武器PrefabにGewenControllerとAttackBehaviorが必要です。",
+                prefab
+            );
+            return;
+        }
+
+        GameObject weaponObject = Instantiate(
+            prefab,
+            weaponAnchor.position,
+            Quaternion.identity
+        );
+
+        activeWeapon = weaponObject.GetComponent<GewenController>();
+        AttackBehavior behavior = weaponObject.GetComponent<AttackBehavior>();
+        behavior.Initialize(weaponData.param);
 
         activeAttackIsLeft = isLeft;
+        attackReleased = false;
+        weaponAttackInProgress = true;
         canAttack = false;
+
+        // 武器はルー側ですぐに攻撃を開始する
+        UpdateWeaponPose();
+        activeWeapon.AttackPressed();
+
+        // レイがいる場合だけ演出を開始。成功や完了は待たない
+        if (rayCompanion != null && rayCompanion.isActiveAndEnabled)
+        {
+            rayCompanion.TryBeginTransform();
+        }
 
         StartCoroutine(AttackCoolTime());
     }
+
     void UpdateRayAttackInput()
     {
         if (!isCrouch && canAttack)
@@ -418,12 +472,17 @@ public class PlayerControll : MonoBehaviour
             }
         }
 
-        if (rayCompanion == null || !rayCompanion.IsAttacking)
+        if (activeWeapon == null)
         {
             return;
         }
 
         UpdateAttackFacing();
+
+        if (attackReleased)
+        {
+            return;
+        }
 
         bool held = activeAttackIsLeft
             ? leftAttackAction.IsPressed()
@@ -435,24 +494,27 @@ public class PlayerControll : MonoBehaviour
 
         if (held)
         {
-            rayCompanion.HoldAttack();
+            activeWeapon.AttackHeld();
         }
 
-        if (released)
+        if (released && activeWeapon != null)
         {
-            rayCompanion.ReleaseAttack();
+            attackReleased = true;
+            activeWeapon.AttackReleased();
         }
     }
+
     bool IsAttackMovementLocked()
     {
-        return rayCompanion != null &&
-               rayCompanion.IsMovementLocked;
+        return activeWeapon != null &&
+               activeWeapon.IsMovementLocked;
     }
+
     void UpdateAttackFacing()
     {
         if (
-            rayCompanion == null ||
-            !rayCompanion.FollowMouseFacing ||
+            activeWeapon == null ||
+            !activeWeapon.FollowMouseFacing ||
             Mouse.current == null ||
             Camera.main == null)
         {
@@ -467,11 +529,61 @@ public class PlayerControll : MonoBehaviour
 
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * (isFacingRight ? 1f : -1f);
-
         transform.localScale = scale;
 
-        rayCompanion.UpdateWeaponPose();
+        UpdateWeaponPose();
     }
+
+    void LateUpdate()
+    {
+        if (!weaponAttackInProgress)
+        {
+            return;
+        }
+
+        // 既存のEndAttackで武器が消えたら演出も終了
+        if (activeWeapon == null)
+        {
+            FinishWeaponAttack();
+            return;
+        }
+
+        UpdateWeaponPose();
+    }
+
+    void UpdateWeaponPose()
+    {
+        if (activeWeapon == null || weaponAnchor == null)
+        {
+            return;
+        }
+
+        activeWeapon.transform.position = weaponAnchor.position;
+
+        float facing = transform.localScale.x >= 0f ? 1f : -1f;
+
+        Vector3 scale = activeWeapon.transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * facing;
+        activeWeapon.transform.localScale = scale;
+    }
+
+    void FinishWeaponAttack()
+    {
+        if (activeWeapon != null)
+        {
+            Destroy(activeWeapon.gameObject);
+        }
+
+        activeWeapon = null;
+        weaponAttackInProgress = false;
+        attackReleased = false;
+
+        if (rayCompanion != null)
+        {
+            rayCompanion.ReturnToFollow();
+        }
+    }
+
     //回復
     void Refresh()
     {
