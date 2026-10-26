@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: QuestionPanel
       value: 
       objectReference: {fileID: 7673517009326550954}
+    - target: {fileID: 8049550182247114452, guid: 80f9f570c1e43f14b84b71fc7e63a2f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049550182247114452, guid: 80f9f570c1e43f14b84b71fc7e63a2f3, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8610174540443229513, guid: 80f9f570c1e43f14b84b71fc7e63a2f3, type: 3}
       propertyPath: m_Name
       value: SavePoint

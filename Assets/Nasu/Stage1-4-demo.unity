@@ -1605,22 +1605,6 @@ PrefabInstance:
       propertyPath: weaponIcons.Array.data[2].weaponPrefab
       value: 
       objectReference: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
-    - target: {fileID: 1004581014829617637, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -1007.8376
-      objectReference: {fileID: 0}
-    - target: {fileID: 1004581014829617637, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -630.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 1004581014829617637, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 364.331
-      objectReference: {fileID: 0}
-    - target: {fileID: 1004581014829617637, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -77.992
-      objectReference: {fileID: 0}
     - target: {fileID: 1037174818966111448, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1768,10 +1752,6 @@ PrefabInstance:
     - target: {fileID: 8481375381117713093, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9114703422226069671, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
