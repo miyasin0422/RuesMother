@@ -3,6 +3,11 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("カメラに表示してよい範囲")]
+    [SerializeField] Transform boundsMin; // 左下
+    [SerializeField] Transform boundsMax; // 右上
+
+    Camera viewCamera;
     Transform Player;
 
     [SerializeField] InputAction CameraUp;
@@ -21,7 +26,10 @@ public class CameraController : MonoBehaviour
 
     bool followX = true;
     float fixedX;
-
+    void Awake()
+    {
+        viewCamera = GetComponent<Camera>();
+    }
     private void OnEnable()
     {
         CameraUp.Enable();
@@ -37,7 +45,17 @@ public class CameraController : MonoBehaviour
     public void SetPlayer(Transform newPlayer)
     {
         Player = newPlayer;
-        transform.position = Player.position + offset;
+
+        if (Player == null)
+        {
+            return;
+        }
+
+        velocity = Vector3.zero;
+
+        transform.position = ClampCameraPosition(
+            Player.position + offset
+        );
     }
 
     public void SetPlayerSmooth(Transform newPlayer)
@@ -68,32 +86,73 @@ public class CameraController : MonoBehaviour
 
         float cameraY = offset.y;
 
-        // 上を見る
         if (CameraUp.IsPressed())
         {
             cameraY += cameraUpOffset;
         }
-        // 下を見る
         else if (CameraDown.IsPressed())
         {
             cameraY += cameraDownOffset;
         }
 
         Vector3 targetPosition = new Vector3(
-            followX
-                ? Player.position.x + offset.x
-                : fixedX,
-
+            followX ? Player.position.x + offset.x : fixedX,
             Player.position.y + cameraY,
-
             offset.z
         );
 
-        transform.position = Vector3.SmoothDamp(
+        targetPosition = ClampCameraPosition(targetPosition);
+
+        Vector3 nextPosition = Vector3.SmoothDamp(
             transform.position,
             targetPosition,
             ref velocity,
             smoothTime
         );
+
+        // 追従途中の位置も制限する
+        Vector3 clampedPosition = ClampCameraPosition(nextPosition);
+
+        if (clampedPosition.x != nextPosition.x)
+        {
+            velocity.x = 0f;
+        }
+
+        if (clampedPosition.y != nextPosition.y)
+        {
+            velocity.y = 0f;
+        }
+
+        transform.position = clampedPosition;
+    }
+    Vector3 ClampCameraPosition(Vector3 position)
+    {
+        if (
+            boundsMin == null ||
+            boundsMax == null ||
+            viewCamera == null ||
+            !viewCamera.orthographic)
+        {
+            return position;
+        }
+
+        float halfHeight = viewCamera.orthographicSize;
+        float halfWidth = halfHeight * viewCamera.aspect;
+
+        float left = Mathf.Min(boundsMin.position.x, boundsMax.position.x);
+        float right = Mathf.Max(boundsMin.position.x, boundsMax.position.x);
+        float bottom = Mathf.Min(boundsMin.position.y, boundsMax.position.y);
+        float top = Mathf.Max(boundsMin.position.y, boundsMax.position.y);
+
+        // 背景の端から、画面の半分だけ内側に中心を制限する
+        position.x = right - left >= halfWidth * 2f
+            ? Mathf.Clamp(position.x, left + halfWidth, right - halfWidth)
+            : (left + right) * 0.5f;
+
+        position.y = top - bottom >= halfHeight * 2f
+            ? Mathf.Clamp(position.y, bottom + halfHeight, top - halfHeight)
+            : (bottom + top) * 0.5f;
+
+        return position;
     }
 }

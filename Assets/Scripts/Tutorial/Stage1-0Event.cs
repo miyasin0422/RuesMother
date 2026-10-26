@@ -6,6 +6,7 @@ public class Stage1Event : MonoBehaviour
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TutorialRaySpawner raySpawner;
     [SerializeField] PlayerSpawner playerSpawner;
+    [SerializeField] TutorialUIManager tutorialUIManager;
 
     IEnumerator Start()
     {
@@ -44,5 +45,6 @@ public class Stage1Event : MonoBehaviour
         };
 
         yield return dialogueManager.PlayDialogue(lines);
+        tutorialUIManager.Show("←:A  →:D");
     }
 }

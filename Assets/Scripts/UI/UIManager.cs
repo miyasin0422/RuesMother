@@ -1,16 +1,31 @@
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
+
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Image hpBar;
-    [SerializeField] private Image[] refreshItems;
+    [SerializeField] private UnityEngine.UI.Image hpBar;
+    [SerializeField] private UnityEngine.UI.Image[] refreshItems;
     [SerializeField] private float targetFillAmount;
-    [SerializeField] private Image[] weaponImages;
-    [SerializeField] private Image leftWeaponImage;
-    [SerializeField] private Image rightWeaponImage;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [Header("装備中の武器アイコン")]
+    [SerializeField] private UnityEngine.UI.Image leftWeaponImage;
+    [SerializeField] private UnityEngine.UI.Image rightWeaponImage;
+
+    [Header("プレイ用Canvas。覚醒前は非表示、覚醒後に表示")]
+    [SerializeField] private GameObject UIRoot;
+
+    [Header("初回チュートリアル中の表示")]
+    [SerializeField] private bool hideUntilRueAwakened = true;
+
+    [System.Serializable]
+    private class WeaponIconEntry
+    {
+        public GameObject weaponPrefab;
+        public Sprite icon;
+    }
+
+    [Header("武器Prefabとアイコンの対応")]
+    [SerializeField] private WeaponIconEntry[] weaponIcons;
+
     void Start()
     {
         HPUpdate();
@@ -18,63 +33,99 @@ public class UIManager : MonoBehaviour
         AssignedWeaponsShow();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        AssignedWeaponsShow();
     }
 
     public void HPUpdate()
     {
-        targetFillAmount = (float)PlayerStatus.playerHealth / PlayerStatus.MaxplayerHealth;
+        targetFillAmount =
+            (float)PlayerStatus.playerHealth / PlayerStatus.MaxplayerHealth;
+
         hpBar.fillAmount = targetFillAmount;
-        Debug.Log(targetFillAmount);
     }
+
     public void RefreshItemUpdate()
     {
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if(i < PlayerStatus.refreshItemStock)
-            {
-                refreshItems[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                refreshItems[i].gameObject.SetActive(false);
-            }
-            
+            refreshItems[i].gameObject.SetActive(
+                i < PlayerStatus.refreshItemStock
+            );
         }
     }
+
     public void AssignedWeaponsShow()
     {
-        leftWeaponImage.sprite = null;
-        rightWeaponImage.sprite = null;
-        foreach (Image weaponImage in weaponImages)
+        Gene.PlayerLoadout loadout = Gene.PlayerLoadout.instance;
+
+        bool visible =
+            loadout != null &&
+            (!hideUntilRueAwakened || TutorialProgress.RueAwakened);
+
+        if (UIRoot != null &&
+            UIRoot.activeSelf != visible)
         {
-            bool isLeftWeapon = PlayerLoadout.instance.leftWeapon == weaponImage.GetComponent<AssignWeaponButton>().weaponPrefab;
+            UIRoot.SetActive(visible);
+        }
 
-            bool isRightWeapon = PlayerLoadout.instance.rightWeapon == weaponImage.GetComponent<AssignWeaponButton>().weaponPrefab; ;
+        Sprite leftIcon = null;
+        Sprite rightIcon = null;
 
-            if (isLeftWeapon)
+        if (visible)
+        {
+            leftIcon = GetWeaponIcon(loadout.LeftWeaponData);
+            rightIcon = GetWeaponIcon(loadout.RightWeaponData);
+        }
+
+        SetWeaponImage(leftWeaponImage, leftIcon);
+        SetWeaponImage(rightWeaponImage, rightIcon);
+    }
+
+    private Sprite GetWeaponIcon(Gene.EquippedWeaponData weapon)
+    {
+        if (
+            weapon == null ||
+            weapon.weaponPrefab == null ||
+            weaponIcons == null)
+        {
+            return null;
+        }
+
+        foreach (WeaponIconEntry entry in weaponIcons)
+        {
+            if (entry != null &&
+                entry.weaponPrefab == weapon.weaponPrefab)
             {
-               leftWeaponImage.sprite = weaponImage.sprite;
-               RectTransform sourceRect = weaponImage.GetComponent<RectTransform>();
-
-               RectTransform slotRect = leftWeaponImage.GetComponent<RectTransform>();
-
-               slotRect.sizeDelta = sourceRect.sizeDelta;
-               slotRect.localScale = sourceRect.localScale;
-            }
-            if (isRightWeapon)
-            {
-                rightWeaponImage.sprite = weaponImage.sprite;
-                RectTransform sourceRect = weaponImage.GetComponent<RectTransform>();
-
-                RectTransform slotRect = rightWeaponImage.GetComponent<RectTransform>();
-
-                slotRect.sizeDelta = sourceRect.sizeDelta;
-                slotRect.localScale = sourceRect.localScale;
+                return entry.icon;
             }
         }
+
+        return null;
+    }
+
+    private void SetWeaponImage(
+        UnityEngine.UI.Image image,
+        Sprite icon)
+    {
+        if (image == null)
+        {
+            return;
+        }
+
+        if (image.sprite != icon)
+        {
+            image.sprite = icon;
+        }
+
+        bool visible = icon != null;
+
+        if (image.enabled != visible)
+        {
+            image.enabled = visible;
+        }
+
+        image.preserveAspect = true;
     }
 }

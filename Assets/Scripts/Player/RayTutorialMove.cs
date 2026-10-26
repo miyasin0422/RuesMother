@@ -22,6 +22,13 @@ public class RayTutorialMove : MonoBehaviour
     void OnDisable()
     {
         moveAction.Disable();
+        moveInput = 0f;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 
     void Update()

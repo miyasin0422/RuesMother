@@ -19,14 +19,26 @@ public class InventoryDisplay : MonoBehaviour
     }
     void UpdateInventoryText()
     {
-        string text_i = "";
-        string text_s = "";
-        foreach (var item in Inventory.instance.ItemInventoryDictionary)
+        string names = "";
+        string counts = "";
+
+        if (Inventory.instance != null)
         {
-            text_i += item.Key + "\n";
-            text_s += item.Value + "\n";
+            foreach (var item in Inventory.instance.GeneInventoryDictionary)
+            {
+                GeneSO gene = item.Key;
+
+                if (gene == null)
+                {
+                    continue;
+                }
+
+                names += gene.geneName + "\n";
+                counts += item.Value + "\n";
+            }
         }
-        inventoryText.text = text_i;
-        stockText.text = text_s;
+
+        inventoryText.text = names;
+        stockText.text = counts;
     }
 }

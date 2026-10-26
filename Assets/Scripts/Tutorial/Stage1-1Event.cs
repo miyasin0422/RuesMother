@@ -13,6 +13,10 @@ public class Stage2Event : MonoBehaviour
 
     [SerializeField] CameraController cameraController;
     [SerializeField] CapsuleBreak capsuleBreak;
+    [Header("カプセルを壊す剣の演出")]
+    [SerializeField] GameObject capsuleSwordPrefab;
+    [SerializeField] Transform capsuleAttackPoint;
+    [SerializeField] float capsuleHitDelay = 0.25f;
 
     private GameObject ray;
     private GameObject rue;
@@ -81,14 +85,60 @@ public class Stage2Event : MonoBehaviour
         // 左クリック待ち
         yield return WaitForLeftClick();
 
-        // カプセル破壊
+        if (capsuleSwordPrefab == null || capsuleAttackPoint == null)
+        {
+            Debug.LogError("カプセル演出の剣Prefabと攻撃位置を設定してください。");
+            yield break;
+        }
+
+        // 背景を削除する前に、ルーの出現位置を保存
+        Vector3 ruePosition = rueSpawnPoint.position;
+        Quaternion rueRotation = rueSpawnPoint.rotation;
+
+        // 剣の演出を生成
+        GameObject sword = Instantiate(
+            capsuleSwordPrefab,
+            capsuleAttackPoint.position,
+            capsuleAttackPoint.rotation
+        );
+
+        AttackBehavior behavior = sword.GetComponent<AttackBehavior>();
+        GewenController controller = sword.GetComponent<GewenController>();
+
+        if (behavior == null || controller == null)
+        {
+            Debug.LogError("剣PrefabにAttackBehaviorとGewenControllerが必要です。");
+            Destroy(sword);
+            yield break;
+        }
+
+        // 演出なので攻撃力は0
+        behavior.Initialize(
+            new Gene.WeaponParam(0f, 1f, 5f, false, 0f)
+        );
+
+        // レイの姿を隠して、剣を振る
+        ray.SetActive(false);
+        controller.AttackPressed();
+
+        // 剣が当たるタイミングで背景を削除
+        yield return new WaitForSeconds(capsuleHitDelay);
         yield return capsuleBreak.PlayBreak();
+
+        // 既存の攻撃終了処理で剣が消えるのを待つ
+        while (sword != null)
+        {
+            yield return null;
+        }
+
+        // 会話用にレイを戻す
+        ray.SetActive(true);
 
         // ルー生成
         rue = Instantiate(
             ruePrefab,
-            rueSpawnPoint.position,
-            rueSpawnPoint.rotation
+            ruePosition,
+            rueRotation
         );
 
         // ルーのUIAnchorをDialogueManagerに登録

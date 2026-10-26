@@ -540,7 +540,8 @@ MonoBehaviour:
   maxHealth: 10
   healthBar: {fileID: 4101315223002808753}
   inventoryItems:
-  - {fileID: 0}
+  - {fileID: 7899507633861008942, guid: a76523a13877dbf4f9326f1d7f8d0fc1, type: 3}
+  - {fileID: 7899507633861008942, guid: a76523a13877dbf4f9326f1d7f8d0fc1, type: 3}
   jumpForce: 5
   sideForce: 2
   damageSprite: {fileID: 0}

@@ -38,7 +38,7 @@ namespace Gene
         /// </summary>
         private void SetInitialEquipment()
         {
-            WeaponParam defaultParam = new WeaponParam(10f, 1.0f, 5f, false, 0f, ElementType.Base);
+            WeaponParam defaultParam = new WeaponParam(5f, 1.0f, 5f, false, 0f, ElementType.Base);
             leftWeaponData = new EquippedWeaponData(
                 defaultSwordPrefab,
                 defaultParam,
