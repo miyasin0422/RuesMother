@@ -46,8 +46,7 @@ public class ArrowMovement : MonoBehaviour
             rb.linearVelocity.x
         ) * Mathf.Rad2Deg;
 
-        transform.rotation =
-            Quaternion.Euler(0f, 0f, angle + 180f);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

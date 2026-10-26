@@ -1049,13 +1049,14 @@ GameObject:
   - component: {fileID: 3799969740075563744}
   - component: {fileID: 6515320408461479093}
   - component: {fileID: 430353384588820154}
+  - component: {fileID: 647695178929083046}
   m_Layer: 0
   m_Name: SavePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3799969740075563744
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1118,6 +1119,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &647695178929083046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037174818966111448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0bafbb3d78c8743bd006cb06a7b09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActionBlocker
+  pauseGame: 0
 --- !u!1 &1055749720086849065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1144,7 @@ GameObject:
   - component: {fileID: 7989183861646488696}
   - component: {fileID: 9056069892608993117}
   - component: {fileID: 475500377836584588}
+  - component: {fileID: 4359146553293708814}
   m_Layer: 0
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -1215,6 +1230,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryDisplay
   inventoryText: {fileID: 5977307461457022886}
   stockText: {fileID: 7162582853065983903}
+--- !u!114 &4359146553293708814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055749720086849065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0bafbb3d78c8743bd006cb06a7b09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActionBlocker
+  pauseGame: 1
 --- !u!1 &1098404523517649727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,7 +2538,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1531386210873273303}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6314225120314691052, guid: 80f9f570c1e43f14b84b71fc7e63a2f3, type: 3}
+        m_TargetAssemblyTypeName: SavePoint, Assembly-CSharp
+        m_MethodName: OpenSavePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1766434739690916038
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +2836,7 @@ GameObject:
   - component: {fileID: 7065512893475295070}
   - component: {fileID: 3463002315793786397}
   - component: {fileID: 2758582720204172470}
+  - component: {fileID: 2881384091141611663}
   m_Layer: 0
   m_Name: QuestionPanel
   m_TagString: Untagged
@@ -2863,6 +2904,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2881384091141611663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896626732347721240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0bafbb3d78c8743bd006cb06a7b09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActionBlocker
+  pauseGame: 0
 --- !u!1 &2013643928758509458
 GameObject:
   m_ObjectHideFlags: 0
@@ -5724,6 +5778,7 @@ GameObject:
   - component: {fileID: 1313016710158205963}
   - component: {fileID: 8716753068189019523}
   - component: {fileID: 2626402419906200076}
+  - component: {fileID: 495915398113623770}
   m_Layer: 0
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -5788,6 +5843,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &495915398113623770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575899149824307494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0bafbb3d78c8743bd006cb06a7b09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActionBlocker
+  pauseGame: 0
 --- !u!1 &4611996243179557495
 GameObject:
   m_ObjectHideFlags: 0
@@ -10336,7 +10404,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1330086385508154508}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6314225120314691052, guid: 80f9f570c1e43f14b84b71fc7e63a2f3, type: 3}
+        m_TargetAssemblyTypeName: SavePoint, Assembly-CSharp
+        m_MethodName: CloseQuestionPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9012671210678485547
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
         if (!isHolding || isCompleted) return;
 
-        currentHoldTime += Time.deltaTime;
+        currentHoldTime += Time.unscaledDeltaTime;
 
         // ゲージの更新 (0.0 ～ 1.0)
         if (gaugeImage != null)

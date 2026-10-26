@@ -152,6 +152,39 @@ public class PlayerControll : MonoBehaviour
             isDropping = false;
             oneWayGroundCollider = null;
         }
+        if (PlayerActionBlocker.IsBlocked)
+        {
+            moveInput = 0f;
+            downPressTime = 0f;
+
+            // チャージ中の弓などは、発射せずに片付ける
+            if (activeWeapon != null)
+            {
+                FinishWeaponAttack();
+            }
+
+            if (dodgeRoutine != null)
+            {
+                StopCoroutine(dodgeRoutine);
+                dodgeRoutine = null;
+            }
+
+            if (isDodge)
+            {
+                SetDashPassThrough(false);
+                isDodge = false;
+                canDodge = true;
+                dodgeInvincibleEndTime = 0f;
+            }
+
+            if (isCrouch)
+            {
+                isCrouch = false;
+                StandUp();
+            }
+
+            return;
+        }
         //しゃがみ入力
         if (crouchAction.WasPressedThisFrame() && isGround)
         {
@@ -241,6 +274,15 @@ public class PlayerControll : MonoBehaviour
         if (rb.sharedMaterial != material)
         {
             rb.sharedMaterial = material;
+        }
+        if (PlayerActionBlocker.IsBlocked)
+        {
+            if (!IsKnockedBack)
+            {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            }
+
+            return;
         }
         //敵接触
         if (IsKnockedBack)
@@ -383,6 +425,12 @@ public class PlayerControll : MonoBehaviour
 
     void BeginRayAttack(bool isLeft)
     {
+        if (
+            PlayerActionBlocker.IsBlocked ||
+            PlayerActionBlocker.IsPointerOverUI())
+        {
+            return;
+        }
         if (
             !canAttack ||
             weaponAttackInProgress ||

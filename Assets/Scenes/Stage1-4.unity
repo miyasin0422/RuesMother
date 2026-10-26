@@ -783,6 +783,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   spawnId: Right
+--- !u!114 &1066950048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6314225120314691052, guid: 80f9f570c1e43f14b84b71fc7e63a2f3, type: 3}
+  m_PrefabInstance: {fileID: 327835942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7680184ca3a610642b6923d6ee4e1779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
 --- !u!1 &1281600714
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +833,7 @@ Transform:
   m_GameObject: {fileID: 1281600714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalPosition: {x: -10, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1455,6 +1466,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2341765272764694737, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1066950048}
+    - target: {fileID: 2341765272764694737, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseQuestionPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 2821544435357792632, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1462,6 +1481,14 @@ PrefabInstance:
     - target: {fileID: 2821544435357792632, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925327858599626666, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1066950048}
+    - target: {fileID: 2925327858599626666, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenSavePanel
       objectReference: {fileID: 0}
     - target: {fileID: 4059645713810730769, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_AnchorMax.x

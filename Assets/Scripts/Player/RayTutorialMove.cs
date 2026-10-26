@@ -33,13 +33,15 @@ public class RayTutorialMove : MonoBehaviour
 
     void Update()
     {
-        moveInput = moveAction.ReadValue<float>();
+        moveInput = PlayerActionBlocker.IsBlocked
+            ? 0f
+            : moveAction.ReadValue<float>();
     }
 
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(
-            moveInput * moveSpeed,
+            PlayerActionBlocker.IsBlocked ? 0f : moveInput * moveSpeed,
             rb.linearVelocity.y
         );
 
