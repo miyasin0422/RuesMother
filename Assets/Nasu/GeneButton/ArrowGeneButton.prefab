@@ -284,8 +284,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5F13\u306E\u907A\u4F1D\u5B50"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b94c62afbeeee7741a3031487beaf008, type: 2}
-  m_sharedMaterial: {fileID: -5860270822808876528, guid: b94c62afbeeee7741a3031487beaf008, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6c0124242389d4342b95bef8e040f0ea, type: 2}
+  m_sharedMaterial: {fileID: -6110116127784896042, guid: 6c0124242389d4342b95bef8e040f0ea, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
