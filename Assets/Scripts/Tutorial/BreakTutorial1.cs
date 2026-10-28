@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class BreakTutorialEvent : TutorialEventBase
 {
+    [Header("画面下部に表示する操作説明")]
+    [SerializeField] private string tutorialMessage = "左クリック：攻撃";
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TutorialUIManager tutorialUIManager;
-    [SerializeField] TutorialRaySpawner raySpawner;
+
 
     private GameObject rue;
-    private GameObject ray;
 
     private bool started = false;
     private bool finished = false;
@@ -34,57 +35,38 @@ public class BreakTutorialEvent : TutorialEventBase
         }
 
         finished = true;
-        tutorialUIManager.Hide();
+        // 自分の説明が表示されている場合だけ消す。
+        tutorialUIManager.Hide(this);
     }
 
     private IEnumerator BreakTutorial()
     {
+        // 前の操作説明を消し、会話と重ならないようにする。
+        tutorialUIManager.Hide();
+
         PlayerControll playerMovement =
             rue.GetComponent<PlayerControll>();
 
         Rigidbody2D rb =
             rue.GetComponent<Rigidbody2D>();
 
-        // ルー停止
+        // 会話中はプレイヤーの操作を止め、移動速度もリセットする。
         playerMovement.enabled = false;
-
         rb.linearVelocity = Vector2.zero;
 
-        // ルーの近くにあるSpawnPointを取得
-        Transform raySpawnPoint =
-            rue.transform.Find("RayDialogueSpawnPoint");
-
-        // レイ出現
-        ray = raySpawner.SpawnRay(raySpawnPoint);
-        RayTutorialMove rayMovement =
-             ray.GetComponent<RayTutorialMove>();
-
-        if (rayMovement != null)
-        {
-            rayMovement.enabled = false;
-        }
-        CharacterUIAnchor rayAnchor =
-            ray.GetComponent<CharacterUIAnchor>();
-
-        dialogueManager.RegisterSpeaker(
-            DialogueSpeaker.Ray,
-            rayAnchor.UIAnchor
-        );
-
+        // レイの実体は生成せず、画面下部に会話だけを表示する。
         DialogueLine[] lines =
         {
-            new DialogueLine(
-                DialogueSpeaker.Ray,
-                "壊れそうな壁は攻撃してみろ"
-            )
-        };
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "高いところはジャンプをすればいい"
+        )
+    };
 
         yield return dialogueManager.PlayDialogue(lines);
 
-        Destroy(ray);
-
+        // 会話終了後は、説明を見ながら操作できるようにする。
         playerMovement.enabled = true;
-
-        tutorialUIManager.Show();
-    }    
+        tutorialUIManager.Show(this, tutorialMessage);
+    }
 }

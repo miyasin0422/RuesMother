@@ -1,64 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// 会話を1行ずつ表示し、クリックで次の行へ進める。
+/// 画面固定のUIを使用するため、キャラクターの座標登録は不要。
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField]
     private DialogueBubble dialogueBubble;
 
-    private Dictionary<DialogueSpeaker, Transform> speakerAnchors
-        = new Dictionary<DialogueSpeaker, Transform>();
-
-    // 生成されたキャラクターのAnchorを登録
-    public void RegisterSpeaker(
-        DialogueSpeaker speaker,
-        Transform anchor
-    )
-    {
-        speakerAnchors[speaker] = anchor;
-    }
-
-    // 会話を再生
     public IEnumerator PlayDialogue(DialogueLine[] lines)
     {
         foreach (DialogueLine line in lines)
         {
-            if (!speakerAnchors.TryGetValue(
-                line.speaker,
-                out Transform anchor
-            ))
+            dialogueBubble.Show(line.text);
+
+            // 時間経過ではなく、フレームごとにクリックを確認する。
+            // ゲームの時間が停止していても、会話を進められる。
+            while (!dialogueBubble.AdvanceRequested)
             {
-                Debug.LogError(
-                    $"{line.speaker} のUIAnchorが登録されていません"
-                );
-
-                continue;
+                yield return null;
             }
-
-            dialogueBubble.Show(
-                anchor,
-                line.text
-            );
-
-            yield return WaitForClick();
         }
 
+        // 枠を閉じると、枠に付けた停止処理も解除される。
         dialogueBubble.Hide();
-    }
-
-    IEnumerator WaitForClick()
-    {
-        // 会話表示と同じフレームのクリックを拾わない
-        yield return null;
-
-        while (
-            Mouse.current == null ||
-            !Mouse.current.leftButton.wasPressedThisFrame
-        )
-        {
-            yield return null;
-        }
     }
 }

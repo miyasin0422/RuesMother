@@ -20,22 +20,6 @@ public class Stage1Event : MonoBehaviour
         // 初回だけレイで開始
         GameObject ray = raySpawner.SpawnRay();
 
-        CharacterUIAnchor characterUIAnchor =
-            ray.GetComponent<CharacterUIAnchor>();
-
-        if (characterUIAnchor == null)
-        {
-            Debug.LogError(
-                "RayPlayerにCharacterUIAnchorがありません"
-            );
-            yield break;
-        }
-
-        dialogueManager.RegisterSpeaker(
-            DialogueSpeaker.Ray,
-            characterUIAnchor.UIAnchor
-        );
-
         DialogueLine[] lines =
         {
             new DialogueLine(

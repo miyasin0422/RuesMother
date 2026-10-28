@@ -10,7 +10,8 @@ public class Stage2Event : MonoBehaviour
 
     [SerializeField] GameObject ruePrefab;
     [SerializeField] Transform rueSpawnPoint;
-
+    [Header("操作説明")]
+    [SerializeField] private TutorialUIManager tutorialUIManager;
     [SerializeField] CameraController cameraController;
     [SerializeField] CapsuleBreak capsuleBreak;
     [Header("カプセルを壊す剣の演出")]
@@ -37,14 +38,6 @@ public class Stage2Event : MonoBehaviour
 
         // 初回だけレイ生成
         ray = raySpawner.SpawnRay();
-
-        CharacterUIAnchor rayAnchor =
-            ray.GetComponent<CharacterUIAnchor>();
-
-        dialogueManager.RegisterSpeaker(
-            DialogueSpeaker.Ray,
-            rayAnchor.UIAnchor
-        );
     }
 
     public void StartCapsuleEvent()
@@ -82,8 +75,14 @@ public class Stage2Event : MonoBehaviour
             openingDialogue
         );
 
-        // 左クリック待ち
+        // 会話終了後、剣を振るための操作説明を表示する。
+        tutorialUIManager.Show(this, "左クリック：剣で攻撃");
+
+        // プレイヤーが左クリックするまで待つ。
         yield return WaitForLeftClick();
+
+        // 入力されたら説明を消し、続く剣の演出へ進む。
+        tutorialUIManager.Hide(this);
 
         if (capsuleSwordPrefab == null || capsuleAttackPoint == null)
         {
@@ -139,15 +138,6 @@ public class Stage2Event : MonoBehaviour
             ruePrefab,
             ruePosition,
             rueRotation
-        );
-
-        // ルーのUIAnchorをDialogueManagerに登録
-        CharacterUIAnchor rueAnchor =
-            rue.GetComponent<CharacterUIAnchor>();
-
-        dialogueManager.RegisterSpeaker(
-            DialogueSpeaker.Rue,
-            rueAnchor.UIAnchor
         );
 
         // ルーは会話中なので操作不能
