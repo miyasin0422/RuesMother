@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3653142178984150388}
   - component: {fileID: 4575602770302656388}
   - component: {fileID: 7719044063203161918}
+  - component: {fileID: -763625971838455648}
   m_Layer: 0
   m_Name: GameDataDictionary
   m_TagString: Untagged
@@ -96,6 +97,7 @@ MonoBehaviour:
       range: 0
       isAcid: 0
       acidDamage: 0
+      acidChance: 0
       element: 0
     weaponName: 
     description: 
@@ -108,7 +110,20 @@ MonoBehaviour:
       range: 0
       isAcid: 0
       acidDamage: 0
+      acidChance: 0
       element: 0
     weaponName: 
     description: 
     usedGenes: []
+--- !u!114 &-763625971838455648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3740444235519955534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff28d0c22b1a6cd4aafb1370052012e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReturnToTitle

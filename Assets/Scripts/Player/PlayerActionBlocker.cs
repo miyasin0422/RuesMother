@@ -92,4 +92,9 @@ public class PlayerActionBlocker : MonoBehaviour
 
         return false;
     }
+    public static void ResetForSceneChange()
+    {
+        ResetState();
+        AudioListener.pause = false;
+    }
 }
