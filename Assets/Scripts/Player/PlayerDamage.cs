@@ -90,7 +90,7 @@ public class PlayerDamage : MonoBehaviour
 
         if (PlayerStatus.playerHealth <= 0)
         {
-            StartCoroutine(ReStart());
+            SceneManager.LoadScene("GameOver");
         }
     }
 
@@ -107,19 +107,5 @@ public class PlayerDamage : MonoBehaviour
         }
         uiManager.HPUpdate();
         uiManager.RefreshItemUpdate();
-    }
-    IEnumerator ReStart()
-    {
-        yield return new WaitForSeconds(1);
-        PlayerStatus.playerHealth = PlayerStatus.MaxplayerHealth;
-        if(SaveManager.savedSceneName == "Stage1-1")
-        {
-            SceneMoveData.NextSpawnId = "Start";
-        }
-        else
-        {
-            SceneMoveData.NextSpawnId = "Left";
-        }
-        SceneManager.LoadScene(SaveManager.savedSceneName);
     }
 }
