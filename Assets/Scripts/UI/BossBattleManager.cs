@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossBattleManager : MonoBehaviour
 {
@@ -56,8 +57,13 @@ public class BossBattleManager : MonoBehaviour
         {
             bossHealthBar.gameObject.SetActive(false);
         }
+        StartCoroutine(GameClear());
     }
-
+    IEnumerator GameClear()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("GameClear");
+    }
     void OnDestroy()
     {
         if (bossHealth != null)
