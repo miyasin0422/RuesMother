@@ -59,7 +59,15 @@ public class BattleTutorialEvent : TutorialEventBase
         {
         new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "何かいる……！　こっちに来るよ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "落ち着いて、ルー。近づいてきたら攻撃だ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "うん……やってみる！"
         )
     };
 

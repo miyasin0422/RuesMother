@@ -59,7 +59,15 @@ public class JumpBattleTutorialEvent : TutorialEventBase
         {
         new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "あんな高いところじゃ、攻撃が届かないよ。"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "それなら、ジャンプしながら攻撃だ！　空中でも振れるぞ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "跳んでから、攻撃……だね！"
         )
     };
 

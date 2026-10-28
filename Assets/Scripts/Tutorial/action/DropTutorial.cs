@@ -4,7 +4,7 @@ using UnityEngine;
 public class FallDropTutorialEvent : TutorialEventBase
 {
     [Header("画面下部に表示する操作説明")]
-    [SerializeField] private string tutorialMessage = "Sキー：しゃがみ";
+    [SerializeField] private string tutorialMessage = "Sキー：下を見る";
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TutorialUIManager tutorialUIManager;
 
@@ -58,8 +58,16 @@ public class FallDropTutorialEvent : TutorialEventBase
         DialogueLine[] lines =
         {
         new DialogueLine(
+            DialogueSpeaker.Rue,
+            "下にも道があるのかな？"
+        ),
+        new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "しゃがんで、そーっとのぞいてみな。\n下の様子が見えるぞ！！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Rue,
+            "うん。降りる前に、ちゃんと見ておくね。"
         )
     };
 

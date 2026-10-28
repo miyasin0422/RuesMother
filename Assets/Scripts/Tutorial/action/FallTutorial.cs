@@ -58,8 +58,16 @@ public class DropTutorialEvent : TutorialEventBase
         DialogueLine[] lines =
         {
         new DialogueLine(
+            DialogueSpeaker.Rue,
+            "下に行きたいけど、この床が……。"
+        ),
+        new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "この足場なら、しゃがんだままで下に降りられるぞ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Rue,
+            "そっか。じゃあ、ここから降りてみるね。"
         )
     };
 

@@ -976,7 +976,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   smoothTime: 0.2
-  offset: {x: 0, y: 3, z: -10}
+  offset: {x: 0, y: 0, z: -10}
   cameraUpOffset: 3
   cameraDownOffset: -5
 --- !u!1 &589170824

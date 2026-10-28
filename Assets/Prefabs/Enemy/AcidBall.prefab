@@ -173,3 +173,4 @@ MonoBehaviour:
   flightTime: 0.8
   lifeTime: 5
   poolHeightOffset: 0.02
+  damage: 10

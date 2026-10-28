@@ -59,7 +59,15 @@ public class HealTutorial : TutorialEventBase
         {
         new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "ルー、回復のしかたも覚えておこう！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "まだ頑張れそうでも？"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "頑張るために回復するんだって！　無理はなしだぞ。"
         )
     };
 

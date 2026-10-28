@@ -24,7 +24,11 @@ public class Stage1Event : MonoBehaviour
         {
             new DialogueLine(
                 DialogueSpeaker.Ray,
-                "この先にルーが眠っているカプセルがあるはず……"
+                "ルーが眠ってるカプセル、\nこの先のはずなんだけど……"
+            ),
+            new DialogueLine(
+                DialogueSpeaker.Ray,
+                "よーし、待ってろよ。\n今、迎えにいくからな！"
             )
         };
 

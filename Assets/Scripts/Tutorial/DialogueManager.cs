@@ -13,7 +13,8 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (DialogueLine line in lines)
         {
-            dialogueBubble.Show(line.text);
+            // 本文だけでなく、誰のセリフかも会話枠へ渡す。
+            dialogueBubble.Show(line.speaker, line.text);
 
             // 時間経過ではなく、フレームごとにクリックを確認する。
             // ゲームの時間が停止していても、会話を進められる。

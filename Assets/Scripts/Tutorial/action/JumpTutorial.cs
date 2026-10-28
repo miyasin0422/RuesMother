@@ -58,8 +58,16 @@ public class JumpTutorialEvent : TutorialEventBase
         DialogueLine[] lines =
         {
         new DialogueLine(
+            DialogueSpeaker.Rue,
+            "この段差、登れるかな……？"
+        ),
+        new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "ジャンプで、ぴょんっ！　だ。ルーなら届くぞ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Rue,
+            "ぴょんっ、だね。やってみる！"
         )
     };
 

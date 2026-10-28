@@ -67,7 +67,10 @@ public class Stage2Event : MonoBehaviour
         {
         new DialogueLine(
             DialogueSpeaker.Ray,
-            "やっと見つけた"
+            "いたいた！　やっと見つけた！"
+        ),new DialogueLine(
+            DialogueSpeaker.Ray,
+            "ルー、ちょっとだけ待ってろよ。\n今、ここから出してやる！"
         )
     };
 
@@ -151,28 +154,40 @@ public class Stage2Event : MonoBehaviour
         {
     new DialogueLine(
         DialogueSpeaker.Rue,
-        "ここはどこ……？"
+        "ん……ここ、どこ……？"
     ),
 
     new DialogueLine(
         DialogueSpeaker.Ray,
-        "君は長い間眠っていたんだ"
+        "おはよう、ルー！ずいぶんお寝坊したな！"
+    ),
+        new DialogueLine(
+        DialogueSpeaker.Rue,
+        "あなた……だれ？"
     ),
 
     new DialogueLine(
         DialogueSpeaker.Ray,
-        "君は母親と会わなければならない"
+        "オレはレイ。ルーを迎えにきたんだ！"
+    ),
+    new DialogueLine(
+        DialogueSpeaker.Ray,
+        "お母さんに会いにいこう。ルーに会ってほしいんだ。"
     ),
 
     new DialogueLine(
         DialogueSpeaker.Rue,
-        "お母さん……？"
+        "お母さん……。どこにいるの？"
     ),
 
     new DialogueLine(
         DialogueSpeaker.Ray,
-        "まずはここを抜け出さなければ"
-    )
+        "まずは、ここを出よう。オレもついてるからさ！"
+    ),
+    new DialogueLine(
+        DialogueSpeaker.Rue,
+        "……うん。いっしょに来てね。"
+    ),
 };
 
         yield return dialogueManager.PlayDialogue(

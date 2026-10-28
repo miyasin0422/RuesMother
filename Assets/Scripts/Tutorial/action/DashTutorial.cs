@@ -59,7 +59,15 @@ public class DashTutorialEvent : TutorialEventBase
         {
         new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
+            "今度は助走をつけて、ジャンプしてみよう！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Ray,
+            "跳んでからダッシュすれば、遠くまで届くんだ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Rue,
+            "勢いをつけて……えいっ！"
         )
     };
 

@@ -58,9 +58,17 @@ public class BreakTutorialEvent : TutorialEventBase
         DialogueLine[] lines =
         {
         new DialogueLine(
+            DialogueSpeaker.Rue,
+            "行き止まり……？"
+        ),
+        new DialogueLine(
             DialogueSpeaker.Ray,
-            "高いところはジャンプをすればいい"
-        )
+            "おっ、あの壁、ひびが入ってる！\n攻撃すれば壊せそうだぞ！"
+        ),
+        new DialogueLine(
+            DialogueSpeaker.Rue,
+            "それなら、道を作っちゃおう！"
+        ),
     };
 
         yield return dialogueManager.PlayDialogue(lines);
