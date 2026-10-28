@@ -36,7 +36,7 @@ namespace Gene
         /// <summary>
         /// ゲーム初回起動時の初期装備（通常の剣）をセット
         /// </summary>
-        private void SetInitialEquipment()
+        public void SetInitialEquipment()
         {
             WeaponParam defaultParam = new WeaponParam(5f, 1.0f, 5f, false, 0f, ElementType.Base);
             leftWeaponData = new EquippedWeaponData(
