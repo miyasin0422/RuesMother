@@ -90,8 +90,6 @@ public class BattleTutorialEvent : TutorialEventBase
 
         playerMovement.enabled = true;
 
-        tutorialUIManager.Show(
-            "右クリック：攻撃"
-        );
+        tutorialUIManager.Show();
     }
 }

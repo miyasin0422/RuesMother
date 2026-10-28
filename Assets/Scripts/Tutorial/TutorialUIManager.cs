@@ -11,9 +11,8 @@ public class TutorialUIManager : MonoBehaviour
         tutorialUI.SetActive(false);
     }
 
-    public void Show(string text)
+    public void Show()
     {
-        tutorialText.text = text;
         tutorialUI.SetActive(true);
     }
 

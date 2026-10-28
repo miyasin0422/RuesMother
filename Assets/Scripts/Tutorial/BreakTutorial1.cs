@@ -85,8 +85,6 @@ public class BreakTutorialEvent : TutorialEventBase
 
         playerMovement.enabled = true;
 
-        tutorialUIManager.Show(
-            "左クリック：攻撃"
-        );
+        tutorialUIManager.Show();
     }    
 }

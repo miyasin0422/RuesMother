@@ -89,9 +89,7 @@ public class FallDropTutorialEvent : TutorialEventBase
         playerMovement.enabled = true;
 
         // 操作説明
-        tutorialUIManager.Show(
-            "Sキー：しゃがみ"
-        );
+        tutorialUIManager.Show();
     }
 
 }

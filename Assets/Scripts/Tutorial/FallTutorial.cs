@@ -85,8 +85,6 @@ public class DropTutorialEvent : TutorialEventBase
 
         playerMovement.enabled = true;
 
-        tutorialUIManager.Show(
-            "S長押し：下に降りる"
-        );
+        tutorialUIManager.Show();
     }    
 }

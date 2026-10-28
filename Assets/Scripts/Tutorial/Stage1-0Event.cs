@@ -45,6 +45,6 @@ public class Stage1Event : MonoBehaviour
         };
 
         yield return dialogueManager.PlayDialogue(lines);
-        tutorialUIManager.Show("←:A  →:D");
+        tutorialUIManager.Show();
     }
 }

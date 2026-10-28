@@ -90,8 +90,6 @@ public class JumpBattleTutorialEvent : TutorialEventBase
 
         playerMovement.enabled = true;
 
-        tutorialUIManager.Show(
-            "Space + 右クリック：ジャンプ攻撃"
-        );
+        tutorialUIManager.Show();
     }
 }

@@ -89,9 +89,7 @@ public class DashTutorialEvent : TutorialEventBase
         playerMovement.enabled = true;
 
         // 操作説明
-        tutorialUIManager.Show(
-            "左シフト：ダッシュ"
-        );
+        tutorialUIManager.Show();
     }
 
 }

@@ -89,9 +89,7 @@ public class JumpTutorialEvent : TutorialEventBase
         playerMovement.enabled = true;
 
         // 操作説明
-        tutorialUIManager.Show(
-            "Space：ジャンプ"
-        );
+        tutorialUIManager.Show();
     }
 
 }
