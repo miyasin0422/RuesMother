@@ -288,7 +288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6192897730897503987, guid: 89aca37dd8ad26e41b86d81ee0469561, type: 3}
+  m_Sprite: {fileID: -3772873502249441996, guid: 1d27501d28e36204ba617640e67d804b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1686,7 +1686,7 @@ MonoBehaviour:
   hideUntilRueAwakened: 0
   weaponIcons:
   - weaponPrefab: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
-    icon: {fileID: -2654561404447427371, guid: 1b8652333cdf5804495f4c706ae675eb, type: 3}
+    icon: {fileID: -5003160312794676656, guid: 117b76afc6d465440b7f96eff0726d86, type: 3}
   - weaponPrefab: {fileID: 4596201944002846625, guid: 9d9f540ca47394c4fbc858b975a2e3cc, type: 3}
     icon: {fileID: -3772873502249441996, guid: 1d27501d28e36204ba617640e67d804b, type: 3}
   - weaponPrefab: {fileID: 5465747541013082330, guid: 4bfd8038fd82ae142babcb71746ba2d4, type: 3}
@@ -1798,7 +1798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5238182127857695056, guid: b7666c72f9456d040995e8ad38db4187, type: 3}
+  m_Sprite: {fileID: -77212956742396731, guid: e067425921fd6a24ab583c770e9a114d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5376,7 +5376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4914159570071736341, guid: a0c2fa917df6f404fbcd3f5e995d15be, type: 3}
+  m_Sprite: {fileID: -7115326776641127715, guid: 1f50a9756fab193438d639b5ebfe2280, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8940,7 +8940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2654561404447427371, guid: 1b8652333cdf5804495f4c706ae675eb, type: 3}
+  m_Sprite: {fileID: -5003160312794676656, guid: 117b76afc6d465440b7f96eff0726d86, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
