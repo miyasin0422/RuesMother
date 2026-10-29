@@ -16,7 +16,7 @@ public class JumpTutorialEvent : TutorialEventBase
 
     public override void StartTutorial(GameObject player)
     {
-        if (started)
+        if (started || TutorialProgress.JumpComplete)
         {
             return;
         }
@@ -37,6 +37,8 @@ public class JumpTutorialEvent : TutorialEventBase
         finished = true;
         // 自分の説明が表示されている場合だけ消す。
         tutorialUIManager.Hide(this);
+        // ジャンプチュートリアルを完了済みにする。
+        TutorialProgress.JumpComplete = true;
     }
 
     private IEnumerator JumpTutorial()

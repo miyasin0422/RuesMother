@@ -47,6 +47,8 @@ public class TitleMenu : MonoBehaviour
         {
             Destroy(sessionObject);
         }
+        // 覚醒状態と、各チュートリアルの完了フラグをまとめて初期化する。
+        TutorialProgress.ResetAll();
 
         // 削除が完了してから、次のシーンへ進む
         yield return null;

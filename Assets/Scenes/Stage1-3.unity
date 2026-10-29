@@ -1483,6 +1483,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2083999582}
     m_Modifications:
     - target: {fileID: 295178225764744343, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
+      propertyPath: enemyID
+      value: normal2
+      objectReference: {fileID: 0}
+    - target: {fileID: 295178225764744343, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
       propertyPath: maxHealth
       value: 30
       objectReference: {fileID: 0}
@@ -1528,7 +1532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2880744519327731933, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
       propertyPath: m_Name
-      value: normal (1)
+      value: normal2
       objectReference: {fileID: 0}
     - target: {fileID: 8585277608103085599, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
       propertyPath: attackPower
@@ -2469,6 +2473,7 @@ MonoBehaviour:
     text: "\u3075\u3063\u3075\u30FC\u3093\u3002\u3053\u308C\u304C\u3042\u308C\u3070\u3001\u30AA\u30EC\u306E\u529B\u3092\u5F37\u304F\u3067\u304D\u308B\u3093\u3060\uFF01"
   - speaker: 1
     text: "\u307E\u305A\u306F\u62FE\u3063\u3066\u307F\u3088\u3046\u305C\uFF01"
+  eventType: 0
 --- !u!1001 &1064926028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2600,6 +2605,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1583375263}
     m_Modifications:
+    - target: {fileID: 1014817266135069335, guid: d6d1915129c07bb40b03ef444ed6adc9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440364284445795487, guid: d6d1915129c07bb40b03ef444ed6adc9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 505
+      objectReference: {fileID: 0}
     - target: {fileID: 1520228236972805327, guid: d6d1915129c07bb40b03ef444ed6adc9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2679,6 +2692,10 @@ PrefabInstance:
     - target: {fileID: 1520228236972805327, guid: d6d1915129c07bb40b03ef444ed6adc9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449872266005151538, guid: d6d1915129c07bb40b03ef444ed6adc9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6331903107848996537, guid: d6d1915129c07bb40b03ef444ed6adc9, type: 3}
       propertyPath: m_Name
@@ -2804,7 +2821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205203837460926198, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.578706
+      value: 5.76
       objectReference: {fileID: 0}
     - target: {fileID: 1205203837460926198, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2844,7 +2861,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3437004022392365549, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
       propertyPath: m_Name
-      value: Bird
+      value: Bird1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996995641914501241, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
+      propertyPath: enemyID
+      value: bird1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2906,11 +2927,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6312757259040335232, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
       propertyPath: m_Name
-      value: AcidEnemy (1)
+      value: acid2
       objectReference: {fileID: 0}
     - target: {fileID: 6751845534561582713, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
       propertyPath: attackPower
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7080501099526532165, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
+      propertyPath: enemyID
+      value: acid2
       objectReference: {fileID: 0}
     - target: {fileID: 7080501099526532165, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
       propertyPath: maxHealth
@@ -2934,6 +2959,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2083999582}
     m_Modifications:
+    - target: {fileID: 295178225764744343, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
+      propertyPath: enemyID
+      value: normal1
+      objectReference: {fileID: 0}
     - target: {fileID: 1034760516335358960, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.611725
@@ -2976,7 +3005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2880744519327731933, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
       propertyPath: m_Name
-      value: normal
+      value: normal1
       objectReference: {fileID: 0}
     - target: {fileID: 6563780452373925811, guid: ce13198b888876847acbdb69628ae3a8, type: 3}
       propertyPath: moveSpeed
@@ -3766,7 +3795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3437004022392365549, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
       propertyPath: m_Name
-      value: Bird (1)
+      value: bird2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996995641914501241, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
+      propertyPath: enemyID
+      value: bird2
       objectReference: {fileID: 0}
     - target: {fileID: 4996995641914501241, guid: eb53549f62dcba04da3287e08582e6ee, type: 3}
       propertyPath: maxHealth
@@ -4364,11 +4397,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6312757259040335232, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
       propertyPath: m_Name
-      value: AcidEnemy
+      value: acid1
       objectReference: {fileID: 0}
     - target: {fileID: 6751845534561582713, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
       propertyPath: attackPower
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7080501099526532165, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
+      propertyPath: enemyID
+      value: acid1
       objectReference: {fileID: 0}
     - target: {fileID: 7080501099526532165, guid: 66d17512c0af9fd44bf9e658f33867f2, type: 3}
       propertyPath: maxHealth

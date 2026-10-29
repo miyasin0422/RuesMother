@@ -17,8 +17,6 @@ public class BowAttackBehavior : AttackBehavior
     [SerializeField] LineRenderer aimLine;
     [SerializeField] int linePointCount = 20;
 
-    [SerializeField] private AudioClip AttackSE;
-    [SerializeField] private AudioSource audioSource;
     private Vector2 aimDirection;
     private float chargeTime;
     private float currentArrowSpeed;
@@ -67,7 +65,6 @@ public class BowAttackBehavior : AttackBehavior
         }
 
         ShootArrow();
-        audioSource.PlayOneShot(AttackSE);
 
         aimLine.enabled = false;
         isAiming = false;

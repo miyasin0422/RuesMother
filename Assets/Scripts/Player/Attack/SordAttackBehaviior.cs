@@ -18,12 +18,9 @@ public class SwordAttackBehavior : AttackBehavior
     [Header("Position")]
     [SerializeField] Vector2 startOffset = new Vector2(-0.1f, 0.5f);
     [SerializeField] Vector2 endOffset = new Vector2(0.2f, -0.3f);
-    [SerializeField] private AudioClip AttackSE;
-    [SerializeField] private AudioSource audioSource;
 
     public override void AttackPressed()
     {
-        audioSource.PlayOneShot(AttackSE);
         GameObject attack = Instantiate(
             attackPrefab,
             attackPivot.position,

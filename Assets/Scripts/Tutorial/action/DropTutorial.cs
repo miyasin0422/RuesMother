@@ -16,7 +16,7 @@ public class FallDropTutorialEvent : TutorialEventBase
 
     public override void StartTutorial(GameObject player)
     {
-        if (started)
+        if (started || TutorialProgress.DropComplete)
         {
             return;
         }
@@ -37,6 +37,7 @@ public class FallDropTutorialEvent : TutorialEventBase
         finished = true;
         // 自分の説明が表示されている場合だけ消す。
         tutorialUIManager.Hide(this);
+        TutorialProgress.DropComplete = true;
     }
 
     private IEnumerator DropTutorial()

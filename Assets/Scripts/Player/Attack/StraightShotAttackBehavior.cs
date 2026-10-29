@@ -5,12 +5,9 @@ public class StraightShotAttackBehavior : AttackBehavior
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform attackPoint;
     [SerializeField] float speed = 10f;
-    [SerializeField] private AudioClip AttackSE;
-    [SerializeField] private AudioSource audioSource;
 
     public override void AttackPressed()
     {
-        audioSource.PlayOneShot(AttackSE);
         GameObject projectile = Instantiate(
             projectilePrefab,
             attackPoint.position,

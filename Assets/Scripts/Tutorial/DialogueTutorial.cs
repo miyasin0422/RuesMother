@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
-
-/// <summary>
+public enum DialogueEventType
+{
+    GeneDrop,   // 遺伝子ドロップ時の会話
+    SavePoint,  // セーブ地点の会話
+    BeforeBoss  // ボス部屋前の会話
+}
 /// 開始トリガーから呼び出され、会話だけを再生するイベント。
 /// 操作説明や終了トリガーは使用しない。
-/// </summary>
 public class DialogueTutorialEvent : TutorialEventBase
 {
     [Header("共通の会話UI")]
@@ -13,14 +16,53 @@ public class DialogueTutorialEvent : TutorialEventBase
     [SerializeField] private TutorialUIManager tutorialUIManager;
     [Header("上から順番に再生する会話")]
     [SerializeField] private DialogueLine[] dialogueLines;
+    [SerializeField] private DialogueEventType eventType;
 
+    // この会話に対応する完了フラグを確認する。
+    private bool IsCompleted()
+    {
+        switch (eventType)
+        {
+            case DialogueEventType.GeneDrop:
+                return TutorialProgress.GeneComplete;
+
+            case DialogueEventType.SavePoint:
+                return TutorialProgress.SaveComplete;
+
+            case DialogueEventType.BeforeBoss:
+                return TutorialProgress.BossComplete;
+
+            default:
+                return false;
+        }
+    }
+
+    // この会話に対応する完了フラグを立てる。
+    private void MarkCompleted()
+    {
+        switch (eventType)
+        {
+            case DialogueEventType.GeneDrop:
+                TutorialProgress.GeneComplete = true;
+                break;
+
+            case DialogueEventType.SavePoint:
+                TutorialProgress.SaveComplete = true;
+                break;
+
+            case DialogueEventType.BeforeBoss:
+                TutorialProgress.BossComplete = true;
+                break;
+        }
+    }
     // 同じシーン内で、会話が繰り返し始まることを防ぐ。
     private bool started;
     private bool finished;
 
     public override void StartTutorial(GameObject player)
     {
-        if (started || finished)
+        // 今回すでに開始済み、または以前に完了済みなら再生しない。
+        if (started || finished || IsCompleted())
         {
             return;
         }
@@ -80,5 +122,8 @@ public class DialogueTutorialEvent : TutorialEventBase
         }
 
         finished = true;
+
+        // 最後まで会話を読んだので、完了を記録する。
+        MarkCompleted();
     }
 }

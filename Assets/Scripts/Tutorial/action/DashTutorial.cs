@@ -16,7 +16,7 @@ public class DashTutorialEvent : TutorialEventBase
 
     public override void StartTutorial(GameObject player)
     {
-        if (started)
+        if (started || TutorialProgress.DashComplete)
         {
             return;
         }
@@ -37,6 +37,7 @@ public class DashTutorialEvent : TutorialEventBase
         finished = true;
         // 自分の説明が表示されている場合だけ消す。
         tutorialUIManager.Hide(this);
+        TutorialProgress.DashComplete = true;
     }
 
     private IEnumerator DashTutorial()
