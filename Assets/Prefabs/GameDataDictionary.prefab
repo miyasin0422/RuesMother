@@ -59,20 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 387f3a724831e2f45bf1bc7b9698c545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
---- !u!114 &4575602770302656388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740444235519955534}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d2d518c852606747b853b6ae42ecd9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLoadout
-  leftWeapon: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
-  rightWeapon: {fileID: 0}
 --- !u!114 &7719044063203161918
 MonoBehaviour:
   m_ObjectHideFlags: 0
