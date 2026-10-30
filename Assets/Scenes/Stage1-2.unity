@@ -903,6 +903,10 @@ PrefabInstance:
       propertyPath: UIRoot
       value: 
       objectReference: {fileID: 352531366}
+    - target: {fileID: 1019465656122977201, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1037174818966111448, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4021,14 +4025,6 @@ PrefabInstance:
     - target: {fileID: 3740444235519955534, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
       propertyPath: m_Name
       value: GameDataDictionary
-      objectReference: {fileID: 0}
-    - target: {fileID: 4575602770302656388, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
-      propertyPath: leftWeapon
-      value: 
-      objectReference: {fileID: 5465747541013082330, guid: 717791f4b61f677479dd7c0fea8937d7, type: 3}
-    - target: {fileID: 4575602770302656388, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
-      propertyPath: rightWeapon
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6174224717789642408, guid: c4b953b2f48b18c4291d91e66fa94b6e, type: 3}
       propertyPath: m_LocalPosition.x
