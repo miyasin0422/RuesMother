@@ -33,7 +33,7 @@ public class InventoryDisplay : MonoBehaviour
                     continue;
                 }
 
-                names += gene.geneName + "\n";
+                names += gene.geneName + "の遺伝子\n";
                 counts += item.Value + "\n";
             }
         }

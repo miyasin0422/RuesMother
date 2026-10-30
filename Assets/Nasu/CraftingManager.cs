@@ -134,8 +134,13 @@ namespace Gene
                 }
 
                 // C. スロットの初期化と画面更新
-                if (createUI != null) createUI.RefreshGeneList();
+                if (createUI != null)
+                {
+                    createUI.RefreshGeneList();
+                    createUI.WeaponNameChange();
+                    createUI.PlayCraftSound();
 
+                }
                 // 次回操作用に現在の構成を更新
                 originalWeaponGenes = new List<GeneSO>(newGenes);
             }

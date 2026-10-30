@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69ac915baa0a9246a016e07ea13b4f6, type: 3}
   m_Name: SwordGene
   m_EditorClassIdentifier: Assembly-CSharp::GeneSO
-  geneName: "\u5263\u306E\u907A\u4F1D\u5B50"
+  geneName: "\u5263"
   element: 0
   buttonPrefab: {fileID: 1559924268281516480, guid: 031301c268ea61f46b377d49b494cd7b, type: 3}
   atkBonus: 2
