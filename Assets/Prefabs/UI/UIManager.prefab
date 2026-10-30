@@ -1348,7 +1348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -4389,6 +4389,7 @@ MonoBehaviour:
   id: 0
   myFrame: {fileID: 3463138979024961383}
   oppositeFrame: {fileID: 3128331301876555052}
+  weaponNameText: {fileID: 0}
 --- !u!1 &3351573127797440546
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,6 +6390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveSpawnPoint
   SceneName: Stage1-4
+  SaveCompletePanel: {fileID: 0}
 --- !u!1 &5146936177709272569
 GameObject:
   m_ObjectHideFlags: 0
@@ -9453,6 +9455,7 @@ MonoBehaviour:
   id: 1
   myFrame: {fileID: 3128331301876555052}
   oppositeFrame: {fileID: 3463138979024961383}
+  weaponNameText: {fileID: 0}
 --- !u!1 &8701042557260242923
 GameObject:
   m_ObjectHideFlags: 0
@@ -9952,6 +9955,10 @@ MonoBehaviour:
   - {fileID: 3116486223430982257}
   - {fileID: 8631155716327958346}
   - {fileID: 8014011075559202811}
+  weapon1: {fileID: 0}
+  weapon2: {fileID: 0}
+  audioSource: {fileID: 0}
+  craftCompleteSound: {fileID: 0}
   CanClickHoldButton: 0
 --- !u!1 &9127231968479671016
 GameObject:
