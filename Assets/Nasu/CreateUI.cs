@@ -8,12 +8,20 @@ public class CreateUI : MonoBehaviour
     [SerializeField] private Transform baseGeneContent;
     [SerializeField] private Transform mutationGeneContent;
     [SerializeField] private List<GeneDropSlot> allSlots;
+    [SerializeField] private EquipmentCard weapon1;
+    [SerializeField] private EquipmentCard weapon2;
+    [SerializeField, Tooltip("音声を再生するための AudioSource")]
+    private AudioSource audioSource;
+    [SerializeField, Tooltip("錬成完了時に鳴らす効果音")]
+    private AudioClip craftCompleteSound;
+
     private List<GameObject> spawnedButtons = new List<GameObject>();
     public bool CanClickHoldButton = false;
 
     private void OnEnable()
     {
         RefreshGeneList();
+        WeaponNameChange();
     }
 
     public void RefreshGeneList()
@@ -190,5 +198,36 @@ public class CreateUI : MonoBehaviour
             if (btn != null) Destroy(btn);
         }
         spawnedButtons.Clear();
+    }
+    public void WeaponNameChange()
+    {
+        // PlayerLoadout のインスタンスが存在するか確認
+        if (Gene.PlayerLoadout.instance == null)
+        {
+            Debug.LogWarning("[WeaponNameChange] PlayerLoadout.instance が存在しません。");
+            return;
+        }
+
+        // 左手武器の名前取得（安全チェック付き）
+        var leftData = Gene.PlayerLoadout.instance.LeftWeaponData;
+        if (leftData != null && !string.IsNullOrEmpty(leftData.weaponName))
+        {
+            weapon1.NameChange(leftData.weaponName);
+        }
+
+        // 右手武器の名前取得（初期状態は null のため、必ず null チェックが必要）
+        var rightData = Gene.PlayerLoadout.instance.RightWeaponData;
+        if (rightData != null && !string.IsNullOrEmpty(rightData.weaponName))
+        {
+            weapon2.NameChange(rightData.weaponName);
+        }
+    }
+    public void PlayCraftSound()
+    {
+        if (audioSource != null && craftCompleteSound != null)
+        {
+            // PlayOneShot を使うと、音が重なって再生されても途切れません
+            audioSource.PlayOneShot(craftCompleteSound);
+        }
     }
 }

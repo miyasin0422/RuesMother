@@ -1,13 +1,15 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EquipmentCard : MonoBehaviour
 {
     [SerializeField] private int id; // 0: 左手, 1: 右手
     [SerializeField] private Image myFrame;
     [SerializeField] private Image oppositeFrame;
+    [SerializeField] private TMP_Text weaponNameText;
 
     public static int SelectedSlotId { get; private set; } = 0;
     public static event Action<int> OnCardSelected;
@@ -32,4 +34,8 @@ public class EquipmentCard : MonoBehaviour
         if (myFrame != null) myFrame.color = Color.green;
         if (oppositeFrame != null) oppositeFrame.color = Color.gray;
     }
+    public void NameChange(string name)
+    {
+        weaponNameText.text = name;
+    } 
 }
