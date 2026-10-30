@@ -1257,9 +1257,9 @@ RectTransform:
   - {fileID: 819545126}
   m_Father: {fileID: 7673517009326550953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 339}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1060024183
@@ -1683,6 +1683,14 @@ PrefabInstance:
     - target: {fileID: 1189698043680328010, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_Name
       value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457822262293610459, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749954315632293162, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5118986819402666690, guid: 309e4c2296f81a940a278b8b76e13529, type: 3}
       propertyPath: m_LocalPosition.x
